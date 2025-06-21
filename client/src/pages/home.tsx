@@ -31,7 +31,7 @@ export default function Home() {
         {/* Welcome Content */}
         <div className="p-6">
           <div className="text-center mb-8">
-            <div className="w-40 h-40 mx-auto mb-6 bg-gradient-to-br from-primary to-blue-700 dark:from-blue-600 dark:to-blue-800 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-40 h-40 mx-auto mb-6 bg-gradient-to-br from-primary to-blue-700 dark:from-blue-600 dark:to-blue-800 rounded-lg flex items-center justify-center shadow-lg">
               <i className="fas fa-comment text-5xl text-white"></i>
             </div>
             <h2 className="text-2xl font-bold text-secondary dark:text-white mb-3">Welcome to Mate</h2>
