@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { MessageBubble } from "@/components/message-bubble";
 import { TypingIndicator } from "@/components/typing-indicator";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { Message, Conversation, Specialist } from "@shared/schema";
@@ -107,15 +108,15 @@ export default function Chat() {
   }, [messages, isLoading, specialist]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-md mx-auto bg-white shadow-xl min-h-screen relative flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl min-h-screen relative flex flex-col">
         {/* Header */}
-        <header className="bg-primary text-white p-4 shadow-lg sticky top-0 z-10">
+        <header className="bg-primary dark:bg-gray-800 text-white p-4 shadow-lg sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <button 
                 onClick={() => setLocation('/specialists')}
-                className="p-2 hover:bg-blue-600 rounded-full transition-colors"
+                className="p-2 hover:bg-blue-600 dark:hover:bg-gray-700 rounded-full transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
@@ -123,16 +124,17 @@ export default function Chat() {
                 <h1 className="text-xl font-semibold">
                   {specialist?.name || 'Mate'}
                 </h1>
-                <p className="text-blue-200 text-sm">
+                <p className="text-blue-200 dark:text-gray-300 text-sm">
                   {specialist ? `${specialist.specialty} • Online` : 'Loading...'}
                 </p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <button className="p-2 hover:bg-blue-600 rounded-full transition-colors">
+              <ThemeToggle />
+              <button className="p-2 hover:bg-blue-600 dark:hover:bg-gray-700 rounded-full transition-colors">
                 <i className="fas fa-user-circle text-xl"></i>
               </button>
-              <button className="p-2 hover:bg-blue-600 rounded-full transition-colors">
+              <button className="p-2 hover:bg-blue-600 dark:hover:bg-gray-700 rounded-full transition-colors">
                 <i className="fas fa-cog"></i>
               </button>
             </div>
@@ -146,9 +148,9 @@ export default function Chat() {
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="animate-pulse">
                   <div className="flex space-x-3">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+                    <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
                     <div className="flex-1">
-                      <div className="bg-gray-300 rounded-2xl p-4 max-w-xs h-16"></div>
+                      <div className="bg-gray-300 dark:bg-gray-600 rounded-2xl p-4 max-w-xs h-16"></div>
                     </div>
                   </div>
                 </div>
@@ -185,9 +187,9 @@ export default function Chat() {
         </div>
 
         {/* Message Input Area */}
-        <div className="border-t border-gray-200 p-4 bg-white">
+        <div className="border-t border-gray-200 dark:border-gray-600 p-4 bg-white dark:bg-gray-800">
           <div className="flex items-end space-x-3">
-            <button className="p-3 text-gray-500 hover:text-primary transition-colors">
+            <button className="p-3 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400 transition-colors">
               <Paperclip className="w-5 h-5" />
             </button>
             <div className="flex-1 relative">
@@ -197,13 +199,13 @@ export default function Chat() {
                 onChange={handleTextareaChange}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="w-full border border-gray-300 rounded-2xl px-4 py-3 pr-12 resize-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary min-h-[48px]"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-2xl px-4 py-3 pr-12 resize-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary min-h-[48px] bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 rows={1}
               />
               <button 
                 onClick={handleSendMessage}
                 disabled={!message.trim() || sendMessageMutation.isPending}
-                className="absolute right-2 bottom-2 p-2 text-primary hover:bg-blue-50 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="absolute right-2 bottom-2 p-2 text-primary dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -218,7 +220,7 @@ export default function Chat() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickResponse(response)}
-                className="bg-gray-100 text-secondary px-4 py-2 rounded-full text-sm whitespace-nowrap hover:bg-gray-200 transition-colors border-gray-200"
+                className="bg-gray-100 dark:bg-gray-700 text-secondary dark:text-white px-4 py-2 rounded-full text-sm whitespace-nowrap hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors border-gray-200 dark:border-gray-600"
               >
                 {response}
               </Button>
@@ -227,24 +229,24 @@ export default function Chat() {
         </div>
 
         {/* Bottom Navigation */}
-        <nav className="bg-white border-t border-gray-200">
+        <nav className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-600">
           <div className="flex justify-around py-2">
-            <button className="flex flex-col items-center py-2 px-4 text-primary">
+            <button className="flex flex-col items-center py-2 px-4 text-primary dark:text-blue-400">
               <i className="fas fa-comment text-lg mb-1"></i>
               <span className="text-xs">Chat</span>
             </button>
             <button 
               onClick={() => setLocation('/specialists')}
-              className="flex flex-col items-center py-2 px-4 text-gray-500 hover:text-primary transition-colors"
+              className="flex flex-col items-center py-2 px-4 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400 transition-colors"
             >
               <i className="fas fa-users text-lg mb-1"></i>
               <span className="text-xs">Specialists</span>
             </button>
-            <button className="flex flex-col items-center py-2 px-4 text-gray-500 hover:text-primary transition-colors">
+            <button className="flex flex-col items-center py-2 px-4 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400 transition-colors">
               <i className="fas fa-chart-line text-lg mb-1"></i>
               <span className="text-xs">Progress</span>
             </button>
-            <button className="flex flex-col items-center py-2 px-4 text-gray-500 hover:text-primary transition-colors">
+            <button className="flex flex-col items-center py-2 px-4 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400 transition-colors">
               <i className="fas fa-user text-lg mb-1"></i>
               <span className="text-xs">Profile</span>
             </button>
