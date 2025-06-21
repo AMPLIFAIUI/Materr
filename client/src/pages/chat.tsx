@@ -230,7 +230,7 @@ export default function Chat() {
         <nav className="bg-white border-t border-gray-200">
           <div className="flex justify-around py-2">
             <button className="flex flex-col items-center py-2 px-4 text-primary">
-              <i className="fas fa-comments text-lg mb-1"></i>
+              <i className="fas fa-comment text-lg mb-1"></i>
               <span className="text-xs">Chat</span>
             </button>
             <button 

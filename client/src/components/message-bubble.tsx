@@ -21,7 +21,7 @@ export function MessageBubble({
     <div className={`flex space-x-3 animate-in slide-in-from-bottom-2 duration-300 ${isUser ? 'justify-end' : ''}`}>
       {!isUser && (
         <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-          <i className="fas fa-user-md text-white text-xs"></i>
+          <i className="fas fa-comment text-white text-xs"></i>
         </div>
       )}
       
