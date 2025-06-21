@@ -50,6 +50,43 @@ export const knowledgeBase = pgTable("knowledge_base", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const emergencyContacts = pgTable("emergency_contacts", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  name: text("name").notNull(),
+  phone: text("phone").notNull(),
+  relationship: text("relationship").notNull(),
+  isPrimary: boolean("is_primary").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const crisisServices = pgTable("crisis_services", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  phone: text("phone").notNull(),
+  country: text("country").notNull(),
+  region: text("region"),
+  serviceType: text("service_type").notNull(),
+  isAvailable24h: boolean("is_available_24h").default(false).notNull(),
+  operatingHours: text("operating_hours"),
+  description: text("description").notNull(),
+  website: text("website"),
+  languages: text("languages").array(),
+  specializations: text("specializations").array(),
+});
+
+export const emergencyAlerts = pgTable("emergency_alerts", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  conversationId: integer("conversation_id").notNull(),
+  riskLevel: text("risk_level").notNull(),
+  triggerMessage: text("trigger_message").notNull(),
+  location: text("location"),
+  contactsAlerted: text("contacts_alerted").array(),
+  timestamp: timestamp("timestamp").defaultNow(),
+  resolved: boolean("resolved").default(false).notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -75,6 +112,20 @@ export const insertKnowledgeBaseSchema = createInsertSchema(knowledgeBase).omit(
   createdAt: true,
 });
 
+export const insertEmergencyContactSchema = createInsertSchema(emergencyContacts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCrisisServiceSchema = createInsertSchema(crisisServices).omit({
+  id: true,
+});
+
+export const insertEmergencyAlertSchema = createInsertSchema(emergencyAlerts).omit({
+  id: true,
+  timestamp: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type Specialist = typeof specialists.$inferSelect;
@@ -85,3 +136,9 @@ export type Message = typeof messages.$inferSelect;
 export type InsertMessage = z.infer<typeof insertMessageSchema>;
 export type KnowledgeBase = typeof knowledgeBase.$inferSelect;
 export type InsertKnowledgeBase = z.infer<typeof insertKnowledgeBaseSchema>;
+export type EmergencyContact = typeof emergencyContacts.$inferSelect;
+export type InsertEmergencyContact = z.infer<typeof insertEmergencyContactSchema>;
+export type CrisisService = typeof crisisServices.$inferSelect;
+export type InsertCrisisService = z.infer<typeof insertCrisisServiceSchema>;
+export type EmergencyAlert = typeof emergencyAlerts.$inferSelect;
+export type InsertEmergencyAlert = z.infer<typeof insertEmergencyAlertSchema>;

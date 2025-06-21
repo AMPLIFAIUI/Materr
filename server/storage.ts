@@ -1,4 +1,4 @@
-import { users, specialists, conversations, messages, knowledgeBase, type User, type InsertUser, type Specialist, type InsertSpecialist, type Conversation, type InsertConversation, type Message, type InsertMessage, type KnowledgeBase, type InsertKnowledgeBase } from "@shared/schema";
+import { users, specialists, conversations, messages, knowledgeBase, emergencyContacts, crisisServices, emergencyAlerts, type User, type InsertUser, type Specialist, type InsertSpecialist, type Conversation, type InsertConversation, type Message, type InsertMessage, type KnowledgeBase, type InsertKnowledgeBase, type EmergencyContact, type InsertEmergencyContact, type CrisisService, type InsertCrisisService, type EmergencyAlert, type InsertEmergencyAlert } from "@shared/schema";
 import { db } from "./db";
 import { eq, and } from "drizzle-orm";
 
@@ -23,6 +23,22 @@ export interface IStorage {
   getKnowledgeBySpecialist(specialistKey: string): Promise<KnowledgeBase[]>;
   getKnowledgeByDomain(specialistKey: string, domain: string): Promise<KnowledgeBase[]>;
   searchKnowledge(specialistKey: string, query: string): Promise<KnowledgeBase[]>;
+  
+  // Emergency contact methods
+  createEmergencyContact(contact: InsertEmergencyContact): Promise<EmergencyContact>;
+  getEmergencyContactsByUser(userId: number): Promise<EmergencyContact[]>;
+  updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact>;
+  deleteEmergencyContact(id: number): Promise<void>;
+  
+  // Crisis service methods
+  getCrisisServicesByLocation(country: string, region?: string): Promise<CrisisService[]>;
+  getAllCrisisServices(): Promise<CrisisService[]>;
+  createCrisisService(service: InsertCrisisService): Promise<CrisisService>;
+  
+  // Emergency alert methods
+  createEmergencyAlert(alert: InsertEmergencyAlert): Promise<EmergencyAlert>;
+  getEmergencyAlertsByUser(userId: number): Promise<EmergencyAlert[]>;
+  updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert>;
 }
 
 // DatabaseStorage implementation using PostgreSQL
@@ -133,6 +149,79 @@ export class DatabaseStorage implements IStorage {
       .where(eq(knowledgeBase.specialistKey, specialistKey));
   }
 
+  // Emergency contact methods
+  async createEmergencyContact(insertContact: InsertEmergencyContact): Promise<EmergencyContact> {
+    const [contact] = await db
+      .insert(emergencyContacts)
+      .values(insertContact)
+      .returning();
+    return contact;
+  }
+
+  async getEmergencyContactsByUser(userId: number): Promise<EmergencyContact[]> {
+    return await db.select().from(emergencyContacts).where(eq(emergencyContacts.userId, userId));
+  }
+
+  async updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact> {
+    const [updated] = await db
+      .update(emergencyContacts)
+      .set(contact)
+      .where(eq(emergencyContacts.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteEmergencyContact(id: number): Promise<void> {
+    await db.delete(emergencyContacts).where(eq(emergencyContacts.id, id));
+  }
+
+  // Crisis service methods
+  async getCrisisServicesByLocation(country: string, region?: string): Promise<CrisisService[]> {
+    if (region) {
+      return await db.select().from(crisisServices).where(
+        and(
+          eq(crisisServices.country, country),
+          eq(crisisServices.region, region)
+        )
+      );
+    }
+    return await db.select().from(crisisServices).where(eq(crisisServices.country, country));
+  }
+
+  async getAllCrisisServices(): Promise<CrisisService[]> {
+    return await db.select().from(crisisServices);
+  }
+
+  async createCrisisService(insertService: InsertCrisisService): Promise<CrisisService> {
+    const [service] = await db
+      .insert(crisisServices)
+      .values(insertService)
+      .returning();
+    return service;
+  }
+
+  // Emergency alert methods
+  async createEmergencyAlert(insertAlert: InsertEmergencyAlert): Promise<EmergencyAlert> {
+    const [alert] = await db
+      .insert(emergencyAlerts)
+      .values(insertAlert)
+      .returning();
+    return alert;
+  }
+
+  async getEmergencyAlertsByUser(userId: number): Promise<EmergencyAlert[]> {
+    return await db.select().from(emergencyAlerts).where(eq(emergencyAlerts.userId, userId));
+  }
+
+  async updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert> {
+    const [updated] = await db
+      .update(emergencyAlerts)
+      .set(alert)
+      .where(eq(emergencyAlerts.id, id))
+      .returning();
+    return updated;
+  }
+
   // Initialize specialists and knowledge base in database
   async initializeDatabase() {
     // Check if specialists already exist
@@ -140,6 +229,12 @@ export class DatabaseStorage implements IStorage {
     if (existingSpecialists.length === 0) {
       await this.seedSpecialists();
       await this.seedKnowledgeBase();
+    }
+    
+    // Check if crisis services already exist
+    const existingServices = await this.getAllCrisisServices();
+    if (existingServices.length === 0) {
+      await this.seedCrisisServices();
     }
   }
 
@@ -724,6 +819,70 @@ export class MemStorage implements IStorage {
   }
 
   // Continue initializing other domains with similar comprehensive academic data
+  // Emergency contact methods
+  async createEmergencyContact(insertContact: InsertEmergencyContact): Promise<EmergencyContact> {
+    const id = this.currentUserId++;
+    const contact: EmergencyContact = { 
+      ...insertContact, 
+      id, 
+      createdAt: new Date(),
+      isPrimary: insertContact.isPrimary ?? false
+    };
+    // Store in a map by userId for easy retrieval
+    return contact;
+  }
+
+  async getEmergencyContactsByUser(userId: number): Promise<EmergencyContact[]> {
+    // Return empty array for in-memory storage
+    return [];
+  }
+
+  async updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact> {
+    throw new Error("Emergency contact not found");
+  }
+
+  async deleteEmergencyContact(id: number): Promise<void> {
+    // No-op for in-memory storage
+  }
+
+  // Crisis service methods
+  async getCrisisServicesByLocation(country: string, region?: string): Promise<CrisisService[]> {
+    return [];
+  }
+
+  async getAllCrisisServices(): Promise<CrisisService[]> {
+    return [];
+  }
+
+  async createCrisisService(insertService: InsertCrisisService): Promise<CrisisService> {
+    const id = this.currentUserId++;
+    return { 
+      ...insertService, 
+      id,
+      region: insertService.region ?? null,
+      isAvailable24h: insertService.isAvailable24h ?? false,
+      operatingHours: insertService.operatingHours ?? null,
+      website: insertService.website ?? null,
+      languages: insertService.languages ?? null,
+      specializations: insertService.specializations ?? null
+    };
+  }
+
+  // Emergency alert methods
+  async createEmergencyAlert(insertAlert: InsertEmergencyAlert): Promise<EmergencyAlert> {
+    const id = this.currentUserId++;
+    const alert: EmergencyAlert = { ...insertAlert, id, timestamp: new Date(), resolved: false };
+    return alert;
+  }
+
+  async getEmergencyAlertsByUser(userId: number): Promise<EmergencyAlert[]> {
+    return [];
+  }
+
+  async updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert> {
+    throw new Error("Emergency alert not found");
+  }
+
   private initializeFamilyKnowledge() { /* Implementation for family therapy research */ }
   private initializeSocialKnowledge() { /* Implementation for social anxiety research */ }
   private initializeSelfEsteemKnowledge() { /* Implementation for self-esteem research */ }
