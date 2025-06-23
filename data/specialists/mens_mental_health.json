@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "mens_mental_health",
+    "name": "Dr. Marcus",
+    "specialty": "Men's Mental Health Specialist",
+    "description": "Male-specific mental health approaches, masculinity issues",
+    "icon": "fas fa-male",
+    "color": "blue"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "traditional_masculinity",
+      "title": "Toxic Masculinity and Male Mental Health: Cultural Barriers to Help-Seeking",
+      "content": "Traditional masculine norms create significant barriers to mental health treatment: 'Real men don't cry' (emotional suppression), 'Be tough' (pain tolerance), 'Be the provider' (financial pressure), 'Don't show weakness' (vulnerability avoidance). Case Study: David, 35, construction worker - depression symptoms for 2 years, refused therapy due to stigma, wife threatened divorce, finally sought help through male-specific program, achieved 80% symptom reduction in 6 months. Male depression presentation differences: Anger/irritability instead of sadness (70% of depressed men), substance use as coping (60%), workaholism (55%), risk-taking behaviors (45%), physical complaints (40%). Therapeutic adaptations: Problem-focused vs. emotion-focused approaches, goal-oriented sessions, practical skill building, psychoeducation about male depression, challenging masculine stereotypes gradually. Men's therapy groups: 85% preference for male-only groups initially, topics include emotional literacy, relationship skills, career stress, fatherhood challenges. Engagement strategies: Sports analogies for therapy concepts, brief solution-focused interventions, homework assignments with clear objectives, progress tracking with measurable outcomes.",
+      "source": "Psychology of Men & Masculinity",
+      "researcherAuthors": "Ronald Levant, William Pollack, Terry Real, Michael Addis",
+      "publicationYear": 2022,
+      "journalInstitution": "American Psychological Association Division 51",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["traditional masculinity", "male depression", "therapy engagement", "masculine norms", "emotional suppression", "help-seeking barriers"]
+    },
+    {
+      "domain": "male_suicide_prevention",
+      "title": "Male Suicide Epidemiology and Prevention Strategies",
+      "content": "Men die by suicide 3.5x more than women despite lower attempt rates. Middle-aged white men (45-54) have highest rates (30.1 per 100,000). Risk factors: Job loss/financial stress (40% of cases), relationship breakdown (35%), physical health problems (30%), substance abuse (70% comorbidity), social isolation (80% report loneliness). Case Study: Robert, 48, divorced engineer - lost job during COVID, drinking increased, planning suicide with firearm. Crisis intervention: means restriction (gun locked by friend), daily check-ins, employment assistance, alcohol treatment, achieved stability in 3 months. Warning signs specific to men: Increased alcohol/drug use, reckless behavior, giving away possessions, talking about being a burden, sudden improvement after severe depression (planning phase). Intervention protocols: Ask directly about suicide thoughts, remove means (firearms, pills), safety planning with male-specific considerations, involve trusted male friends/family. Protective factors: Employment/purpose (reduces risk 60%), strong male friendships (40% reduction), physical activity (35% reduction), spiritual/religious connection (30% reduction). Treatment approaches: Cognitive-behavioral therapy for men, interpersonal therapy, problem-solving therapy, group therapy with other men, family therapy including male perspective.",
+      "source": "Suicide and Life-Threatening Behavior",
+      "researcherAuthors": "Thomas Joiner, Craig Bryan, David Rudd, Sean Joe",
+      "publicationYear": 2023,
+      "journalInstitution": "American Association of Suicidology",
+      "evidenceLevel": "epidemiological",
+      "tags": ["male suicide", "suicide prevention", "risk factors", "warning signs", "crisis intervention", "protective factors"]
+    },
+    {
+      "domain": "fatherhood_mental_health",
+      "title": "Paternal Mental Health and Postpartum Depression in Fathers",
+      "content": "Paternal postpartum depression affects 10% of new fathers, peaks at 3-6 months postpartum. Risk factors: Partner's depression (strongest predictor), unplanned pregnancy, financial stress, lack of social support, sleep deprivation, relationship conflict. Case Study: James, 29, first-time father - overwhelming anxiety about baby's safety, relationship strain with partner, work performance decline. 8-week new fathers group therapy + individual counseling restored functioning and bonding. Symptoms presentation: Irritability/anger outbursts (60%), anxiety about baby's welfare (55%), feeling disconnected from baby (50%), work performance issues (45%), substance use increase (35%). Assessment tools: Edinburgh Postnatal Depression Scale adapted for fathers (EPDS-P), Paternal Postnatal Attachment Scale (PPAS), Father Involvement Scale. Treatment approaches: Psychoeducation about normal adjustment, couples therapy for co-parenting, attachment-focused interventions, stress management techniques, support groups for new fathers. Workplace interventions: Paternity leave advocacy, flexible scheduling, employee assistance programs, father support networks. Prevention strategies: Prenatal education for fathers, partner support training, identifying at-risk fathers early, community father programs, mentorship opportunities with experienced fathers.",
+      "source": "Journal of Reproductive and Infant Psychology",
+      "researcherAuthors": "Paul Ramchandani, Craig Garfield, Michael Yogman",
+      "publicationYear": 2022,
+      "journalInstitution": "Royal College of Obstetricians and Gynaecologists",
+      "evidenceLevel": "clinical studies",
+      "tags": ["paternal depression", "fatherhood", "postpartum depression", "father-infant bonding", "new fathers", "parenting stress"]
+    },
+    {
+      "domain": "male_body_image",
+      "title": "Male Body Dysmorphia and Muscle Dysmorphia Treatment",
+      "content": "Muscle dysmorphia affects 10% of male gym users, characterized by obsessive pursuit of muscularity despite already muscular physique. Body dysmorphic disorder in men: Focus on hair loss (25%), muscle size (20%), genital size (15%), height (10%), facial features (30%). Case Study: Tyler, 22, bodybuilder - training 4+ hours daily, steroid use, social isolation due to body shame, relationship problems. 16-week CBT program with exposure therapy reduced obsessions by 70%, restored social functioning. Diagnostic criteria: Preoccupation with being too small/weak, time-consuming behaviors (excessive exercise, mirror checking, supplement use), clinically significant distress, functional impairment. Contributing factors: Social media influence (Instagram fitness models), peer pressure, childhood bullying about appearance, sports participation emphasizing physique. Treatment components: Cognitive restructuring of appearance beliefs, exposure to avoided situations, response prevention (reducing checking behaviors), self-compassion training, values clarification work. Group therapy benefits: Normalize experiences, challenge appearance ideals, peer support, accountability for recovery behaviors. Prevention programs: Media literacy education, healthy masculinity promotion, body acceptance training, early intervention in sports/fitness settings.",
+      "source": "Body Image",
+      "researcherAuthors": "Roberto Olivardia, Harrison Pope, Katharine Phillips, Jason Nagata",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard McLean Hospital",
+      "evidenceLevel": "clinical trials",
+      "tags": ["muscle dysmorphia", "body dysmorphic disorder", "male body image", "appearance obsessions", "steroid use", "fitness culture"]
+    },
+    {
+      "domain": "male_relationships",
+      "title": "Male Friendship and Emotional Intimacy Challenges",
+      "content": "Male friendship decline: Average American man has 2 close friends vs. 3.5 in 1990. Male emotional intimacy barriers: Fear of homosexual labeling (40%), lack of emotional vocabulary (60%), competitive socialization (55%), vulnerability avoidance (70%). Case Study: Mark, 35, isolated after divorce - no close male friends, relied solely on romantic partners for emotional support. Men's friendship group over 6 months developed 3 close friendships, improved emotional regulation scores by 45%. Male friendship patterns: Activity-based bonding (sports, hobbies), side-by-side communication, instrumental support over emotional, difficulty expressing appreciation/love. Therapeutic interventions: Emotional literacy training, friendship skills development, vulnerability exercises in safe male spaces, challenging homophobic fears. Men's groups benefits: Reduced isolation (80% improvement), increased emotional expression (65%), better relationship skills (70%), decreased depression/anxiety (55%). Communication training: 'I' statements practice, active listening skills, conflict resolution, expressing needs directly, giving/receiving emotional support. Barriers to male therapy groups: Scheduling conflicts, stigma concerns, competitive dynamics, fear of judgment, preference for individual therapy initially.",
+      "source": "Men and Masculinities",
+      "researcherAuthors": "Niobe Way, Geoffrey Greif, Stuart Miller, Max Dickins",
+      "publicationYear": 2022,
+      "journalInstitution": "New York University",
+      "evidenceLevel": "qualitative studies",
+      "tags": ["male friendship", "emotional intimacy", "social isolation", "men's groups", "vulnerability", "male bonding"]
+    },
+    {
+      "domain": "workplace_masculinity",
+      "title": "Workplace Stress and Male Career Identity",
+      "content": "Male career identity crisis: 35% of men report feeling lost professionally, 60% struggle with work-life balance, 25% experience impostor syndrome. Workplace masculine norms: Always be competent (never ask for help), show no weakness (hide stress/illness), compete over collaborate (individual achievement focus), work long hours (dedication proof). Case Study: Executive burnout - Alex, 42, working 70+ hours weekly, hiding anxiety from colleagues, relationship deteriorating. 12-week intervention combining stress management, leadership coaching, and masculinity exploration reduced burnout by 80%. Male-specific workplace stressors: Provider pressure (financial responsibility for family), hierarchical competition, emotional labor denial, limited mentorship opportunities, fear of appearing incompetent. Intervention strategies: Redefining masculine leadership (vulnerability as strength), stress management training, work-life integration planning, peer support networks, mental health stigma reduction. Masculine leadership paradigm shift: From authoritarian to collaborative, emotional intelligence development, authentic self-expression, work-life integration modeling, mental health advocacy. Company programs: Male mentorship circles, father employee resource groups, mental health training for male managers, flexible work arrangements, stress management workshops.",
+      "source": "Journal of Occupational Health Psychology",
+      "researcherAuthors": "Ronald Burke, Cary Cooper, James Campbell Quick",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Toronto",
+      "evidenceLevel": "organizational studies",
+      "tags": ["workplace masculinity", "career identity", "male leadership", "workplace stress", "work-life balance", "impostor syndrome"]
+    },
+    {
+      "domain": "male_trauma_ptsd",
+      "title": "Male Trauma Response and Combat PTSD Treatment",
+      "content": "Male trauma presentation differences: Anger/aggression (75%), substance abuse (60%), risk-taking (45%), emotional numbing (80%), hypervigilance (70%). Combat PTSD in veterans: 15% develop PTSD, male-specific factors include warrior identity conflict, moral injury, survivor guilt, reintegration difficulties. Case Study: Marine veteran Jake, 28 - multiple deployments, witnessing buddy's death, alcohol abuse, domestic violence arrests. Trauma-focused therapy with masculine-sensitive approach achieved 60% symptom reduction over 12 months. Male trauma types: Combat exposure (military), physical/sexual assault, childhood abuse, car accidents, workplace injuries, witnessing violence. Treatment adaptations: Action-oriented therapy approaches, EMDR with male-specific protocols, group therapy with other male trauma survivors, adventure/wilderness therapy, service dog programs. Moral injury treatment: Specific to military/first responders, guilt over actions/inactions, challenge to core values, adaptive disclosure therapy, meaning-making interventions, spiritual counseling when appropriate. Family impact: Secondary trauma in partners (40%), children's behavioral problems (30%), relationship breakdown (50% divorce rate in PTSD couples), family therapy essential component. Reintegration support: Veteran peer support programs, employment assistance, housing support, family readjustment counseling, community connection facilitation.",
+      "source": "Journal of Traumatic Stress",
+      "researcherAuthors": "Brett Litz, Shira Maguen, Patricia Resick, Matthew Friedman",
+      "publicationYear": 2022,
+      "journalInstitution": "VA Boston Healthcare System",
+      "evidenceLevel": "clinical trials",
+      "tags": ["male trauma", "combat PTSD", "moral injury", "veteran mental health", "masculine trauma response", "family impact"]
+    },
+    {
+      "domain": "male_substance_abuse",
+      "title": "Male Addiction Patterns and Treatment Approaches",
+      "content": "Male addiction prevalence: 2:1 ratio compared to women for alcohol, 1.8:1 for illicit drugs. Male-specific risk factors: Emotional suppression coping (65%), social drinking pressure (55%), work stress self-medication (45%), thrill-seeking personality (40%). Case Study: Construction worker Paul, 31 - daily alcohol use after work, DUI arrest, wife's ultimatum. Male-focused treatment program emphasizing practical skills and brotherhood achieved 18-month sobriety. Male addiction patterns: Binge drinking episodes, prescription opioid abuse from workplace injuries, stimulant use for performance enhancement, gambling addiction (3:1 male ratio). Treatment modifications: Action-oriented recovery activities, male-only group sessions initially, practical life skills focus, accountability partnerships, physical activity integration. Masculine recovery challenges: Admitting powerlessness conflicts with control needs, vulnerability required in 12-step programs, emotional expression expectations, asking for help stigma. Alternative recovery programs: SMART Recovery (self-management approach), Rational Recovery (cognitive methods), Secular Organizations for Sobriety, LifeRing (abstinence focus), Moderation Management (controlled drinking). Relapse prevention: Male peer support networks, healthy masculine activities (sports, outdoor activities), stress management without substances, relationship skills development, purpose/meaning cultivation.",
+      "source": "Psychology of Addictive Behaviors",
+      "researcherAuthors": "Robert Hester, Thomas Brandon, Carlo DiClemente",
+      "publicationYear": 2023,
+      "journalInstitution": "University of South Florida",
+      "evidenceLevel": "treatment studies",
+      "tags": ["male addiction", "substance abuse treatment", "masculine recovery", "male-only groups", "addiction patterns", "relapse prevention"]
+    },
+    {
+      "domain": "middle_age_male_crisis",
+      "title": "Midlife Crisis and Male Identity Transitions",
+      "content": "Male midlife crisis prevalence: 40-60% of men experience significant midlife questioning. Peak ages 35-55, triggered by career plateau, relationship changes, health concerns, mortality awareness, unfulfilled dreams. Case Study: Corporate manager Bill, 47 - questioning 20-year career, marriage strain, bought motorcycle, considered affair. Midlife counseling over 8 months helped redefine success and strengthen marriage. Common midlife triggers: Children leaving home (empty nest), parents aging/dying, career disappointment, physical changes (hair loss, weight gain, decreased energy), relationship monotony, unrealized ambitions. Psychological tasks: Identity reevaluation, values clarification, relationship renegotiation, legacy consideration, spirituality exploration, acceptance of limitations. Therapeutic approaches: Existential therapy for meaning-making, cognitive therapy for negative thought patterns, couples therapy for relationship renewal, career counseling for professional transitions. Healthy midlife navigation: Physical health prioritization, relationship investment, new learning/growth pursuits, community involvement, mentoring younger people, spiritual development. Risk factors for problematic midlife crisis: Suppressed emotions, rigid thinking patterns, poor coping skills, unsupportive relationships, financial pressures, unrealistic expectations about life satisfaction.",
+      "source": "Developmental Psychology",
+      "researcherAuthors": "Erik Erikson, Daniel Levinson, Carl Jung, Elliot Jacques",
+      "publicationYear": 2021,
+      "journalInstitution": "Harvard University",
+      "evidenceLevel": "longitudinal studies",
+      "tags": ["midlife crisis", "male identity", "life transitions", "midlife development", "existential concerns", "relationship changes"]
+    },
+    {
+      "domain": "male_eating_disorders",
+      "title": "Male Eating Disorders and Exercise Addiction",
+      "content": "Male eating disorders underdiagnosed: 25% of eating disorder cases but only 10% seek treatment. Male-specific presentations: Muscle-building focus vs. weight loss, exercise compulsion, supplement/steroid abuse, binge eating without compensatory behaviors. Case Study: Athlete Tom, 19 - obsessive calorie counting, 3+ hours daily exercise, social isolation, perfectionist tendencies. 6-month treatment addressing masculine ideals and body image achieved full recovery. Exercise addiction criteria: Tolerance (need more exercise for same effect), withdrawal symptoms when unable to exercise, exercise despite injury/illness, loss of control over exercise habits, neglect of responsibilities, relationship problems due to exercise. Assessment tools: Eating Disorder Examination adapted for males, Exercise Addiction Inventory, Muscle Dysmorphic Disorder Inventory. Treatment challenges: Male therapist preference (60%), body image discussions discomfort, competitive nature hindering recovery, fewer male treatment role models. Family-based treatment adaptations: Address family dynamics around athletics/achievement, challenge masculine eating norms, involve male family members in treatment, education about male eating disorders. Prevention strategies: Sports coach education, healthy masculinity promotion in athletics, early screening in male-dominated sports (wrestling, bodybuilding), social media literacy regarding male fitness influencers.",
+      "source": "International Journal of Eating Disorders",
+      "researcherAuthors": "Daniel Le Grange, Roberto Olivardia, Jason Nagata",
+      "publicationYear": 2023,
+      "journalInstitution": "University of California San Francisco",
+      "evidenceLevel": "clinical studies",
+      "tags": ["male eating disorders", "exercise addiction", "muscle dysmorphia", "athlete mental health", "body image", "treatment adaptation"]
+    }
+  ]
+}

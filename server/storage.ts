@@ -15,9 +15,15 @@ export interface IStorage {
   createConversation(conversation: InsertConversation): Promise<Conversation>;
   getConversation(id: number): Promise<Conversation | undefined>;
   getConversationsByUser(userId: number): Promise<Conversation[]>;
+  clearConversationsByUser(userId: number): Promise<void>;
   
   createMessage(message: InsertMessage): Promise<Message>;
   getMessagesByConversation(conversationId: number): Promise<Message[]>;
+  
+  // User profile methods
+  createUserProfile(profile: InsertUserProfile): Promise<UserProfile>;
+  getUserProfile(sessionId: string): Promise<UserProfile | undefined>;
+  updateUserProfile(sessionId: string, updates: Partial<InsertUserProfile>): Promise<UserProfile | undefined>;
   
   createKnowledgeEntry(entry: InsertKnowledgeBase): Promise<KnowledgeBase>;
   getKnowledgeBySpecialist(specialistKey: string): Promise<KnowledgeBase[]>;
@@ -27,7 +33,7 @@ export interface IStorage {
   // Emergency contact methods
   createEmergencyContact(contact: InsertEmergencyContact): Promise<EmergencyContact>;
   getEmergencyContactsByUser(userId: number): Promise<EmergencyContact[]>;
-  updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact>;
+  updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact | undefined>;
   deleteEmergencyContact(id: number): Promise<void>;
   
   // Crisis service methods
@@ -38,7 +44,7 @@ export interface IStorage {
   // Emergency alert methods
   createEmergencyAlert(alert: InsertEmergencyAlert): Promise<EmergencyAlert>;
   getEmergencyAlertsByUser(userId: number): Promise<EmergencyAlert[]>;
-  updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert>;
+  updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert | undefined>;
 }
 
 // DatabaseStorage implementation using PostgreSQL
@@ -100,6 +106,10 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(conversations).where(eq(conversations.userId, userId));
   }
 
+  async clearConversationsByUser(userId: number): Promise<void> {
+    await db.delete(conversations).where(eq(conversations.userId, userId));
+  }
+
   async createMessage(insertMessage: InsertMessage): Promise<Message> {
     const [message] = await db
       .insert(messages)
@@ -114,6 +124,29 @@ export class DatabaseStorage implements IStorage {
       .from(messages)
       .where(eq(messages.conversationId, conversationId))
       .orderBy(messages.timestamp);
+  }
+
+  // User profile methods
+  async createUserProfile(insertProfile: InsertUserProfile): Promise<UserProfile> {
+    const [profile] = await db
+      .insert(userProfiles)
+      .values(insertProfile)
+      .returning();
+    return profile;
+  }
+
+  async getUserProfile(sessionId: string): Promise<UserProfile | undefined> {
+    const [profile] = await db.select().from(userProfiles).where(eq(userProfiles.sessionId, sessionId));
+    return profile || undefined;
+  }
+
+  async updateUserProfile(sessionId: string, updates: Partial<InsertUserProfile>): Promise<UserProfile | undefined> {
+    const [profile] = await db
+      .update(userProfiles)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(userProfiles.sessionId, sessionId))
+      .returning();
+    return profile || undefined;
   }
 
   async createKnowledgeEntry(insertEntry: InsertKnowledgeBase): Promise<KnowledgeBase> {
@@ -224,11 +257,27 @@ export class DatabaseStorage implements IStorage {
 
   // Initialize specialists and knowledge base in database
   async initializeDatabase() {
+    console.log('🔄 Initializing database...');
+    
     // Check if specialists already exist
     const existingSpecialists = await this.getAllSpecialists();
     if (existingSpecialists.length === 0) {
+      console.log('No specialists found, seeding database...');
       await this.seedSpecialists();
       await this.seedKnowledgeBase();
+    } else {
+      // Check if we need to update specialists (for development)
+      const expectedCount = 18; // We should have 18 specialists from JSON files
+      if (existingSpecialists.length < expectedCount) {
+        console.log(`Updating specialist database (${existingSpecialists.length}/${expectedCount})...`);
+        // Clear existing specialists and reseed
+        await db.delete(specialists);
+        await db.delete(knowledgeBase).catch(() => {}); // Ignore if table doesn't exist
+        await this.seedSpecialists();
+        await this.seedKnowledgeBase();
+      } else {
+        console.log(`✅ Database already has ${existingSpecialists.length} specialists`);
+      }
     }
     
     // Check if crisis services already exist
@@ -238,30 +287,87 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
-  private async seedSpecialists() {
-    const specialistData = [
-      { key: 'relationship', name: 'Dr. Sarah', specialty: 'Relationship Expert', description: 'Dating, partnerships, breakups', icon: 'fas fa-heart', color: 'pink' },
-      { key: 'conflict', name: 'Dr. Mike', specialty: 'Conflict Resolution', description: 'Work disputes, family tensions', icon: 'fas fa-handshake', color: 'orange' },
-      { key: 'psychology', name: 'Dr. James', specialty: 'Clinical Psychology', description: 'Anxiety, depression, trauma', icon: 'fas fa-brain', color: 'blue' },
-      { key: 'career', name: 'Dr. Lisa', specialty: 'Career Counselor', description: 'Job stress, career changes', icon: 'fas fa-briefcase', color: 'green' },
-      { key: 'addiction', name: 'Dr. Tom', specialty: 'Addiction Specialist', description: 'Substance abuse, habits', icon: 'fas fa-ban', color: 'red' },
-      { key: 'anger', name: 'Dr. Alex', specialty: 'Anger Management', description: 'Frustration, explosive emotions', icon: 'fas fa-fire', color: 'yellow' },
-      { key: 'stress', name: 'Dr. Emma', specialty: 'Stress Management', description: 'Work pressure, life balance', icon: 'fas fa-leaf', color: 'teal' },
-      { key: 'grief', name: 'Dr. David', specialty: 'Grief Counselor', description: 'Loss, bereavement, mourning', icon: 'fas fa-dove', color: 'purple' },
-      { key: 'family', name: 'Dr. Rachel', specialty: 'Family Therapist', description: 'Parenting, family dynamics', icon: 'fas fa-home', color: 'indigo' },
-      { key: 'social', name: 'Dr. Mark', specialty: 'Social Anxiety', description: 'Shyness, social situations', icon: 'fas fa-users', color: 'cyan' },
-      { key: 'selfesteem', name: 'Dr. Kate', specialty: 'Self-Esteem Coach', description: 'Confidence, self-worth', icon: 'fas fa-star', color: 'amber' },
-      { key: 'trauma', name: 'Dr. Paul', specialty: 'Trauma Specialist', description: 'PTSD, recovery, healing', icon: 'fas fa-shield-alt', color: 'slate' },
-      { key: 'sleep', name: 'Dr. Nina', specialty: 'Sleep Therapist', description: 'Insomnia, sleep disorders', icon: 'fas fa-moon', color: 'violet' },
-      { key: 'fitness', name: 'Dr. Chris', specialty: 'Fitness Psychology', description: 'Exercise motivation, body image', icon: 'fas fa-dumbbell', color: 'lime' },
-      { key: 'finance', name: 'Dr. Sofia', specialty: 'Financial Stress', description: 'Money worries, financial planning', icon: 'fas fa-dollar-sign', color: 'emerald' },
-      { key: 'intimacy', name: 'Dr. Ryan', specialty: 'Intimacy Coach', description: 'Sexual health, relationship intimacy', icon: 'fas fa-kiss', color: 'rose' },
-      { key: 'midlife', name: 'Dr. Helen', specialty: 'Midlife Transition', description: 'Life changes, purpose, aging', icon: 'fas fa-compass', color: 'sky' },
-      { key: 'communication', name: 'Dr. Sam', specialty: 'Communication Coach', description: 'Social skills, assertiveness', icon: 'fas fa-comments', color: 'stone' }
-    ];
+  // Seed crisis services from local JSON file
+  private async seedCrisisServices() {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    const { fileURLToPath } = await import('url');
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const filePath = path.resolve(__dirname, '../data/crisis_services.json');
+    const file = await fs.readFile(filePath, 'utf-8');
+    const services = JSON.parse(file);
+    for (const service of services) {
+      // If region is an array, insert one row per region, else insert as is
+      if (Array.isArray(service.region)) {
+        for (const region of service.region) {
+          await this.createCrisisService({ ...service, region });
+        }
+      } else {
+        await this.createCrisisService(service);
+      }
+    }
+  }
 
-    for (const data of specialistData) {
-      await this.createSpecialist(data);
+  private async seedSpecialists() {
+    console.log('📁 Reading specialist data from JSON files...');
+    
+    // Read specialist data from JSON files
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    const { fileURLToPath } = await import('url');
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const specialistsDir = path.resolve(__dirname, '../data/specialists');
+    
+    try {
+      console.log(`Looking for JSON files in: ${specialistsDir}`);
+      const files = await fs.readdir(specialistsDir);
+      const jsonFiles = files.filter(file => file.endsWith('.json'));
+      console.log(`Found ${jsonFiles.length} JSON files: ${jsonFiles.join(', ')}`);
+      
+      let successCount = 0;
+      for (const file of jsonFiles) {
+        try {
+          const filePath = path.join(specialistsDir, file);
+          const fileContent = await fs.readFile(filePath, 'utf-8');
+          const data = JSON.parse(fileContent);
+          
+          if (data.specialist) {
+            await this.createSpecialist(data.specialist);
+            console.log(`✅ Created specialist: ${data.specialist.name} (${data.specialist.key})`);
+            successCount++;
+          } else {
+            console.log(`⚠️  No specialist data in ${file}`);
+          }
+        } catch (fileError) {
+          console.error(`❌ Error processing ${file}:`, fileError.message);
+        }
+      }
+      
+      console.log(`📊 Successfully created ${successCount} specialists from JSON files`);
+      
+      if (successCount === 0) {
+        throw new Error('No specialists were successfully created from JSON files');
+      }
+      
+    } catch (error) {
+      console.error('❌ Error seeding specialists from JSON files:', error.message);
+      console.log('🔄 Falling back to hardcoded data...');
+      
+      // Fallback to hardcoded data if JSON reading fails
+      const fallbackData = [
+        { key: 'psychology', name: 'Dr. Sarah', specialty: 'Clinical Psychologist', description: 'Depression, anxiety, therapy', icon: 'fas fa-brain', color: 'purple' },
+        { key: 'relationship', name: 'Dr. Emma', specialty: 'Relationship Therapist', description: 'Couples, dating, communication', icon: 'fas fa-heart', color: 'pink' },
+        { key: 'addiction', name: 'Dr. Tom', specialty: 'Addiction Specialist', description: 'Substance abuse, habits', icon: 'fas fa-ban', color: 'red' },
+        { key: 'career', name: 'Dr. Lisa', specialty: 'Career Counselor', description: 'Work stress, career guidance', icon: 'fas fa-briefcase', color: 'green' },
+        { key: 'crisis_intervention', name: 'Dr. Alex', specialty: 'Crisis Intervention', description: 'Emergency support, safety planning', icon: 'fas fa-phone', color: 'red' }
+      ];
+      
+      for (const data of fallbackData) {
+        await this.createSpecialist(data);
+        console.log(`✅ Created fallback specialist: ${data.name} (${data.key})`);
+      }
     }
   }
 
@@ -297,11 +403,11 @@ export class DatabaseStorage implements IStorage {
         specialistKey: 'psychology',
         domain: 'cognitive_behavioral_therapy',
         title: 'CBT Efficacy for Depression and Anxiety Disorders',
-        content: 'Meta-analysis of 269 studies shows CBT achieves 60-80% response rates for major depression and 70-90% for anxiety disorders. CBT\'s effectiveness stems from addressing cognitive distortions, behavioral patterns, and developing coping strategies. Treatment typically requires 12-20 sessions for optimal outcomes.',
-        source: 'Clinical Psychology Review',
-        researcherAuthors: 'Aaron Beck, Albert Ellis, David Clark',
-        publicationYear: 2022,
-        journalInstitution: 'Beck Institute for Cognitive Behavior Therapy',
+        content: 'Cognitive Behavioral Therapy shows significant efficacy in treating depression and anxiety disorders across multiple studies.',
+        source: 'Clinical Psychology Research',
+        researcherAuthors: 'Beck, A.T., et al.',
+        publicationYear: 2023,
+        journalInstitution: 'Journal of Clinical Psychology',
         evidenceLevel: 'meta-analysis',
         tags: ['CBT', 'depression', 'anxiety', 'treatment efficacy']
       },
@@ -338,6 +444,7 @@ export class MemStorage implements IStorage {
     this.currentConversationId = 1;
     this.currentMessageId = 1;
     this.currentKnowledgeId = 1;
+    this.currentProfileId = 1;
     
     // Initialize specialists and knowledge base
     this.initializeSpecialists();
@@ -489,6 +596,69 @@ export class MemStorage implements IStorage {
          entry.content.toLowerCase().includes(queryLower) ||
          entry.tags?.some(tag => tag.toLowerCase().includes(queryLower)))
       );
+  }
+
+  // User Profile methods (in-memory implementation)
+  private userProfiles: Map<string, UserProfile> = new Map();
+  private currentProfileId: number = 1;
+
+  async clearConversationsByUser(userId: number): Promise<void> {
+    // Clear conversations for this user
+    const userConversations = Array.from(this.conversations.values())
+      .filter(c => c.userId === userId);
+    
+    for (const conv of userConversations) {
+      // Clear messages for each conversation
+      const convMessages = Array.from(this.messages.entries())
+        .filter(([_, m]) => m.conversationId === conv.id);
+      
+      for (const [msgId, _] of convMessages) {
+        this.messages.delete(msgId);
+      }
+      
+      // Clear the conversation
+      this.conversations.delete(conv.id);
+    }
+  }
+
+  async createUserProfile(profile: InsertUserProfile): Promise<UserProfile> {
+    const userProfile: UserProfile = {
+      id: this.currentProfileId++,
+      sessionId: profile.sessionId,
+      detectedTopics: profile.detectedTopics ?? null,
+      primaryConcerns: profile.primaryConcerns ?? null,
+      conversationStyle: profile.conversationStyle ?? null,
+      familiarityLevel: profile.familiarityLevel ?? null,
+      preferredSpecialists: profile.preferredSpecialists ?? null,
+      messageCount: profile.messageCount ?? null,
+      contextSummary: profile.contextSummary ?? null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      lastActive: new Date()
+    };
+    this.userProfiles.set(profile.sessionId, userProfile);
+    return userProfile;
+  }
+
+  async getUserProfile(sessionId: string): Promise<UserProfile | undefined> {
+    return this.userProfiles.get(sessionId);
+  }
+
+  async updateUserProfile(sessionId: string, updates: Partial<InsertUserProfile>): Promise<UserProfile> {
+    const existing = this.userProfiles.get(sessionId);
+    if (!existing) {
+      throw new Error(`User profile not found for session: ${sessionId}`);
+    }
+    
+    const updated = {
+      ...existing,
+      ...updates,
+      updatedAt: new Date(),
+      lastActive: new Date()
+    };
+    
+    this.userProfiles.set(sessionId, updated);
+    return updated;
   }
 
   private initializeKnowledgeBase() {
@@ -837,8 +1007,9 @@ export class MemStorage implements IStorage {
     return [];
   }
 
-  async updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact> {
-    throw new Error("Emergency contact not found");
+  async updateEmergencyContact(id: number, contact: Partial<InsertEmergencyContact>): Promise<EmergencyContact | undefined> {
+    // In-memory fallback: return undefined if not found
+    return undefined;
   }
 
   async deleteEmergencyContact(id: number): Promise<void> {
@@ -871,7 +1042,14 @@ export class MemStorage implements IStorage {
   // Emergency alert methods
   async createEmergencyAlert(insertAlert: InsertEmergencyAlert): Promise<EmergencyAlert> {
     const id = this.currentUserId++;
-    const alert: EmergencyAlert = { ...insertAlert, id, timestamp: new Date(), resolved: false };
+    const alert: EmergencyAlert = {
+      ...insertAlert,
+      id,
+      timestamp: new Date(),
+      resolved: false,
+      location: insertAlert.location ?? null,
+      contactsAlerted: insertAlert.contactsAlerted ?? null,
+    };
     return alert;
   }
 
@@ -879,8 +1057,9 @@ export class MemStorage implements IStorage {
     return [];
   }
 
-  async updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert> {
-    throw new Error("Emergency alert not found");
+  async updateEmergencyAlert(id: number, alert: Partial<InsertEmergencyAlert>): Promise<EmergencyAlert | undefined> {
+    // In-memory fallback: return undefined if not found
+    return undefined;
   }
 
   private initializeFamilyKnowledge() { /* Implementation for family therapy research */ }

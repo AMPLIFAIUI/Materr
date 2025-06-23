@@ -1,3 +1,4 @@
+
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
@@ -17,16 +18,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get specialist by key
-  app.get("/api/specialists/:key", async (req, res) => {
+  // Get all crisis services (for region filtering in frontend)
+  app.get("/api/crisis-services", async (req, res) => {
     try {
-      const specialist = await storage.getSpecialistByKey(req.params.key);
-      if (!specialist) {
-        return res.status(404).json({ message: "Specialist not found" });
-      }
-      res.json(specialist);
+      const services = await storage.getAllCrisisServices();
+      res.json(services);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch specialist" });
+      res.status(500).json({ message: "Failed to fetch crisis services" });
     }
   });
 

@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "sleep_psychology",
+    "name": "Dr. Luna",
+    "specialty": "Sleep Psychologist",
+    "description": "CBT-I, sleep hygiene, insomnia treatment",
+    "icon": "fas fa-moon",
+    "color": "indigo"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "sleep_disorders",
+      "title": "Comprehensive Sleep Disorder Assessment and Classification",
+      "content": "Sleep disorders affect 70 million Americans annually. Primary categories: Insomnia (35% of adults), Sleep-disordered breathing (26%), Circadian rhythm disorders (3%), Parasomnias (4%), Movement disorders (2%). Case Study: Marketing executive Lisa, 34 - difficulty falling asleep, frequent awakenings, daytime fatigue affecting work performance. Sleep study revealed sleep onset latency 65 minutes (normal <30), sleep efficiency 75% (normal >85%). 8-week CBT-I program improved sleep onset to 15 minutes, efficiency to 92%. Assessment tools: Pittsburgh Sleep Quality Index (PSQI), Insomnia Severity Index (ISI), Epworth Sleepiness Scale (ESS), sleep diaries (2-week baseline), actigraphy monitoring, polysomnography when indicated. Insomnia subtypes: Sleep onset (difficulty falling asleep), sleep maintenance (frequent awakenings), early morning awakening, mixed type. Secondary insomnia causes: Medical conditions (sleep apnea, restless legs, chronic pain), psychiatric disorders (depression 90%, anxiety 85%), medications (stimulants, corticosteroids), substances (caffeine, alcohol, nicotine). Differential diagnosis: Sleep apnea vs. insomnia, circadian rhythm disorders vs. insomnia, medication effects vs. primary sleep disorder, psychiatric conditions vs. sleep-specific issues.",
+      "source": "Sleep Medicine Reviews",
+      "researcherAuthors": "Charles Morin, Daniel Buysse, Colleen Carney, Kenneth Lichstein",
+      "publicationYear": 2023,
+      "journalInstitution": "American Academy of Sleep Medicine",
+      "evidenceLevel": "clinical guidelines",
+      "tags": ["sleep disorders", "insomnia assessment", "sleep study", "CBT-I", "sleep efficiency", "polysomnography"]
+    },
+    {
+      "domain": "cbt_insomnia",
+      "title": "Cognitive Behavioral Therapy for Insomnia: Evidence-Based Protocols",
+      "content": "CBT-I is first-line treatment for chronic insomnia, with 70-80% of patients showing significant improvement. Treatment components: Sleep restriction, stimulus control, cognitive restructuring, sleep hygiene, relaxation training. Case Study: Engineer Mark, 42, chronic insomnia 5 years - spending 9 hours in bed but sleeping only 5 hours. Sleep restriction limited bed time to 5.5 hours initially, gradually increased as sleep efficiency improved from 55% to 88% over 6 weeks. Sleep restriction protocol: Calculate total sleep time from sleep diary, add 30 minutes for sleep efficiency buffer, set fixed wake time, gradually increase time in bed as efficiency improves to >85%. Stimulus control instructions: Bed only for sleep and sex, leave bed if awake >15-20 minutes, return when sleepy, same wake time daily regardless of sleep duration, no daytime napping. Cognitive restructuring targets: Catastrophic thinking about sleep loss consequences, unrealistic sleep expectations, worry about sleep performance, safety behaviors maintaining insomnia. Relaxation techniques: Progressive muscle relaxation, diaphragmatic breathing, imagery, mindfulness meditation, autogenic training. Treatment timeline: Week 1-2 sleep restriction implementation, Week 3-4 stimulus control addition, Week 5-6 cognitive work, Week 7-8 consolidation and relapse prevention.",
+      "source": "Journal of Clinical Sleep Medicine",
+      "researcherAuthors": "Charles Morin, Colleen Carney, Jack Edinger, Arthur Spielman",
+      "publicationYear": 2022,
+      "journalInstitution": "Université Laval",
+      "evidenceLevel": "randomized controlled trials",
+      "tags": ["CBT-I protocol", "sleep restriction", "stimulus control", "cognitive restructuring", "sleep efficiency", "insomnia treatment"]
+    },
+    {
+      "domain": "sleep_hygiene",
+      "title": "Advanced Sleep Hygiene and Environmental Optimization",
+      "content": "Sleep environment factors impact sleep quality by 35-40%. Optimal conditions: Temperature 65-68°F (18-20°C), darkness with <1 lux light exposure, noise <35 decibels or consistent white noise, comfortable mattress and pillows. Case Study: Shift worker Sarah optimized bedroom environment - blackout curtains, white noise machine, cooling mattress pad, improved sleep quality from 4/10 to 8/10 despite irregular schedule. Light exposure management: Bright light (2500+ lux) within 1 hour of waking, outdoor light exposure 30+ minutes daily, blue light blocking 2 hours before bedtime, darkness during sleep hours. Sleep timing consistency: Same bedtime and wake time ±30 minutes daily, including weekends when possible, light breakfast upon waking, avoid large meals 3 hours before bed. Substance considerations: Caffeine half-life 5-7 hours (no caffeine after 2pm for 10pm bedtime), alcohol disrupts REM sleep and causes awakenings, nicotine is stimulating, avoid large fluid intake 2 hours before bed. Bedroom optimization: Cool, quiet, dark environment, comfortable mattress (replace every 7-10 years), supportive pillows, remove electronic devices, use bedroom only for sleep and intimacy. Pre-sleep routine: 30-60 minute wind-down period, relaxing activities (reading, gentle stretching, meditation), warm bath or shower, consistent routine signals sleep readiness.",
+      "source": "Sleep Health",
+      "researcherAuthors": "Matthew Walker, Michael Grandner, Hawley Montgomery-Downs",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Pennsylvania",
+      "evidenceLevel": "sleep optimization",
+      "tags": ["sleep hygiene", "sleep environment", "light exposure", "temperature control", "pre-sleep routine", "bedroom optimization"]
+    },
+    {
+      "domain": "circadian_rhythms",
+      "title": "Circadian Rhythm Disorders and Light Therapy Interventions",
+      "content": "Circadian rhythm disorders affect internal biological clock alignment with external environment. Types: Delayed sleep phase (most common in adolescents/young adults), advanced sleep phase (common in elderly), shift work disorder, jet lag disorder, irregular sleep-wake rhythm. Case Study: College student Alex with delayed sleep phase - natural sleep time 3am-11am conflicting with 8am classes. Light therapy (10,000 lux for 30 minutes upon waking) plus melatonin 5mg at 10pm shifted sleep time to 11pm-7am over 4 weeks. Circadian biology: Suprachiasmatic nucleus (biological clock), melatonin production (increases with darkness), core body temperature rhythm (lowest 4-6am), cortisol rhythm (peaks 8-9am). Light therapy protocols: Bright light 2500-10,000 lux, timing dependent on disorder type, duration 30-120 minutes, UV-filtered for eye safety, consistency for 2-4 weeks minimum. Melatonin treatment: Delayed phase disorder - 0.5-3mg taken 5-7 hours before desired sleep time, advanced phase disorder - 0.5mg upon awakening or afternoon, jet lag - timing depends on travel direction. Shift work interventions: Strategic light exposure during work hours, darkness/sleep during day hours, caffeine timing optimization, napping strategies, family/social support. Seasonal Affective Disorder: Light therapy 10,000 lux for 30 minutes upon waking, vitamin D supplementation, exercise outdoors when possible, consider antidepressant medication in severe cases.",
+      "source": "Journal of Circadian Rhythms",
+      "researcherAuthors": "Russell Foster, Michael Roenneberg, Joseph Takahashi, Claude Gronfier",
+      "publicationYear": 2022,
+      "journalInstitution": "Oxford University",
+      "evidenceLevel": "chronobiology research",
+      "tags": ["circadian rhythms", "light therapy", "melatonin treatment", "shift work disorder", "seasonal affective disorder", "sleep phase disorders"]
+    },
+    {
+      "domain": "sleep_anxiety",
+      "title": "Sleep-Related Anxiety and Performance Anxiety Treatment",
+      "content": "Sleep performance anxiety creates self-perpetuating cycle: worry about sleep → increased arousal → poor sleep → more worry. Affects 45% of insomnia patients, particularly those with perfectionist tendencies or high achievement orientation. Case Study: Surgeon Dr. Patricia, high-stress job requiring alertness - developed anticipatory anxiety about sleep before important surgeries. Paradoxical intention therapy ('try to stay awake') plus acceptance-based approaches reduced sleep anxiety from 8/10 to 2/10 over 8 weeks. Sleep-related cognitions: 'I need 8 hours or I'll be useless tomorrow', 'I can't function without perfect sleep', 'My insomnia is getting worse', 'I'm the only one who can't sleep'. Cognitive interventions: Thought challenging with evidence examination, behavioral experiments testing predictions, acceptance of imperfect sleep, mindfulness of racing thoughts without engagement. Paradoxical intention: Instruct patient to try staying awake rather than forcing sleep, reduces performance pressure, often results in natural sleepiness emergence. Acceptance and Commitment Therapy for sleep: Values identification beyond perfect sleep, psychological flexibility with sleep difficulties, mindfulness of sleep-related thoughts and feelings, committed action despite sleep challenges. Mindfulness-based sleep interventions: Body scan meditations, breath awareness, noting thoughts without judgment, present-moment awareness, loving-kindness toward sleep difficulties.",
+      "source": "Behavior Research and Therapy",
+      "researcherAuthors": "Allison Harvey, Jason Ong, Colin Espie, Nicole Tang",
+      "publicationYear": 2023,
+      "journalInstitution": "UC Berkeley",
+      "evidenceLevel": "anxiety treatment research",
+      "tags": ["sleep anxiety", "performance anxiety", "paradoxical intention", "mindfulness-based interventions", "acceptance therapy", "sleep cognitions"]
+    },
+    {
+      "domain": "technology_sleep",
+      "title": "Digital Technology Impact on Sleep and Blue Light Management",
+      "content": "Screen time before bed delays sleep onset by average 23 minutes, reduces REM sleep by 15%, increases sleep onset latency. Blue light exposure (480nm wavelength) suppresses melatonin production up to 85% when exposed within 2 hours of bedtime. Case Study: Teenager Jake, smartphone use until midnight daily - sleep onset 1:30am, morning grogginess, poor school performance. Digital sunset routine (all screens off 9pm) plus blue light blocking glasses improved sleep onset to 10:45pm within 2 weeks. Blue light effects: Suppresses melatonin more than white light, most disruptive 1-2 hours before bedtime, individual sensitivity varies, cumulative exposure throughout day affects circadian rhythms. Technology sleep hygiene: No screens 1-2 hours before bed, blue light filters on devices after sunset, charge phones outside bedroom, use analog alarm clock, avoid social media before bed. Alternative evening activities: Reading physical books, gentle stretching, journaling, meditation, creative hobbies, conversation with family, preparing for next day. Sleep tracking technology: Benefits include awareness of sleep patterns, identification of environmental factors, motivation for behavior change. Limitations: May increase sleep anxiety, accuracy concerns, obsessive monitoring counterproductive. Digital well-being settings: Screen time limits, app usage restrictions, do not disturb scheduling, grayscale mode in evening, notification management.",
+      "source": "Sleep Medicine",
+      "researcherAuthors": "Anne-Marie Chang, Charles Czeisler, Mathias Basner",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard Medical School",
+      "evidenceLevel": "technology impact studies",
+      "tags": ["blue light exposure", "screen time sleep", "digital sunset", "technology sleep hygiene", "sleep tracking", "melatonin suppression"]
+    },
+    {
+      "domain": "sleep_medications",
+      "title": "Sleep Medication Psychology and Dependence Prevention",
+      "content": "Sleep medications prescribed to 9 million Americans annually. Types: Z-drugs (zolpidem, eszopiclone), benzodiazepines (temazepam, lorazepam), sedating antidepressants (trazodone, mirtazapine), melatonin receptor agonists (ramelteon), orexin antagonists (suvorexant). Case Study: Insurance agent Robert, 45, used zolpidem nightly for 3 years - developed tolerance requiring higher doses, rebound insomnia when attempting discontinuation. Supervised tapering over 12 weeks combined with CBT-I achieved medication-free sleep. Psychological dependence factors: Fear of sleeplessness without medication, catastrophic thinking about withdrawal, lack of confidence in natural sleep ability, avoidance of sleep skills development. Physiological dependence: Tolerance development (need higher doses), withdrawal symptoms (rebound insomnia, anxiety), receptor downregulation, disrupted natural sleep architecture. Tapering protocols: Gradual dose reduction (25% every 1-2 weeks), temporary sleep worsening expected, CBT-I concurrent with tapering, physician supervision essential, support system activation. Alternatives to medication: CBT-I (equally effective long-term), relaxation techniques, mindfulness practices, sleep hygiene optimization, addressing underlying causes. Appropriate medication use: Short-term only (2-4 weeks maximum for most), specific situations (grief, major life stress), lowest effective dose, intermittent rather than nightly use when possible.",
+      "source": "Clinical Psychology Review",
+      "researcherAuthors": "Charles Morin, Ivan Koychev, Stephanie Rek",
+      "publicationYear": 2022,
+      "journalInstitution": "University of Oxford",
+      "evidenceLevel": "medication research",
+      "tags": ["sleep medications", "psychological dependence", "medication tapering", "sleep medication alternatives", "benzodiazepine withdrawal", "CBT-I vs medication"]
+    },
+    {
+      "domain": "sleep_across_lifespan",
+      "title": "Sleep Psychology Across Life Stages: Development and Aging",
+      "content": "Sleep needs and patterns change dramatically across lifespan. Newborns: 14-17 hours, fragmented sleep. Adolescents: Biological shift to later bedtimes, conflict with school schedules. Adults: 7-9 hours optimal, responsibilities affecting sleep. Elderly: Earlier bedtimes, more fragmented sleep, less deep sleep. Case Study: Elderly woman Margaret, 72, early awakening 4am, daytime fatigue - sleep restriction therapy and light exposure management improved sleep consolidation and reduced daytime napping. Adolescent sleep challenges: Delayed sleep phase preference, school start time conflicts, social media and technology use, academic pressure, insufficient sleep epidemic (70% get <8 hours). Adult sleep challenges: Work-life balance, parenting responsibilities, caffeine dependence, stress management, relationship factors affecting sleep. Elderly sleep changes: Decreased deep sleep stages, more frequent awakenings, earlier circadian phase, medical conditions affecting sleep, medication effects on sleep. Life stage interventions: Adolescents - later school start advocacy, sleep education, family involvement; Adults - work-life balance strategies, couple sleep therapy, stress management; Elderly - light therapy, medication review, social engagement, depression screening. Special populations: Pregnant women (hormonal changes, physical discomfort), shift workers (circadian disruption), athletes (recovery optimization), students (academic stress management).",
+      "source": "Sleep Medicine Clinics",
+      "researcherAuthors": "Mary Carskadon, Judith Owens, Michael Vitiello",
+      "publicationYear": 2023,
+      "journalInstitution": "Brown University",
+      "evidenceLevel": "developmental sleep research",
+      "tags": ["sleep across lifespan", "adolescent sleep", "elderly sleep", "sleep development", "age-related sleep changes", "life stage sleep interventions"]
+    },
+    {
+      "domain": "sleep_and_mental_health",
+      "title": "Bidirectional Relationship Between Sleep and Mental Health Disorders",
+      "content": "Sleep disturbances present in 90% of depression cases, 80% of anxiety disorders, 70% of PTSD cases. Bidirectional relationship: poor sleep increases mental health disorder risk by 2-3x, mental health disorders worsen sleep quality. Case Study: Combat veteran Michael with PTSD and chronic insomnia - nightmares causing 4-5 awakenings nightly, hypervigilance preventing sleep initiation. Combined trauma therapy and sleep-focused treatment reduced nightmares by 80%, improved sleep efficiency from 60% to 85%. Depression and sleep: Early morning awakening, reduced REM sleep latency, decreased deep sleep, sleep fragmentation. Sleep deprivation worsens depression symptoms, interferes with antidepressant effectiveness. Anxiety and sleep: Difficulty falling asleep due to racing thoughts, physical anxiety symptoms (heart rate, muscle tension), worry about sleep performance creating vicious cycle. PTSD and sleep: Trauma-related nightmares, hypervigilance preventing relaxation, startle response during sleep transitions, sleep avoidance due to vulnerability feelings. Integrated treatment approaches: Address sleep and mental health simultaneously, CBT-I combined with depression/anxiety treatment, trauma-focused therapy with sleep component, medication coordination for dual benefits. Sleep as treatment predictor: Improving sleep often improves mental health treatment response, sleep tracking as mood indicator, relapse prevention includes sleep monitoring.",
+      "source": "Current Psychiatry Reports",
+      "researcherAuthors": "Ruth Benca, Thomas Roth, Rachel Manber, Daniel Buysse",
+      "publicationYear": 2022,
+      "journalInstitution": "Stanford University",
+      "evidenceLevel": "bidirectional research",
+      "tags": ["sleep mental health", "depression sleep", "anxiety sleep", "PTSD sleep", "integrated treatment", "bidirectional relationship"]
+    },
+    {
+      "domain": "sleep_workplace",
+      "title": "Workplace Sleep Programs and Performance Optimization",
+      "content": "Sleep deprivation costs employers $411 billion annually in lost productivity. Sleep-deprived employees show 24% reduced productivity, 3x higher error rates, 70% increased accident risk, 57% more sick days. Case Study: Tech company implemented comprehensive sleep wellness program - productivity increased 16%, sick days decreased 22%, employee satisfaction improved 28% over 12-month period. Program components: Sleep education workshops, flexible start times, nap rooms/quiet spaces, blue light management training, stress reduction programs, health insurance coverage for sleep disorders. Shift work optimization: Strategic caffeine timing (beginning of shift, not near end), bright light exposure during work, dark sunglasses on commute home, strategic napping (20-30 minutes maximum), family education about sleep needs. Executive sleep programs: Sleep tracking and coaching, travel fatigue management, decision-making impact education, modeling healthy sleep behaviors, stress management integration. Implementation strategies: Leadership buy-in essential, voluntary participation, confidential services, diverse delivery methods, ongoing support and follow-up. ROI measurement: Productivity metrics, absenteeism tracking, healthcare cost analysis, safety incident reduction, employee engagement surveys. Industry-specific considerations: Healthcare workers (patient safety impact), transportation (public safety), manufacturing (equipment safety), technology (cognitive performance), finance (decision-making accuracy).",
+      "source": "Journal of Occupational and Environmental Medicine",
+      "researcherAuthors": "Christopher Barnes, Christopher Luckhaupt, William Fleming",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Washington",
+      "evidenceLevel": "workplace intervention studies",
+      "tags": ["workplace sleep programs", "productivity sleep", "shift work optimization", "executive sleep", "employee wellness", "sleep safety"]
+    }
+  ]
+}

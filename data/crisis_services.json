@@ -1,0 +1,88 @@
+
+[
+  {
+    "name": "Lifeline Australia",
+    "phone": "13 11 14",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "suicide_prevention",
+    "isAvailable24h": true,
+    "description": "24/7 crisis support and suicide prevention services.",
+    "website": "https://www.lifeline.org.au",
+    "languages": ["English"],
+    "specializations": ["suicide_prevention", "crisis_support", "emotional_support"]
+  },
+  {
+    "name": "Beyond Blue",
+    "phone": "1300 22 4636",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "mental_health",
+    "isAvailable24h": true,
+    "description": "Support for anxiety, depression, and suicide prevention.",
+    "website": "https://www.beyondblue.org.au",
+    "languages": ["English"],
+    "specializations": ["mental_health", "anxiety", "depression", "suicide_prevention"]
+  },
+  {
+    "name": "Kids Helpline",
+    "phone": "1800 55 1800",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "youth_support",
+    "isAvailable24h": true,
+    "description": "24/7 counselling service for young people aged 5 to 25.",
+    "website": "https://kidshelpline.com.au",
+    "languages": ["English"],
+    "specializations": ["youth_support", "counselling", "crisis_support"]
+  },
+  {
+    "name": "Suicide Call Back Service",
+    "phone": "1300 659 467",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "suicide_prevention",
+    "isAvailable24h": true,
+    "description": "24/7 phone and online counselling for people affected by suicide.",
+    "website": "https://www.suicidecallbackservice.org.au",
+    "languages": ["English"],
+    "specializations": ["suicide_prevention", "counselling", "online_support"]
+  },
+  {
+    "name": "MensLine Australia",
+    "phone": "1300 78 99 78",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "men_support",
+    "isAvailable24h": true,
+    "description": "Support for men with family and relationship concerns.",
+    "website": "https://mensline.org.au",
+    "languages": ["English"],
+    "specializations": ["men_support", "relationship_support", "mental_health"]
+  },
+  {
+    "name": "1800RESPECT",
+    "phone": "1800 737 732",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "domestic_violence",
+    "isAvailable24h": true,
+    "description": "National sexual assault, domestic and family violence counselling service.",
+    "website": "https://www.1800respect.org.au",
+    "languages": ["English"],
+    "specializations": ["domestic_violence", "sexual_assault", "family_violence"]
+  },
+  {
+    "name": "QLife",
+    "phone": "1800 184 527",
+    "country": "Australia",
+    "region": ["National", "NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"],
+    "serviceType": "lgbtq_support",
+    "isAvailable24h": false,
+    "operatingHours": "3pm - midnight (local time)",
+    "description": "LGBTI peer support and referral for people wanting to talk about sexuality, identity, gender, bodies, feelings or relationships.",
+    "website": "https://qlife.org.au",
+    "languages": ["English"],
+    "specializations": ["lgbtq_support", "peer_support", "referral"]
+  }
+]
