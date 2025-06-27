@@ -1,3 +1,5 @@
+
+
 export interface Specialist {
   id: number;
   key: string;
@@ -31,4 +33,22 @@ export const getColorClasses = (color: string) => {
   };
 
   return colorMap[color] || colorMap.blue;
-};
+}
+
+// Async version for browser: fetch from local_data/specialists.json
+export async function loadSpecialists(): Promise<Specialist[]> {
+  try {
+    const res = await fetch('/local_data/specialists.json');
+    if (!res.ok) return [];
+    const data = await res.json();
+    // If the file is an array of {specialist: {...}}, extract .specialist
+    if (Array.isArray(data)) {
+      return data.map((item) => item.specialist ? item.specialist : item).filter((s) => s && s.key && s.name && s.specialty);
+    }
+    // If the file is a single object
+    if (data.specialist) return [data.specialist];
+    return [];
+  } catch {
+    return [];
+  }
+}

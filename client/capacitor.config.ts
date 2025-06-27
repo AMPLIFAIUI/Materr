@@ -1,9 +1,12 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.oldmate.mentalhealth',
-  appName: 'Old Mate',
-  webDir: 'dist'
+  appId: 'com.mate.mentalhealth',
+  appName: 'Mate',
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https'
+  }
 };
 
 export default config;

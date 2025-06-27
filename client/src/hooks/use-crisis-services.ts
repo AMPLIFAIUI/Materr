@@ -21,7 +21,7 @@ export function useCrisisServices(region: string) {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/crisis-services")
+    fetch("/data/crisis_services.json")
       .then((res) => res.json())
       .then((data: CrisisService[]) => {
         // Filter by region (region array contains selected region or 'National')
@@ -31,7 +31,8 @@ export function useCrisisServices(region: string) {
           )
         );
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [region]);
 
   return { services, loading };

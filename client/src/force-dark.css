@@ -1,0 +1,58 @@
+/* Force dark mode styles to ensure they override everything */
+html, 
+body {
+  background: linear-gradient(135deg, #18181b 0%, #23272f 100%) !important;
+  background-attachment: fixed !important;
+  min-height: 100vh !important;
+  color: hsl(0, 0%, 98%) !important;
+  overflow-x: hidden !important;
+}
+
+/* Force dark mode colors globally */
+:root {
+  --background: hsl(240, 10%, 3.9%) !important;
+  --foreground: hsl(0, 0%, 98%) !important;
+  --card: hsl(240, 10%, 3.9%) !important;
+  --card-foreground: hsl(0, 0%, 98%) !important;
+  --popover: hsl(240, 10%, 3.9%) !important;
+  --popover-foreground: hsl(0, 0%, 98%) !important;
+  --primary: hsl(207, 90%, 54%) !important;
+  --primary-foreground: hsl(211, 100%, 99%) !important;
+  --muted: hsl(240, 3.7%, 15.9%) !important;
+  --muted-foreground: hsl(240, 5%, 64.9%) !important;
+  --accent: hsl(240, 3.7%, 15.9%) !important;
+  --accent-foreground: hsl(0, 0%, 98%) !important;
+  --destructive: hsl(0, 62.8%, 30.6%) !important;
+  --destructive-foreground: hsl(0, 0%, 98%) !important;
+}
+
+/* Ensure proper glass card appearance in dark mode */
+.glass-card {
+  background: rgba(36, 39, 54, 0.25) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(80, 80, 120, 0.18) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18) !important;
+}
+
+/* Ensure SVG blobs appear properly */
+.modern-bg-blobs {
+  position: fixed !important;
+  z-index: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Fix text colors */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  color: hsl(0, 0%, 98%);
+}
+
+/* Make sure the gradient is visible through stacked elements */
+#root, #root > div {
+  background: transparent !important;
+}

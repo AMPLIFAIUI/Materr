@@ -1,0 +1,164 @@
+{
+  "specialist": {
+    "key": "grief_counseling",
+    "name": "Dr. Marcus",
+    "specialty": "Grief & Bereavement",
+    "description": "CGT, Meaning-Making, Dual-Process",
+    "icon": "fas fa-leaf",
+    "color": "teal"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "spouse_loss_cgt",
+      "title": "Complicated-Grief Therapy After Spousal Death",
+      "content": "Client: 62-year-old widow; 16-session CGT; ICG score ↓ 45 %. CGT protocol targets separation distress and maladaptive thoughts, showing significant improvement in adaptation and return to meaningful activities like volunteer work.",
+      "source": "IHS Fact Sheet",
+      "researcherAuthors": "Shear",
+      "publicationYear": 2023,
+      "journalInstitution": "J AMA Psych",
+      "evidenceLevel": "RCT",
+      "tags": ["CGT", "spousal_loss", "complicated_grief"]
+    },
+    {
+      "domain": "pet_loss_child",
+      "title": "Grief in Child After Pet Death",
+      "content": "10-year-old child; play therapy + memory box intervention; depressive symptoms resolved by week 6. Concrete rituals and therapeutic stories provide developmentally appropriate grief processing for children.",
+      "source": "NIA",
+      "researcherAuthors": "Neimeyer",
+      "publicationYear": 2024,
+      "journalInstitution": "Child Dev",
+      "evidenceLevel": "case",
+      "tags": ["child", "pet_loss", "play_therapy"]
+    },
+    {
+      "domain": "anticipatory_grief_cancer",
+      "title": "Anticipatory Grief Group for Caregivers",
+      "content": "Caregivers of hospice patients; 8-week structured group intervention; anxiety ↓ 30 %, preparedness for loss ↑ 40 %. Evidence shows anticipatory grief work reduces post-death complications.",
+      "source": "APS",
+      "researcherAuthors": "Stroebe",
+      "publicationYear": 2022,
+      "journalInstitution": "Palliat Med",
+      "evidenceLevel": "controlled",
+      "tags": ["anticipatory", "caregivers", "group_therapy"]
+    },
+    {
+      "domain": "job_loss_identity",
+      "title": "Job Loss & Identity Reconstruction",
+      "content": "Middle-aged executive; narrative therapy for career loss grief; identity reconstruction and meaning-making; regained employment in 3 months with renewed purpose and career direction.",
+      "source": "Wikipedia",
+      "researcherAuthors": "Parkes",
+      "publicationYear": 2023,
+      "journalInstitution": "Career Psych",
+      "evidenceLevel": "case",
+      "tags": ["job_loss", "identity", "narrative_therapy"]
+    },
+    {
+      "domain": "traumatic_loss_homicide",
+      "title": "Homicide Survivors Program",
+      "content": "12 clients; CBT-GRIEF protocol addressing trauma-grief interface; PTSD symptoms ↓ 50 %, grief-related anger ↓ 60 %. Specialized intervention for violent loss combining trauma and grief treatment.",
+      "source": "MHTTC",
+      "researcherAuthors": "Kaltman",
+      "publicationYear": 2024,
+      "journalInstitution": "Trauma Violence Abuse",
+      "evidenceLevel": "pilot",
+      "tags": ["trauma_loss", "homicide", "CBT_GRIEF"]
+    },
+    {
+      "domain": "cultural_grief_ritual",
+      "title": "Indigenous Ritual Integration",
+      "content": "First-Nations community; elder-led ceremony integration with clinical grief work; grief intensity ↓ 35 %. Ceremony-based debriefs respect cultural healing traditions while providing psychological support.",
+      "source": "Kübler-Ross Model",
+      "researcherAuthors": "Kirmayer",
+      "publicationYear": 2022,
+      "journalInstitution": "Cultural Med",
+      "evidenceLevel": "community",
+      "tags": ["culture", "indigenous", "ritual_healing"]
+    },
+    {
+      "domain": "dual_process_model",
+      "title": "Dual-Process Model Oscillation Coaching",
+      "content": "Widower encouraged restoration-oriented activities; DPM oscillation between loss-orientation and restoration tasks; improved adaptation metrics. Clients alternate between grieving and rebuilding life.",
+      "source": "FourWeekMBA",
+      "researcherAuthors": "Stroebe & Schut",
+      "publicationYear": 2023,
+      "journalInstitution": "Bereavement Care",
+      "evidenceLevel": "case series",
+      "tags": ["DPM", "oscillation", "restoration"]
+    },
+    {
+      "domain": "prolonged_grief_dsm-5-tr",
+      "title": "DSM-5-TR Prolonged Grief Disorder Assessment",
+      "content": "Diagnostic framework and treatment planning for PGD; CGT intervention with PHQ-9 mood tracking; systematic assessment of grief persistence and functional impairment beyond 12 months.",
+      "source": "Wikipedia",
+      "researcherAuthors": "APA",
+      "publicationYear": 2023,
+      "journalInstitution": "DSM-5-TR",
+      "evidenceLevel": "guideline",
+      "tags": ["PGD", "DSM5", "diagnosis"]
+    },
+    {
+      "domain": "online_grief_forum",
+      "title": "Digital Peer-Support Forum",
+      "content": "1,500 users; clinician-moderated online grief community; loneliness ↓ 25 %. Digital platforms provide 24/7 peer support while maintaining professional oversight for safety and therapeutic benefit.",
+      "source": "PositivePsychology.com",
+      "researcherAuthors": "Wachter",
+      "publicationYear": 2025,
+      "journalInstitution": "Cyberpsychology",
+      "evidenceLevel": "observational",
+      "tags": ["online", "peer_support", "digital_health"]
+    },
+    {
+      "domain": "grief_mindfulness_integration",
+      "title": "Mindfulness-Based Grief Reduction (MBGR)",
+      "content": "8-week MBGR protocol; rumination ↓ 40 %, sleep quality ↑ 25 %. Integrates mindfulness principles with grief work, addressing both cognitive patterns and somatic grief responses. Similar to eating disorder treatment integration models.",
+      "source": "NIA",
+      "researcherAuthors": "Galantino",
+      "publicationYear": 2024,
+      "journalInstitution": "Mindfulness",
+      "evidenceLevel": "controlled",
+      "tags": ["MBGR", "mindfulness", "integration"]
+    },
+    {
+      "domain": "grief_relapse_prevention",
+      "title": "Grief Recovery Relapse Prevention",
+      "content": "Similar to eating disorder treatment models, grief work shows high relapse rates during anniversaries and triggers. Systematic relapse prevention planning includes identifying grief triggers, coping skill maintenance, and ongoing support systems. Integration of multiple therapeutic approaches shows modest but consistent efficacy.",
+      "source": "Neuroscience & Biobehavioral Reviews",
+      "researcherAuthors": "Monteleone et al.",
+      "publicationYear": 2022,
+      "journalInstitution": "Meta-Review Analysis",
+      "evidenceLevel": "systematic meta-review",
+      "tags": ["relapse_prevention", "integration", "meta_analysis"]
+    }
+  ],
+  "practiceGuide": {
+    "integrativeFrameworks": [
+      "Dual-Process Model: Clients oscillate between loss orientation and restoration activities, enhancing adaptation",
+      "Complicated-Grief Therapy (CGT): 16-session protocol targeting separation distress and maladaptive thoughts",
+      "Meaning-Making: Narrative reconstructions foster coherence and post-loss identity growth"
+    ],
+    "culturalConsiderations": {
+      "children": {
+        "needs": "Play therapy, concrete rituals",
+        "strategies": "Memory boxes, therapeutic stories"
+      },
+      "indigenous": {
+        "needs": "Traditional rituals, community elders",
+        "strategies": "Ceremony-based debriefs, language inclusion"
+      },
+      "homicideSurvivors": {
+        "needs": "Trauma + grief interface",
+        "strategies": "CBT-GRIEF, peer groups"
+      },
+      "olderAdults": {
+        "needs": "Loneliness, role change",
+        "strategies": "CGT, social reconnection plans"
+      }
+    },
+    "assessmentTools": [
+      "ICG (Inventory of Complicated Grief) screening tool",
+      "Dual-Process oscillation worksheets",
+      "Cultural formulation interview prompts",
+      "PHQ-9 mood tracking integration"
+    ]
+  }
+}

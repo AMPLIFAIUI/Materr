@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.oldmate.mentalhealth"
+    namespace "com.mate.mentalhealth"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.oldmate.mentalhealth"
+        applicationId "com.mate.mentalhealth"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -22,12 +22,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
-    flatDir{
-        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
-    }
+    google()
+    mavenCentral()
 }
 
 dependencies {
@@ -51,4 +54,8 @@ try {
     }
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add("-Xlint:unchecked")
 }

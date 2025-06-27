@@ -1,18 +1,28 @@
-import { useState, useEffect, useRef } from "react";
+// Prompt for username on first launch
+function getOrPromptUsername(): string {
+  let username = localStorage.getItem('username');
+  if (!username) {
+    username = window.prompt('Welcome! What is your first name?') || '';
+    if (username) {
+      localStorage.setItem('username', username);
+    }
+  }
+  return username || '';
+}
+import "../styles/chat.css";
+import React, { useState, useEffect, useRef } from "react";
 import BottomNav from "@/components/BottomNav";
-import { ArrowLeft, StickyNote, Send } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
+import { ProfileIconWithName } from "@/components/ProfileIconWithName";
 import { useLocation, useParams } from "wouter";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { queryClient, apiRequest } from "@/lib/queryClient";
 import { MessageBubble } from "@/components/message-bubble";
 import { TypingIndicator } from "@/components/typing-indicator";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { PrivacyToggle } from "@/components/privacy-toggle";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import { mapUserMessageToTags } from "@/lib/topicMapping";
-import type { Message, Conversation, Specialist } from "@shared/schema";
+import type { Message, Conversation, Specialist } from "../types";
 
 // Generate or get session ID for user profiling
 function getSessionId(): string {
@@ -25,7 +35,9 @@ function getSessionId(): string {
 }
 
 export default function Chat() {
-  const { id } = useParams();
+  // Personalization: get username
+  const username = getOrPromptUsername();
+  const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -39,77 +51,60 @@ export default function Chat() {
 
   const conversationId = (id && id !== 'new' && !isNaN(parseInt(id))) ? parseInt(id) : null;
   
-  // Check if this is a fresh session (app was closed and reopened)
-  useEffect(() => {
-    const sessionFlag = sessionStorage.getItem('chat-session-active');
-    if (!sessionFlag) {
-      // Fresh session - clear any old chat data and show welcome message
-      setShowWelcome(true);
-      sessionStorage.setItem('chat-session-active', 'true');
-      
-      // Clear any cached conversation data from React Query
-      queryClient.clear();
-      
-      // Clear any temporary chat state
-      localStorage.removeItem('chatDraft');
-    }
-    
-    // Clear session and data when page is unloaded (app closed)
-    const handleUnload = () => {
-      sessionStorage.removeItem('chat-session-active');
-      // Optional: Clear draft messages on close
-      localStorage.removeItem('chatDraft');
-    };
-    
-    window.addEventListener('beforeunload', handleUnload);
-    return () => window.removeEventListener('beforeunload', handleUnload);
-  }, []);
-  
-  // If the parsed ID is invalid, redirect to home
-  useEffect(() => {
-    if (id && id !== 'new' && isNaN(parseInt(id))) {
-      setLocation('/');
-      return;
-    }
-  }, [id, setLocation]);
+  // Load specialist data from local hardcoded list (offline mode)
+  const hardcodedSpecialists: Specialist[] = [
+    { id: 1, key: "psychology", name: "Dr. Greg (General Psychology)", specialty: "Mental Health Support", description: "General mental health support and counseling", icon: "fas fa-brain", color: "blue" },
+    { id: 2, key: "stress", name: "Dr. Maya (Stress Management)", specialty: "Stress & Anxiety", description: "Help with stress, anxiety, and coping strategies", icon: "fas fa-spa", color: "green" },
+    { id: 3, key: "relationship", name: "Dr. Alex (Relationship Counseling)", specialty: "Relationships", description: "Support for relationship issues and communication", icon: "fas fa-heart", color: "pink" },
+    { id: 4, key: "grief_counseling", name: "Dr. Sam (Grief Counseling)", specialty: "Loss & Grief", description: "Support through grief, loss, and bereavement", icon: "fas fa-dove", color: "purple" },
+    { id: 5, key: "addiction", name: "Dr. Riley (Addiction Support)", specialty: "Addiction Recovery", description: "Support for addiction recovery and substance abuse", icon: "fas fa-shield-alt", color: "orange" },
+    { id: 6, key: "trauma_therapy", name: "Dr. Jordan (Trauma Therapy)", specialty: "Trauma & PTSD", description: "Specialized support for trauma and PTSD", icon: "fas fa-hands-helping", color: "red" },
+    { id: 7, key: "career", name: "Dr. Casey (Career Counseling)", specialty: "Career & Work", description: "Guidance for career decisions and workplace issues", icon: "fas fa-briefcase", color: "teal" },
+    { id: 8, key: "sleep_psychology", name: "Dr. Taylor (Sleep Psychology)", specialty: "Sleep & Rest", description: "Help with sleep disorders and healthy sleep habits", icon: "fas fa-moon", color: "indigo" },
+    { id: 9, key: "mens_mental_health", name: "Dr. Ben (Men's Mental Health)", specialty: "Men's Issues", description: "Support for men's mental health and well-being", icon: "fas fa-male", color: "cyan" },
+    { id: 10, key: "empathy_specialist", name: "Dr. Marcus (Empathy Development)", specialty: "Empathy Development Expert", description: "Empathic skills, compassionate communication, perspective-taking", icon: "fas fa-hand-holding-heart", color: "indigo" },
+  ];
 
-  const { data: messages = [], isLoading } = useQuery<Message[]>({
-    queryKey: ['/api/conversations', conversationId, 'messages'],
-    queryFn: () => fetch(`/api/conversations/${conversationId}/messages`, { credentials: 'include' }).then(res => res.json()),
-    enabled: conversationId !== null
-  });
+  // Use hardcoded specialists instead of API call for offline functionality
+  const specialists = hardcodedSpecialists;
 
-  const { data: conversation, error: conversationError } = useQuery<Conversation>({
-    queryKey: ['/api/conversations', conversationId],
-    queryFn: async () => {
-      const response = await fetch(`/api/conversations/${conversationId}`, { credentials: 'include' });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch conversation: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Fetched conversation:', data);
-      return data;
-    },
-    enabled: conversationId !== null && conversationId > 0 // Only fetch for existing conversations
-  });
-
-  // Log conversation errors
-  useEffect(() => {
-    if (conversationError) {
-      console.error('Conversation fetch error:', conversationError);
-    }
-  }, [conversationError]);
-
-  // Load specialist data from specialists list as fallback
-  const { data: specialists = [] } = useQuery<Specialist[]>({
-    queryKey: ['/api/specialists'],
-    queryFn: () => fetch('/api/specialists', { credentials: 'include' }).then(res => res.json())
-  });
-
+  // Load messages from localStorage instead of API for offline functionality
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [conversation, setConversation] = useState<Conversation | null>(null);
   const [specialist, setSpecialist] = useState<Specialist | null>(null);
+  const [isSending, setIsSending] = useState(false);
 
-  // Set specialist from conversation data only - no fallback to first specialist
-  // Set specialist from conversation data or fallback to first available for /chat/new
+  // Load messages from localStorage on component mount
+  useEffect(() => {
+    if (conversationId) {
+      const savedMessages = localStorage.getItem(`conversation_${conversationId}_messages`);
+      if (savedMessages) {
+        try {
+          setMessages(JSON.parse(savedMessages));
+        } catch (error) {
+          console.error('Error parsing saved messages:', error);
+          setMessages([]);
+        }
+      }
+    }
+  }, [conversationId]);
+
+  // Load conversation from localStorage
+  useEffect(() => {
+    if (conversationId) {
+      const savedConversation = localStorage.getItem(`conversation_${conversationId}`);
+      if (savedConversation) {
+        try {
+          setConversation(JSON.parse(savedConversation));
+        } catch (error) {
+          console.error('Error parsing saved conversation:', error);
+        }
+      }
+    }
+  }, [conversationId]);
+
+  // Set specialist from conversation data or fallback
   useEffect(() => {
     if (conversation?.specialistId && specialists.length > 0) {
       const foundSpecialist = specialists.find(s => s.id === conversation.specialistId);
@@ -118,176 +113,165 @@ export default function Chat() {
         return;
       }
     }
-    // Fallback: if on /chat/new and no specialist selected, pick the first available
+
+    // Check for specialist from localStorage (selected from specialists page)
+    const savedSpecialist = localStorage.getItem('selectedSpecialist');
+    if (savedSpecialist && !specialist) {
+      try {
+        const parsedSpecialist = JSON.parse(savedSpecialist);
+        setSpecialist(parsedSpecialist);
+        localStorage.removeItem('selectedSpecialist'); // Clear after using
+        return;
+      } catch (error) {
+        console.error('Error parsing saved specialist:', error);
+      }
+    }
+
+    // Check URL parameters for specialist key
+    if (id === 'new' && !specialist) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const specialistKey = urlParams.get('specialist');
+      if (specialistKey) {
+        const foundSpecialist = specialists.find(s => s.key === specialistKey);
+        if (foundSpecialist) {
+          setSpecialist(foundSpecialist);
+          return;
+        }
+      }
+    }
+
+    // Fallback: if on /chat/new and no specialist selected, pick 'Men's Mental Health'
     if (!conversation && specialists.length > 0 && id === 'new' && !specialist) {
-      setSpecialist(specialists[0]);
+      const mensMentalHealthSpecialist = specialists.find(s => s.key === 'mens_mental_health');
+      setSpecialist(mensMentalHealthSpecialist || specialists[0]);
     }
   }, [conversation, specialists, specialist, id]);
 
-  const sendMessageMutation = useMutation({
-    mutationFn: async (content: string) => {
-      // Input validation
-      if (!content || content.trim().length === 0) {
-        throw new Error('Message cannot be empty');
-      }
+  // Generate AI response based on user input and specialist
+  const generateAIResponse = (userMessage: string, specialist: Specialist): string => {
+    const lowerMessage = userMessage.toLowerCase();
+    // Personalize with username if available
+    const name = localStorage.getItem('username') || '';
 
-      if (content.length > 5000) {
-        throw new Error('Message is too long. Please keep it under 5000 characters.');
-      }
+    // Crisis detection responses
+    if (lowerMessage.includes('suicide') || lowerMessage.includes('kill myself') || lowerMessage.includes('end it all')) {
+      return "Mate, I'm really concerned about you right now. Your life has value, and there are people who want to help. Please reach out to Lifeline at 13 11 14 immediately. They're available 24/7. Can you promise me you'll stay safe while we talk?";
+    }
 
+    if (lowerMessage.includes('hurt myself') || lowerMessage.includes('self harm')) {
+      return "I'm worried about you, mate. Those feelings of wanting to hurt yourself are a sign that you're in real pain. Let's work through this together. Have you felt this way before? What usually helps you feel safer?";
+    }
+
+    // Specialist-specific responses
+    const responses = {
+      psychology: [
+        `That sounds really challenging${name ? ", " + name : ", mate"}. Can you tell me more about how this is affecting your daily life?`,
+        `I hear you${name ? ", " + name : ", mate"}. It's completely normal to feel overwhelmed sometimes. What's been the hardest part for you?`,
+        `Thanks for sharing that${name ? ", " + name : ", mate"}. It takes courage to open up. How long have you been feeling this way?`,
+        `You're not alone in this${name ? ", " + name : ", mate"}. What's been on your mind lately?`,
+        `I get it${name ? ", " + name : ", mate"}. Life can be tough sometimes. What's been weighing you down?`,
+      ],
+      stress: [
+        `Stress can be a real bugger${name ? ", " + name : ", mate"}. What's been causing it for you?`,
+        `${name ? name : 'Mate'}, let's take a deep breath together. What's been stressing you out?`,
+        `I hear you${name ? ", " + name : ", mate"}. Stress can be overwhelming. What's been the biggest challenge for you?`,
+        `You're doing your best${name ? ", " + name : ", mate"}. What's been on your plate lately?`,
+        `Stress can be tough to manage${name ? ", " + name : ", mate"}. What's been helping you cope so far?`,
+      ],
+      relationship: [
+        `Relationships can be tricky${name ? ", " + name : ", mate"}. What's been going on?`,
+        `${name ? name : 'Mate'}, communication is key. What's been the hardest part for you?`,
+        `I hear you${name ? ", " + name : ", mate"}. Relationships take work. What's been on your mind?`,
+        `You're not alone in this${name ? ", " + name : ", mate"}. What's been happening in your relationship?`,
+        `Relationships can be a rollercoaster${name ? ", " + name : ", mate"}. What's been the biggest challenge for you?`,
+      ],
+      // Add more specialist-specific responses here...
+    };
+
+    const specialistResponses = responses[specialist.key] || ["I'm here to help, mate. Tell me more about what's going on."];
+    return specialistResponses[Math.floor(Math.random() * specialistResponses.length)];
+  };
+
+  // Send message using localStorage instead of API for offline functionality
+  const sendMessage = async (content: string) => {
+    // Input validation
+    if (!content || content.trim().length === 0) {
+      throw new Error('Message cannot be empty');
+    }
+
+    if (content.length > 5000) {
+      throw new Error('Message is too long. Please keep it under 5000 characters.');
+    }
+
+    setIsSending(true);
+    try {
       let targetConversationId = conversationId;
 
       // If no conversation exists (e.g., /chat/new), create one first
       if (!targetConversationId && specialist) {
-        const createResponse = await apiRequest('POST', '/api/conversations', {
+        // Create new conversation ID
+        const newConversationId = Date.now();
+        const newConversation = {
+          id: newConversationId,
           specialistId: specialist.id,
-          title: 'New Conversation'
-        });
-        
-        if (!createResponse.ok) {
-          throw new Error('Failed to create conversation');
-        }
-        
-        const newConversation = await createResponse.json();
-        targetConversationId = newConversation.id;
-        
-        // Update the URL to reflect the new conversation
-        setLocation(`/chat/${targetConversationId}`);
-      }
-
-      if (!targetConversationId) {
-        throw new Error('No conversation available');
-      }
-
-      const sessionId = getSessionId();
-      const response = await apiRequest('POST', `/api/conversations/${targetConversationId}/messages`, {
-        content: content.trim(),
-        sessionId
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Failed to send message: ${response.status}`);
-      }
-      
-      return response.json();
-    },
-    onMutate: async (content: string) => {
-      setIsTyping(true);
-      
-      // Optimistic update - add message to UI immediately
-      const previousMessages = queryClient.getQueryData(['/api/conversations', conversationId, 'messages']);
-      
-      // Create optimistic message with unique ID to prevent duplicates
-      const optimisticMessage = {
-        id: `optimistic-${Date.now()}-${Math.random()}`, // unique temporary ID
-        content,
-        sender: 'user',
-        timestamp: new Date().toISOString(),
-        conversationId,
-        isOptimistic: true // flag to identify optimistic messages
-      };
-      
-      // Update the messages query data
-      queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], (old: any) => {
-        return old ? [...old, optimisticMessage] : [optimisticMessage];
-      });
-      
-      return { previousMessages };
-    },
-    onSuccess: (data) => {
-      setSpecialist(data.specialist);
-      
-      // Handle specialist recommendations
-      if (data.recommendedSpecialist && data.recommendedSpecialist.key !== specialist?.key) {
-        setRecommendedSpecialist(data.recommendedSpecialist);
-        setShowSpecialistSwitch(true);
-        
-        // Auto-hide specialist recommendation after 10 seconds
-        setTimeout(() => {
-          setShowSpecialistSwitch(false);
-        }, 10000);
-      }
-      
-      // Log user insights for debugging
-      if (data.userInsights) {
-        console.log('User insights:', data.userInsights);
-      }
-      
-      // Clear optimistic messages and set real data
-      const targetConversationId = conversationId || (data as any)?.conversationId;
-      if (targetConversationId) {
-        // Remove optimistic messages and add real ones
-        queryClient.setQueryData(['/api/conversations', targetConversationId, 'messages'], (old: any) => {
-          if (!old) return [data.userMessage, data.assistantMessage];
-          
-          // Remove optimistic messages and add real ones
-          const filteredMessages = old.filter((msg: any) => !msg.isOptimistic);
-          return [...filteredMessages, data.userMessage, data.assistantMessage];
-        });
-      }
-      setIsTyping(false);
-    },
-    onError: (error: any, variables, context) => {
-      setIsTyping(false);
-      console.error('Failed to send message:', error);
-      
-      // Get the conversation ID that was actually used
-      const targetConversationId = (context as any)?.targetConversationId || conversationId;
-      
-      if (targetConversationId) {
-        // Rollback optimistic update
-        if (context?.previousMessages) {
-          queryClient.setQueryData(['/api/conversations', targetConversationId, 'messages'], context.previousMessages);
-        }
-        
-        // Add error message to the chat
-        const errorMessage = {
-          id: Date.now() + 1, // temporary ID
-          content: getErrorMessage(error),
-          sender: 'system' as const,
-          timestamp: new Date().toISOString(),
-          conversationId: targetConversationId,
-          isError: true
+          title: 'New Conversation',
+          createdAt: new Date(),
+          updatedAt: new Date()
         };
         
-        queryClient.setQueryData(['/api/conversations', targetConversationId, 'messages'], (old: any) => {
-          return old ? [...old, errorMessage] : [errorMessage];
-        });
+        // Save conversation to localStorage
+        localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
+        
+        // Update current conversation
+        setConversation(newConversation);
+        targetConversationId = newConversationId;
+        
+        // Update URL to reflect new conversation
+        setLocation(`/chat/${newConversationId}`);
       }
-    }
-  });
 
-  // Specialist switch mutation
-  const switchSpecialistMutation = useMutation({
-    mutationFn: async (specialistId: number) => {
-      if (!conversationId) {
-        throw new Error('No conversation to switch specialist for');
-      }
+      // Create user message
+      const userMessage: Message = {
+        id: Date.now(),
+        content: content.trim(),
+        sender: 'user',
+        timestamp: new Date(),
+        conversationId: targetConversationId!
+      };
+
+      // Add user message to messages
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
       
-      const response = await apiRequest('PATCH', `/api/conversations/${conversationId}/specialist`, {
-        specialistId
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to switch specialist');
-      }
-      
-      return response.json();
-    },
-    onSuccess: (data) => {
-      // Navigate to the new conversation
-      setLocation(`/chat/${data.conversation.id}`);
-      setShowSpecialistSwitch(false);
-      setRecommendedSpecialist(null);
-      
-      // Clear current messages and reload
-      queryClient.invalidateQueries({ queryKey: ['/api/conversations'] });
-    },
-    onError: (error) => {
-      console.error('Failed to switch specialist:', error);
+      // Save messages to localStorage
+      localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(updatedMessages));
+
+      // Show typing indicator
+      setIsTyping(true);
+
+      // Simulate AI response after a delay
+      setTimeout(() => {
+        const aiResponse: Message = {
+          id: Date.now() + 1,
+          content: generateAIResponse(content.trim(), specialist!),
+          sender: 'specialist',
+          timestamp: new Date(),
+          conversationId: targetConversationId!
+        };
+
+        const finalMessages = [...updatedMessages, aiResponse];
+        setMessages(finalMessages);
+        localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
+        setIsTyping(false);
+      }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
+
+    } catch (error) {
+      setIsTyping(false);
+      throw error;
+    } finally {
+      setIsSending(false);
     }
-  });
+  };
 
   // Helper function to get user-friendly error messages
   const getErrorMessage = (error: any): string => {
@@ -307,23 +291,15 @@ export default function Chat() {
         return "Please enter a message before sending.";
       }
       
-      if (error.message.includes('404')) {
-        return "Session not found. Please refresh the page.";
-      }
-      
-      if (error.message.includes('5')) { // 500 errors
-        return "Server issue. Please try again, or call Lifeline at 13 11 14 if you need immediate support.";
-      }
-      
       return error.message;
     }
     
     return "Something went wrong. Please try again.";
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     const trimmedMessage = message.trim();
-    if (!trimmedMessage || sendMessageMutation.isPending) return;
+    if (!trimmedMessage || isSending) return;
 
     // Hide welcome message after first interaction
     if (showWelcome) {
@@ -337,25 +313,20 @@ export default function Chat() {
       console.log("Detected topics:", detectedTags);
     }
 
-    // Store the message before clearing (in case of error)
-    const messageToSend = trimmedMessage;
-    
-    sendMessageMutation.mutate(messageToSend, {
-      onSuccess: (data) => {
-        console.log('Message sent successfully:', data);
-        // Only clear the message on successful send
-        setMessage("");
-        // Reset textarea height
-        if (textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-        }
-      },
-      onError: (error) => {
-        console.error("Failed to send message:", error);
-        // Keep the message in the input if sending fails
-        // Don't clear setMessage so user can retry
+    try {
+      await sendMessage(trimmedMessage);
+      // Only clear the message on successful send
+      setMessage("");
+      // Reset textarea height
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
       }
-    });
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      // Keep the message in the input if sending fails
+      // Show error to user
+      alert(getErrorMessage(error));
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -374,43 +345,10 @@ export default function Chat() {
     textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
   };
 
-  const quickResponses = [
-    "Tell me more",
-    "What should I do?",
-    "That's helpful"
-  ];
-
-  const handleQuickResponse = (response: string) => {
-    setMessage(response);
-  };
-
   // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
-
-  // Add welcome message if no messages exist
-  useEffect(() => {
-    if (messages.length === 0 && !isLoading && specialist) {
-      // Add initial welcome message (this would typically come from the backend)
-      const welcomeMessage = `G'day mate! I'm ${specialist.name}, your ${specialist.specialty.toLowerCase()}. What's going on?`;
-      
-      // We can simulate this or update the backend to automatically create a welcome message
-    }
-  }, [messages, isLoading, specialist]);
-
-  // Check for draft from notes page
-  useEffect(() => {
-    const draft = localStorage.getItem("chatDraft");
-    if (draft) {
-      setMessage(draft);
-      localStorage.removeItem("chatDraft"); // Clear after using
-      // Focus the textarea
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 100);
-    }
-  }, []);
 
   // Check if there are saved notes
   useEffect(() => {
@@ -418,320 +356,159 @@ export default function Chat() {
     setHasNotes(!!savedNotes && savedNotes.trim().length > 0);
   }, []);
 
-  // Update notes status when page becomes visible (user returns from notes)
+  // Check for draft notes on component mount
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        const savedNotes = localStorage.getItem("mateNotes");
-        setHasNotes(!!savedNotes && savedNotes.trim().length > 0);
+    const chatDraft = localStorage.getItem("chatDraft");
+    if (chatDraft) {
+      setMessage(chatDraft);
+      localStorage.removeItem("chatDraft"); // Clear after using
+      
+      // Auto-resize textarea for the loaded content
+      if (textareaRef.current) {
+        setTimeout(() => {
+          textareaRef.current!.style.height = 'auto';
+          textareaRef.current!.style.height = Math.min(textareaRef.current!.scrollHeight, 120) + 'px';
+        }, 0);
       }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }
   }, []);
 
-  // Check private mode status and react to changes immediately
-  useEffect(() => {
-    const checkPrivateMode = () => {
-      const privateModeData = localStorage.getItem('mate-private-mode');
-      const isPrivateNow = !!privateModeData;
-      
-      if (privateMode !== isPrivateNow) {
-        if (isPrivateNow) {
-          // Private mode just turned on - clear UI immediately for privacy
-          queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-          setShowWelcome(true);
-        }
-        setPrivateMode(isPrivateNow);
-      }
-    };
-    
-    checkPrivateMode();
-    
-    // Listen for private mode changes via storage events
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'mate-private-mode') {
-        checkPrivateMode();
-      }
-    };
-    
-    // Listen for private mode changes via focus events (when user returns to tab)
-    const handleFocus = () => {
-      checkPrivateMode();
-    };
-    
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('focus', handleFocus);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('focus', handleFocus);
-    };
-  }, [privateMode, conversationId, queryClient]);
-
-  // Clear chat UI when private mode turns off (but keep data in backend)
-  useEffect(() => {
-    const checkPrivateModeChange = () => {
-      const privateModeData = localStorage.getItem('mate-private-mode');
-      const isPrivateNow = !!privateModeData;
-      
-      if (privateMode !== isPrivateNow) {
-        if (!isPrivateNow && privateMode) {
-          // Private mode was turned off - clear chat UI
-          queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-          setShowWelcome(true);
-        } else if (isPrivateNow && !privateMode) {
-          // Private mode was turned on - clear chat UI for privacy
-          queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-          setShowWelcome(true);
-        }
-        setPrivateMode(isPrivateNow);
-      }
-    };
-    
-    // Run immediately and then on interval
-    checkPrivateModeChange();
-    const interval = setInterval(checkPrivateModeChange, 200);
-    return () => clearInterval(interval);
-  }, [privateMode, conversationId, queryClient]);
-
-  // Clear chat UI when leaving app (but retain data in backend)
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // App is being hidden/closed - clear UI after delay
-        setTimeout(() => {
-          if (document.hidden) {
-            queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-            setShowWelcome(true);
-          }
-        }, 5000); // 5 second delay to allow for quick tab switches
-      }
-    };
-    
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [conversationId, queryClient]);
-
   return (
-    <div className="min-h-screen modern-bg-blobs flex flex-col items-center justify-start">
-      <div className="max-w-md w-full mx-auto glass-card modern-card min-h-screen relative flex flex-col">
+    <div className="min-h-screen flex flex-col items-center justify-start relative">
+      {/* Animated background */}
+      <div className="modern-bg-blobs"></div>
+      
+      <div className="max-w-md w-full mx-auto glass-card shadow-2xl min-h-screen relative flex flex-col pb-20 z-10">
         {/* Header */}
-  <header className="bg-gradient-to-r from-blue-500/80 to-purple-500/80 dark:from-gray-800 dark:to-gray-900 text-white px-4 py-3 shadow-lg sticky top-0 z-10 rounded-b-3xl glass-card">
-    <div className="flex items-center justify-between min-h-[64px] h-16 md:h-20">
-      <div className="flex items-center gap-3">
-        <button 
-          onClick={() => window.history.length > 1 ? window.history.back() : setLocation('/')}
-          className="p-2 modern-btn rounded-full flex items-center justify-center min-h-[40px]"
-          title="Go back"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <div className="flex flex-col justify-center">
-          <h1 className="text-xl font-semibold leading-tight">
-            {specialist?.name || 'Mate'}
-          </h1>
-          <p className="text-blue-200 dark:text-gray-300 text-sm leading-tight">
-            {specialist ? `${specialist.specialty} • Online` : 'AI Assistant • Online'}
-          </p>
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <PrivacyToggle />
-        <button className="p-2 modern-btn rounded-full flex items-center justify-center" title="Profile" onClick={() => setLocation('/profile')}>
-          <i className="fas fa-user-circle text-xl"></i>
-        </button>
-        <button className="p-2 modern-btn rounded-full flex items-center justify-center" title="Settings" onClick={() => setLocation('/settings')}>
-          <i className="fas fa-cog"></i>
-        </button>
-      </div>
-    </div>
-  </header>
+        <header className="bg-gradient-to-r from-blue-500/80 to-purple-500/80 dark:from-gray-800 dark:to-gray-900 text-white px-4 py-3 pt-safe shadow-lg sticky top-0 z-10 rounded-t-3xl glass-card">
+          <div className="flex items-center justify-between min-h-[64px] h-16 md:h-20">
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => window.history.length > 1 ? window.history.back() : setLocation('/')}
+                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                title="Back"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <h1 className="text-xl font-semibold leading-tight">Mate</h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <PrivacyToggle />
+              <ProfileIconWithName onClick={() => setLocation('/profile')} />
+              <button
+                className="p-3 hover:bg-blue-600 dark:hover:bg-blue-700 rounded-full transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center interactive cursor-pointer"
+                title="Settings"
+                onClick={() => setLocation('/settings')}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7 text-blue-200 dark:text-blue-400">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.01c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.01 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.01 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.01c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.572-1.01c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.01-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.01-2.572c-.94-1.543.826-3.31 2.37-2.37.996.608 2.265.07 2.572-1.01z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
 
-  {/* Messages Area */}
-  <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-32">
-    {isLoading ? (
-      <div className="space-y-4">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="animate-pulse">
-            <div className="flex space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-300/60 to-purple-300/60 dark:from-gray-700 dark:to-gray-800 rounded-full"></div>
-              <div className="flex-1">
-                <div className="glass-card p-4 max-w-xs h-16"></div>
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-32">
+          {isLoading ? (
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="flex space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-300/60 to-purple-300/60 dark:from-gray-700 dark:to-gray-800 rounded-full"></div>
+                    <div className="flex-1">
+                      <div className="glass-card p-4 max-w-xs h-16"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : !specialist && id === 'new' ? (
+            // Show specialist selection prompt when accessing /chat/new without a specialist
+            <div className="flex flex-col items-center justify-center h-full space-y-6 text-center px-6">
+              <div className="text-6xl">🤝</div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                  Choose Your Support Specialist
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  To get started, you'll need to select a specialist who can best help with your needs.
+                </p>
+                <Button 
+                  onClick={() => setLocation('/specialists')}
+                  className="modern-btn px-6 py-3 font-semibold"
+                >
+                  Select a Specialist
+                </Button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    ) : !specialist && id === 'new' ? (
-      // Show specialist selection prompt when accessing /chat/new without a specialist
-      <div className="flex flex-col items-center justify-center h-full space-y-6 text-center px-6">
-        <div className="text-6xl">🤝</div>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-            Choose Your Support Specialist
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            To get started, you'll need to select a specialist who can best help with your needs.
-          </p>
-          <Button 
-            onClick={() => setLocation('/specialists')}
-            className="modern-btn px-6 py-3 font-semibold"
-          >
-            Select a Specialist
-          </Button>
+          ) : (
+            <>
+              {/* Welcome message on fresh session or when no messages exist */}
+              {(messages.length === 0 || showWelcome) && specialist && (
+                <div className="glass-card modern-card p-4">
+                  <MessageBubble
+                    content={messages.length === 0 ? 
+                      `G'day${username ? `, ${username}` : ''}! I'm ${specialist.name}. What's going on?` :
+                      `Welcome back${username ? `, ${username}` : ''}! How are you feeling today?`
+                    }
+                    sender="specialist"
+                    timestamp={new Date()}
+                    specialistName={specialist.name}
+                    specialistSpecialty={specialist.specialty}
+                  />
+                </div>
+              )}
+              
+              {messages.map((msg) => (
+                <div className="glass-card modern-card p-2" key={msg.id}>
+                  <MessageBubble
+                    content={msg.content}
+                    sender={msg.sender as any}
+                    timestamp={msg.timestamp}
+                    specialistName={specialist?.name}
+                    specialistSpecialty={specialist?.specialty}
+                  />
+                </div>
+              ))}
+              
+              {isTyping && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
+            </>
+          )}
+          <div ref={messagesEndRef} />
         </div>
-      </div>
-    ) : (
-      <>
-        {/* Welcome message on fresh session or when no messages exist */}
-        {(messages.length === 0 || showWelcome) && specialist && (
-          <div className="glass-card modern-card p-4">
-            <MessageBubble
-              content={messages.length === 0 ? 
-                `G'day mate! I'm ${specialist.name}. What's going on?` :
-                `Welcome back, mate! How are you feeling today?`
-              }
-              sender="specialist"
-              timestamp={new Date()}
-              specialistName={specialist?.name}
-              specialistSpecialty={specialist?.specialty}
-            />
-          </div>
+
+        {/* Message Input Area - only show when specialist is selected */}
+        {specialist && (
+          <footer className="fixed bottom-16 left-0 w-full max-w-md mx-auto px-2 z-40">
+            <div className="glass-card modern-card flex gap-2 p-4 rounded-2xl shadow-xl border border-white/20 backdrop-blur-md items-center">
+              <Textarea
+                ref={textareaRef}
+                value={message}
+                onChange={handleTextareaChange}
+                onKeyDown={handleKeyPress}
+                placeholder="Type your message..."
+                className="flex-1 modern-input glass-card font-mono resize-none min-h-[48px] max-h-32 border-white/20 bg-transparent text-white"
+                style={{marginBottom: 0}}
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={isSending || !message.trim()}
+                className="flex items-center justify-center ml-2 focus:outline-none disabled:opacity-50 bg-transparent border-0 p-0"
+                title="Send"
+                type="button"
+                style={{ alignSelf: 'center' }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.25} stroke="currentColor" className="w-7 h-7 text-blue-300 hover:text-blue-500 transition-colors -rotate-45">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-7.5-15-7.5v6l10 1.5-10 1.5v6z" />
+                </svg>
+              </button>
+            </div>
+          </footer>
         )}
-        
-        {messages.map((msg) => (
-          <div className="glass-card modern-card p-2" key={msg.id}>
-            <MessageBubble
-              content={msg.content}
-              sender={msg.sender as any}
-              timestamp={msg.timestamp ? new Date(msg.timestamp) : undefined}
-              specialistName={specialist?.name}
-              specialistSpecialty={specialist?.specialty}
-            />
-          </div>
-        ))}
-        
-        {isTyping && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
-      </>
-    )}
-    <div ref={messagesEndRef} />
-  </div>
 
-  {/* Specialist Recommendation Banner */}
-  {showSpecialistSwitch && recommendedSpecialist && (
-    <div className="fixed top-20 left-0 right-0 max-w-md mx-auto z-30 p-4">
-      <div className="glass-card modern-card bg-amber-50/80 dark:bg-amber-900/80 border border-amber-200 dark:border-amber-700 rounded-xl p-4 shadow-lg">
-        <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
-            <i className={`fas ${recommendedSpecialist.icon} text-white text-xs`}></i>
-          </div>
-          <div className="flex-1">
-            <h3 className="font-semibold text-amber-800 dark:text-amber-200">
-              Switch to {recommendedSpecialist.name}?
-            </h3>
-            <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
-              Based on what you're sharing, {recommendedSpecialist.name} ({recommendedSpecialist.specialty}) might be better suited to help.
-            </p>
-            <div className="flex space-x-2 mt-3">
-              <Button
-                size="sm"
-                onClick={() => switchSpecialistMutation.mutate(recommendedSpecialist.id)}
-                disabled={switchSpecialistMutation.isPending}
-                className="modern-btn bg-amber-600 hover:bg-amber-700 text-white"
-              >
-                {switchSpecialistMutation.isPending ? 'Switching...' : 'Switch Now'}
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setShowSpecialistSwitch(false)}
-                className="modern-btn border-amber-300 text-amber-700 hover:bg-amber-100"
-              >
-                Stay Here
-              </Button>
-            </div>
-          </div>
-          <button
-            onClick={() => setShowSpecialistSwitch(false)}
-            className="modern-btn text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-            title="Dismiss recommendation"
-          >
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  )}
-
-  {/* Message Input Area - only show when specialist is selected */}
-  {specialist && (
-    <div className="fixed bottom-16 left-0 right-0 border-t border-gray-200 dark:border-gray-600 p-4 glass-card modern-card bg-white/80 dark:bg-gray-800/80 flex items-end space-x-2 max-w-md mx-auto">
-    <button 
-      onClick={() => setLocation('/notes')}
-      className="modern-btn p-3 text-yellow-500 dark:text-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-300 transition-colors relative" 
-      title="Open notepad"
-    >
-      {hasNotes ? (
-        // Filled sticky note with shadow and content indication
-        <div className="relative w-5 h-5">
-          <div className="absolute inset-0 bg-yellow-400 dark:bg-yellow-500 rounded-sm shadow-sm">
-            {/* Folded corner */}
-            <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-300 dark:bg-yellow-400 rounded-sm shadow-sm transform rotate-45 origin-bottom-left"></div>
-            {/* Content lines */}
-            <div className="absolute top-1 left-0.5 right-1 space-y-0.5">
-              <div className="h-0.5 bg-yellow-600 dark:bg-yellow-700 rounded opacity-60"></div>
-              <div className="h-0.5 bg-yellow-600 dark:bg-yellow-700 rounded opacity-60 w-3/4"></div>
-              <div className="h-0.5 bg-yellow-600 dark:bg-yellow-700 rounded opacity-60 w-1/2"></div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        // Empty sticky note outline
-        <StickyNote className="w-5 h-5 rotate-90" />
-      )}
-    </button>
-    <div className="flex-1 relative">
-      <Textarea
-        ref={textareaRef}
-        value={message}
-        onChange={handleTextareaChange}
-        onKeyDown={handleKeyPress}
-        placeholder="Type your message..."
-        className="modern-input w-full pr-12 min-h-[48px]"
-        rows={1}
-      />
-      <button 
-        onClick={handleSendMessage}
-        disabled={!message.trim() || sendMessageMutation.isPending || !specialist}
-        className="modern-btn absolute right-2 bottom-2 p-2 text-primary dark:text-blue-400 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        title="Send message"
-      >
-        <Send className="w-4 h-4" />
-      </button>
-    </div>
-  </div>
-  )}
-  
-  {/* Quick Response Suggestions - only show when specialist is selected */}
-  {specialist && (
-  <div className="flex space-x-2 mt-3 overflow-x-auto">
-    {quickResponses.map((response: string, index: number) => (
-      <Button
-        key={index}
-        variant="outline"
-        size="sm"
-        onClick={() => handleQuickResponse(response)}
-        className="modern-btn px-4 py-2 rounded-full text-sm whitespace-nowrap"
-      >
-        {response}
-      </Button>
-    ))}
-  </div>
-  )}
-
-  <BottomNav />
+        <BottomNav />
       </div>
     </div>
   );
