@@ -4,3 +4,5 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+client/android/app/src/main/assets/model/
+client/android/app/src/main/assets/model/DeepSeek-R1-Distill-Qwen-1.5B-Q4_0.gguf
