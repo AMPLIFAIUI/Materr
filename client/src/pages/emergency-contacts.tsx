@@ -1,14 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Trash2, Plus, Shield, Phone, Save, X } from 'lucide-react';
+import { Trash2, Plus, Shield, Phone, Save, X, Activity } from 'lucide-react';
 import type { EmergencyContact } from '@/lib/crisisDetection';
 import EmergencyPermissionsStatus from '@/components/EmergencyPermissionsStatus';
+import { encryptData, decryptData } from '@/lib/secureStorage';
+import {
+  requestEmergencyPermissions,
+  sendEmergencySMS,
+  makeEmergencyCall,
+  showEmergencyNotification,
+  getCurrentLocation
+} from '@/lib/emergencyPermissions';
+
+const resolveEmergencyUserId = (): number => {
+  try {
+    const stored = localStorage.getItem('emergencyUserId');
+    if (stored) {
+      const parsed = parseInt(stored, 10);
+      if (!Number.isNaN(parsed)) {
+        return parsed;
+      }
+    }
+
+    const fallback = 1;
+    localStorage.setItem('emergencyUserId', fallback.toString());
+    return fallback;
+  } catch {
+    return 1;
+  }
+};
 
 export default function EmergencyContacts() {
+  const emergencyUserId = useMemo(() => resolveEmergencyUserId(), []);
+  const storageKey = `emergencyContacts_${emergencyUserId}`;
   const [contacts, setContacts] = useState<EmergencyContact[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingContact, setEditingContact] = useState<EmergencyContact | null>(null);
@@ -17,17 +45,46 @@ export default function EmergencyContacts() {
     phone: '',
     relationship: 'family' as 'family' | 'friend' | 'professional' | 'other'
   });
+  const [isTesting, setIsTesting] = useState(false);
+  const [testLog, setTestLog] = useState<string[]>([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem('emergencyContacts_1');
-    if (stored) {
-      setContacts(JSON.parse(stored));
-    }
-  }, []);
+    let cancelled = false;
 
-  const saveContacts = (newContacts: EmergencyContact[]) => {
-    localStorage.setItem('emergencyContacts_1', JSON.stringify(newContacts));
-    setContacts(newContacts);
+    const loadContacts = async () => {
+      const stored = localStorage.getItem(storageKey);
+      if (!stored) {
+        return;
+      }
+
+      try {
+        const decrypted = await decryptData(stored);
+        if (!cancelled && decrypted) {
+          setContacts(JSON.parse(decrypted));
+        }
+      } catch (error) {
+        console.error('Failed to load emergency contacts:', error);
+      }
+    };
+
+    void loadContacts();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [storageKey]);
+
+  const saveContacts = async (newContacts: EmergencyContact[]) => {
+    try {
+      const serialized = JSON.stringify(newContacts);
+      const encrypted = await encryptData(serialized);
+      localStorage.setItem(storageKey, encrypted);
+      setContacts(newContacts);
+    } catch (error) {
+      console.error('Failed to encrypt emergency contacts:', error);
+      localStorage.setItem(storageKey, JSON.stringify(newContacts));
+      setContacts(newContacts);
+    }
   };
 
   const addContact = () => {
@@ -46,41 +103,38 @@ export default function EmergencyContacts() {
     setIsEditing(true);
   };
 
-  const saveContact = () => {
+  const saveContact = async () => {
     if (!formData.name.trim() || !formData.phone.trim()) {
       alert('Please fill in all fields');
       return;
     }
 
-    // Check if we're at the contact limit (10) when adding a new contact
     if (!editingContact && contacts.length >= 10) {
       alert('Maximum of 10 emergency contacts allowed');
       return;
     }
 
     let newContacts: EmergencyContact[];
-    
+
     if (editingContact) {
-      // Editing existing contact
-      newContacts = contacts.map(c => 
-        c.id === editingContact.id 
+      newContacts = contacts.map(c =>
+        c.id === editingContact.id
           ? { ...editingContact, ...formData }
           : c
       );
     } else {
-      // Adding new contact
       const newContact: EmergencyContact = {
         id: Date.now(),
         name: formData.name,
         phone: formData.phone,
         relationship: formData.relationship,
-        isPrimary: contacts.length === 0, // First contact is primary
+        isPrimary: contacts.length === 0,
         verified: false
       };
       newContacts = [...contacts, newContact];
     }
 
-    saveContacts(newContacts);
+    await saveContacts(newContacts);
     setIsEditing(false);
     setEditingContact(null);
     setFormData({ name: '', phone: '', relationship: 'family' });
@@ -92,19 +146,68 @@ export default function EmergencyContacts() {
     setFormData({ name: '', phone: '', relationship: 'family' });
   };
 
-  const deleteContact = (id: number) => {
+  const deleteContact = async (id: number) => {
     const newContacts = contacts.filter(c => c.id !== id);
-    saveContacts(newContacts);
+    await saveContacts(newContacts);
+  };
+
+  const runCrisisTest = async () => {
+    if (isTesting) return;
+
+    setIsTesting(true);
+    const log: string[] = [];
+
+    try {
+      const permissions = await requestEmergencyPermissions();
+      log.push(
+        `Permissions — location: ${permissions.location.granted ? 'ok' : 'blocked'}, SMS: ${permissions.sms.granted ? 'ok' : 'blocked'}, notifications: ${permissions.notifications.granted ? 'ok' : 'blocked'}`
+      );
+
+      const primaryContact = contacts.find(c => c.isPrimary) || contacts[0];
+      if (!primaryContact) {
+        log.push('No emergency contacts configured. Add at least one contact before testing.');
+        return;
+      }
+
+      const location = await getCurrentLocation();
+      log.push(location ? `Location acquired (${location.lat.toFixed(4)}, ${location.lng.toFixed(4)})` : 'Location unavailable — proceeding without coordinates.');
+
+      const smsMessage = 'TEST ALERT: Mate emergency system verification. No action required.';
+      const smsSent = await sendEmergencySMS(primaryContact.phone, smsMessage, location ?? undefined);
+      log.push(smsSent
+        ? `SMS sent to ${primaryContact.name} (${primaryContact.phone}).`
+        : `SMS delivery pending for ${primaryContact.name}. Check offline log when back online.`);
+
+      const callInitiated = await makeEmergencyCall(primaryContact.phone);
+      log.push(callInitiated
+        ? `Phone dialer opened for ${primaryContact.name}.`
+        : 'Phone dialer could not be opened automatically.');
+
+      const notificationDelivered = await showEmergencyNotification(
+        'Test Crisis Alert',
+        'Your Mate emergency workflow test is complete.'
+      );
+      log.push(notificationDelivered
+        ? 'Confirmation notification displayed.'
+        : 'Notification could not be displayed. Review device settings.');
+
+      log.push('Crisis escalation pipeline test complete.');
+    } catch (error) {
+      log.push(`Test failed: ${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+      setTestLog(log);
+      setIsTesting(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Animated background */}
       <div className="modern-bg-blobs"></div>
-      
+
       <div className="flex-1 relative z-10 p-4">
       <div className="max-w-md mx-auto space-y-6">
-        
+
         <div className="text-center mb-8">
           <Shield className="w-16 h-16 mx-auto mb-4 text-destructive dark:text-red-400" />
           <h1 className="text-2xl font-bold text-secondary dark:text-white mb-2">Emergency Contacts</h1>
@@ -149,7 +252,7 @@ export default function EmergencyContacts() {
                   className="bg-gray-800 border-gray-600 text-white"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="phone" className="text-gray-300">Phone Number</Label>
                 <Input
@@ -161,12 +264,12 @@ export default function EmergencyContacts() {
                   className="bg-gray-800 border-gray-600 text-white"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="relationship" className="text-gray-300">Relationship</Label>
-                <Select 
-                  value={formData.relationship} 
-                  onValueChange={(value: 'family' | 'friend' | 'professional' | 'other') => 
+                <Select
+                  value={formData.relationship}
+                  onValueChange={(value: 'family' | 'friend' | 'professional' | 'other') =>
                     setFormData({ ...formData, relationship: value })
                   }
                 >
@@ -181,7 +284,7 @@ export default function EmergencyContacts() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="flex gap-2">
                 <Button onClick={saveContact} className="flex-1">
                   <Save className="w-4 h-4 mr-2" />
@@ -218,7 +321,7 @@ export default function EmergencyContacts() {
                     <Button
                       size="sm"
                       variant="destructive"
-                      onClick={() => deleteContact(contact.id)}
+                      onClick={() => { void deleteContact(contact.id); }}
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -239,16 +342,35 @@ export default function EmergencyContacts() {
           </Button>
         </div>
 
-        <Button 
-          variant="outline" 
-          className="w-full border-yellow-500 text-yellow-500 hover:bg-yellow-500/10"
-          onClick={() => {
-            alert('Test crisis alert sent to emergency contacts (simulation)');
-          }}
-        >
-          <i className="fas fa-test-tube mr-2"></i>
-          Test Crisis Alert System
-        </Button>
+        <div className="space-y-3">
+          <Button
+            variant="outline"
+            className="w-full border-yellow-500 text-yellow-500 hover:bg-yellow-500/10"
+            onClick={runCrisisTest}
+            disabled={isTesting}
+          >
+            <Activity className="w-4 h-4 mr-2" />
+            {isTesting ? 'Running Crisis Alert Test...' : 'Test Crisis Alert System'}
+          </Button>
+
+          {testLog.length > 0 && (
+            <Card className="glass-card border-yellow-500/40 text-sm">
+              <CardHeader>
+                <CardTitle className="text-yellow-400 flex items-center gap-2 text-base">
+                  <Phone className="w-4 h-4" />
+                  Crisis Alert Test Report
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <ul className="list-disc list-inside space-y-1 text-gray-200" aria-live="polite">
+                  {testLog.map((entry, index) => (
+                    <li key={index}>{entry}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+        </div>
 
       </div>
       </div>

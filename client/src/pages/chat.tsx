@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { mapUserMessageToTags } from "@/lib/topicMapping";
 import type { Message, Conversation, Specialist } from "../types";
+import { CrisisDetectionService } from "@/lib/crisisDetection";
 
 // Generate or get session ID for user profiling
 function getSessionId(): string {
@@ -32,6 +33,24 @@ function getSessionId(): string {
     localStorage.setItem('mate-session-id', sessionId);
   }
   return sessionId;
+}
+
+function getEmergencyUserId(): number {
+  try {
+    const stored = localStorage.getItem('emergencyUserId');
+    if (stored) {
+      const parsed = parseInt(stored, 10);
+      if (!Number.isNaN(parsed)) {
+        return parsed;
+      }
+    }
+
+    const fallback = 1;
+    localStorage.setItem('emergencyUserId', fallback.toString());
+    return fallback;
+  } catch {
+    return 1;
+  }
 }
 
 export default function Chat() {
@@ -74,6 +93,7 @@ export default function Chat() {
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [specialist, setSpecialist] = useState<Specialist | null>(null);
   const [isSending, setIsSending] = useState(false);
+  const emergencyUserIdRef = useRef<number>(getEmergencyUserId());
 
   // Load messages from localStorage on component mount
   useEffect(() => {
@@ -314,6 +334,17 @@ export default function Chat() {
     }
 
     try {
+      const riskLevel = CrisisDetectionService.assessRiskLevel(trimmedMessage);
+      if (riskLevel === "high" || riskLevel === "critical") {
+        CrisisDetectionService.triggerEmergencyResponse(
+          riskLevel,
+          trimmedMessage,
+          emergencyUserIdRef.current || 1
+        ).catch((error) => {
+          console.error('Emergency response workflow failed:', error);
+        });
+      }
+
       await sendMessage(trimmedMessage);
       // Only clear the message on successful send
       setMessage("");
