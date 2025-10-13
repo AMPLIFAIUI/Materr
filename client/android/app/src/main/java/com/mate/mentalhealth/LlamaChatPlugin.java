@@ -1,37 +1,60 @@
 package com.mate.mentalhealth;
 
 import android.util.Log;
+
+import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
+import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import com.getcapacitor.annotation.Permission;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 @CapacitorPlugin(name = "LlamaChat")
 public class LlamaChatPlugin extends Plugin {
+    private static final String TAG = "LlamaChatPlugin";
+
     @Override
     public void load() {
-        // Initialize model or native library here if needed
-        Log.i("LlamaChatPlugin", "LlamaChat plugin loaded");
+        Log.i(TAG, "LlamaChat plugin loaded");
     }
 
-    @com.getcapacitor.PluginMethod
-    public void infer(PluginCall call) {
-        String prompt = call.getString("prompt");
-        if (prompt == null) {
-            call.reject("Prompt is required");
+    @PluginMethod
+    public void initializeModel(PluginCall call) {
+        final boolean forceReload = call.getBoolean("forceReload", false);
+        getBridge().execute(() -> {
+            LlamaRuntimeManager manager = LlamaRuntimeManager.getInstance(getContext());
+            LlamaRuntimeManager.InitResult initResult = manager.initializeModel(forceReload);
+
+            JSObject result = new JSObject();
+            result.put("success", initResult.isSuccess());
+            result.put("message", initResult.getMessage());
+            if (initResult.getModelFile() != null) {
+                result.put("modelPath", initResult.getModelFile().getAbsolutePath());
+            }
+
+            call.resolve(result);
+        });
+    }
+
+    @PluginMethod
+    public void sendMessage(PluginCall call) {
+        final String prompt = call.getString("message");
+        if (prompt == null || prompt.trim().isEmpty()) {
+            call.reject("Message is required");
             return;
         }
-        // TODO: Add model inference logic here
-        // For now, just echo the prompt
-        JSONObject ret = new JSONObject();
-        try {
-            ret.put("result", "Echo: " + prompt);
-        } catch (JSONException e) {
-            call.reject("JSON error");
-            return;
-        }
-        call.resolve(ret);
+
+        getBridge().execute(() -> {
+            LlamaRuntimeManager manager = LlamaRuntimeManager.getInstance(getContext());
+            LlamaRuntimeManager.GenerationResult generationResult = manager.generateResponse(prompt);
+
+            JSObject result = new JSObject();
+            result.put("success", generationResult.isSuccess());
+            result.put("message", generationResult.getMessage());
+            if (generationResult.isSuccess()) {
+                result.put("response", generationResult.getResponse());
+            }
+
+            call.resolve(result);
+        });
     }
 }

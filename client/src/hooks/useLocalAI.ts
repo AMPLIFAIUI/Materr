@@ -3,32 +3,39 @@ import LlamaChat from '../plugins/llamaChat';
 import { Capacitor } from '@capacitor/core';
 
 export function useLocalAI() {
+  const nativePlatform = Capacitor.isNativePlatform();
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     initializeAI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initializeAI = async () => {
-    if (!Capacitor.isNativePlatform()) {
-      setError('Local AI only available on mobile devices');
+    if (!nativePlatform) {
+      setIsInitialized(false);
+      setError('Local AI requires a native runtime and is unavailable on the web');
       return;
     }
 
     try {
       setIsLoading(true);
+      setError(null);
       const result = await LlamaChat.initializeModel();
-      
+
       if (result.success) {
         setIsInitialized(true);
         setError(null);
       } else {
-        setError(result.message);
+        setIsInitialized(false);
+        setError(result.message || 'Unable to initialize the local AI model');
       }
     } catch (err) {
-      setError('Failed to initialize AI model');
+      const message = err instanceof Error ? err.message : 'Failed to initialize AI model';
+      setIsInitialized(false);
+      setError(message);
       console.error('AI initialization error:', err);
     } finally {
       setIsLoading(false);
@@ -36,21 +43,30 @@ export function useLocalAI() {
   };
 
   const sendMessage = async (message: string): Promise<string> => {
+    if (!nativePlatform) {
+      throw new Error(error || 'Local AI is not supported on this platform');
+    }
+
     if (!isInitialized) {
-      throw new Error('AI model not initialized');
+      throw new Error(error || 'AI model not initialized');
     }
 
     try {
       setIsLoading(true);
       const result = await LlamaChat.sendMessage({ message });
-      
+
       if (result.success && result.response) {
+        setError(null);
         return result.response;
-      } else {
-        throw new Error(result.message || 'Failed to get AI response');
       }
+
+      const failureMessage = result.message || 'Failed to get AI response';
+      setError(failureMessage);
+      throw new Error(failureMessage);
     } catch (err) {
-      throw new Error('Failed to send message to AI');
+      const message = err instanceof Error ? err.message : 'Failed to send message to AI';
+      setError(message);
+      throw new Error(message);
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +76,8 @@ export function useLocalAI() {
     isInitialized,
     isLoading,
     error,
+    hasNativeRuntime: nativePlatform,
     sendMessage,
-    initializeAI
+    initializeAI,
   };
 }

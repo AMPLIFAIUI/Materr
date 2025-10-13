@@ -1,25 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { User, Save, Shield, Calendar, ArrowLeft } from 'lucide-react';
 import { useLocation } from 'wouter';
+import {
+  loadProfile,
+  saveProfile as persistProfile,
+  syncProfileConversationCount,
+  type ProfileData
+} from '@/lib/profileStorage';
 
 export default function Profile() {
-  const [profile, setProfile] = useState({
-    username: localStorage.getItem('username') || '',
-    email: '',
-    joinDate: new Date().toLocaleDateString(),
-    totalConversations: 0,
-    preferredSpecialist: 'General Psychology'
-  });
+  const [profile, setProfile] = useState<ProfileData>(() => loadProfile());
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [, setLocation] = useLocation();
 
   const saveProfile = () => {
-    localStorage.setItem('username', profile.username);
-    alert('Profile saved successfully!');
+    const updatedProfile = persistProfile(profile);
+    setProfile(updatedProfile);
+    setSaveMessage('Profile saved successfully.');
   };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const initializeProfile = () => {
+      setProfile(loadProfile());
+    };
+
+    const refreshConversationCount = () => {
+      const updatedProfile = syncProfileConversationCount();
+      if (updatedProfile) {
+        setProfile(updatedProfile);
+      } else {
+        initializeProfile();
+      }
+    };
+
+    initializeProfile();
+    refreshConversationCount();
+
+    const handleStorage = (event: StorageEvent) => {
+      if (!event.key || event.key === 'profile' || event.key.startsWith('conversation_')) {
+        if (event.key?.startsWith('conversation_')) {
+          refreshConversationCount();
+        } else {
+          initializeProfile();
+        }
+      }
+    };
+
+    const handleProfileUpdated = () => {
+      initializeProfile();
+    };
+
+    window.addEventListener('storage', handleStorage);
+    window.addEventListener('mate:profile-updated', handleProfileUpdated);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('mate:profile-updated', handleProfileUpdated);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!saveMessage) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => setSaveMessage(null), 3000);
+    return () => window.clearTimeout(timeoutId);
+  }, [saveMessage]);
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -55,6 +109,11 @@ export default function Profile() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            {saveMessage && (
+              <div className="text-sm text-success dark:text-green-400 bg-success/10 dark:bg-green-500/10 border border-success/20 dark:border-green-500/20 rounded-md p-2">
+                {saveMessage}
+              </div>
+            )}
             <div>
               <Label htmlFor="username" className="text-gray-600 dark:text-gray-300">Username</Label>
               <Input
@@ -116,10 +175,10 @@ export default function Profile() {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-            <p>• All data stored locally on your device</p>
-            <p>• No external data transmission</p>
-            <p>• Emergency contacts encrypted</p>
-            <p>• Conversations are private and secure</p>
+            <p>• All profile and conversation data stays on this device</p>
+            <p>• Encryption helpers will activate automatically once available</p>
+            <p>• Emergency contacts and notes remain private</p>
+            <p>• Conversations never leave your browser without your consent</p>
           </CardContent>
         </Card>
 

@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
 import { ArrowLeft, Plus } from "lucide-react";
 import { useLocation } from "wouter";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient, apiRequest } from "@/lib/queryClient";
 import { SpecialistCard } from "@/components/specialist-card";
 import { Button } from "@/components/ui/button";
 import BottomNav from "@/components/BottomNav";
 import { loadSpecialists } from '@/lib/specialists';
 import { ProfileIconWithName } from "@/components/ProfileIconWithName";
+import type { Specialist } from "@/types";
 
 export default function Specialists() {
   const [, setLocation] = useLocation();
   const [showAll, setShowAll] = useState(false);
 
   // Dynamically load specialists (browser compatible)
-  const [specialists, setSpecialists] = useState<any[]>([]);
+  const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
@@ -37,27 +36,24 @@ export default function Specialists() {
     return () => { mounted = false; };
   }, []);
 
-  const createConversationMutation = useMutation({
-    mutationFn: async (specialistKey: string) => {
-      const response = await apiRequest('POST', '/api/conversations', {
-        specialistKey,
-        title: 'New Conversation'
-      });
-      return response.json();
-    },
-    onSuccess: (conversation) => {
-      setLocation(`/chat/${conversation.id}`);
-    },
-    onError: (error, specialist) => {
-      setLocation(`/chat/new?specialist=${specialist}`);
-    }
-  });
+  const handleSpecialistSelect = (specialist: Specialist) => {
+    const conversationId = Date.now();
+    const timestamp = new Date().toISOString();
 
-  const handleSpecialistSelect = (specialist) => {
-    // Store selected specialist for chat
+    const conversation = {
+      id: conversationId,
+      specialistId: specialist.id,
+      specialistKey: specialist.key,
+      title: `${specialist.specialty} Support`,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    };
+
+    localStorage.setItem(`conversation_${conversationId}`, JSON.stringify(conversation));
+    localStorage.setItem(`conversation_${conversationId}_messages`, JSON.stringify([]));
     localStorage.setItem('selectedSpecialist', JSON.stringify(specialist));
-    // Navigate directly to chat with specialist context
-    setLocation(`/chat/new?specialist=${specialist.key}`);
+
+    setLocation(`/chat/${conversationId}`);
   };
 
   // Show all if <= 8, else show 8 with a Show More button for the rest
