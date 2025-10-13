@@ -1,16 +1,100 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { Capacitor, registerPlugin } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
+import { LocalNotifications } from '@capacitor/local-notifications';
+
+type GenericPermissionState = 'granted' | 'denied' | 'prompt';
+
+type SMSPermission = { granted?: boolean; status?: GenericPermissionState };
+
+type SMSPlugin = {
+  checkPermission?: () => Promise<SMSPermission>;
+  requestPermission?: () => Promise<SMSPermission>;
+  send?: (options: { numbers: string[]; text: string }) => Promise<{ success?: boolean }>;
+};
+
+type ContactsPermissionResult = { contacts?: GenericPermissionState };
+
+type ContactsPlugin = {
+  checkPermissions?: () => Promise<ContactsPermissionResult>;
+  requestPermissions?: () => Promise<ContactsPermissionResult>;
+};
+
+const SMS = registerPlugin<SMSPlugin>('SMS', {
+  web: () => ({
+    async checkPermission() {
+      return { granted: false, status: 'denied' };
+    },
+    async requestPermission() {
+      return { granted: false, status: 'denied' };
+    },
+    async send() {
+      return { success: false };
+    }
+  })
+});
+
+const Contacts = registerPlugin<ContactsPlugin>('Contacts', {
+  web: () => ({
+    async checkPermissions() {
+      return { contacts: 'denied' };
+    },
+    async requestPermissions() {
+      return { contacts: 'denied' };
+    }
+  })
+});
+
+const OFFLINE_LOG_KEY = 'mate_emergency_action_log';
+
+const hasWindowContext = typeof window !== 'undefined';
+const hasNavigatorContext = typeof navigator !== 'undefined';
+
+const getLocalStorage = (): Storage | null => {
+  if (!hasWindowContext) {
+    return null;
+  }
+
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+};
+
+const recordOfflineAction = (action: string, payload: Record<string, unknown>) => {
+  const storage = getLocalStorage();
+  if (!storage) {
+    return;
+  }
+
+  try {
+    const existing = JSON.parse(storage.getItem(OFFLINE_LOG_KEY) || '[]');
+    existing.push({
+      action,
+      payload,
+      timestamp: new Date().toISOString()
+    });
+    storage.setItem(OFFLINE_LOG_KEY, JSON.stringify(existing));
+  } catch (error) {
+    console.error('Failed to record emergency action log:', error);
+  }
+};
 
 // Check if running on mobile device
 export const isMobile = () => {
-  return (window as any).Capacitor?.isNativePlatform() || false;
+  try {
+    return Capacitor.isNativePlatform();
+  } catch {
+    return false;
+  }
 };
 
 // Permission types for emergency features
-export type PermissionType = 
-  | 'location' 
-  | 'sms' 
-  | 'phone' 
-  | 'contacts' 
+export type PermissionType =
+  | 'location'
+  | 'sms'
+  | 'phone'
+  | 'contacts'
   | 'notifications';
 
 export interface PermissionStatus {
@@ -27,13 +111,28 @@ export interface EmergencyPermissions {
   notifications: PermissionStatus;
 }
 
+const toPermissionStatus = (state: GenericPermissionState | undefined, fallbackGranted = false): PermissionStatus => {
+  if (!state) {
+    return {
+      granted: fallbackGranted,
+      denied: !fallbackGranted,
+      prompt: false
+    };
+  }
+
+  return {
+    granted: state === 'granted',
+    denied: state === 'denied',
+    prompt: state === 'prompt'
+  };
+};
+
 /**
  * Request location permission for emergency alerts
  */
 export const requestLocationPermission = async (): Promise<PermissionStatus> => {
   if (!isMobile()) {
-    // Web fallback - use navigator.geolocation
-    if ('geolocation' in navigator) {
+    if (hasNavigatorContext && 'geolocation' in navigator) {
       return new Promise((resolve) => {
         navigator.geolocation.getCurrentPosition(
           () => resolve({ granted: true, denied: false, prompt: false }),
@@ -45,22 +144,17 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
   }
 
   try {
-    // Try to use Capacitor Geolocation plugin
-    const { Geolocation } = await import('@capacitor/geolocation').catch(() => ({ Geolocation: null }));
-    if (!Geolocation) {
-      // Plugin not available
-      return { granted: false, denied: true, prompt: false };
+    const status = await Geolocation.checkPermissions();
+    if (status.location === 'granted') {
+      return toPermissionStatus('granted');
     }
-    
-    const permission = await Geolocation.requestPermissions();
-    
-    return {
-      granted: permission.location === 'granted',
-      denied: permission.location === 'denied',
-      prompt: permission.location === 'prompt'
-    };
+
+    const requested = await Geolocation.requestPermissions();
+    return toPermissionStatus(requested.location);
   } catch (error) {
-    console.error('Error requesting location permission:', error);
+    recordOfflineAction('location-permission-error', {
+      error: error instanceof Error ? error.message : String(error)
+    });
     return { granted: false, denied: true, prompt: false };
   }
 };
@@ -68,11 +162,13 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
 /**
  * Get current location for emergency alerts
  */
-export const getCurrentLocation = async (): Promise<{lat: number, lng: number} | null> => {
+export const getCurrentLocation = async (): Promise<{ lat: number; lng: number } | null> => {
   try {
     if (!isMobile()) {
-      // Web fallback
-      return new Promise((resolve, reject) => {
+      if (!hasNavigatorContext || !('geolocation' in navigator)) {
+        return null;
+      }
+      return await new Promise((resolve) => {
         navigator.geolocation.getCurrentPosition(
           (position) => resolve({
             lat: position.coords.latitude,
@@ -83,22 +179,36 @@ export const getCurrentLocation = async (): Promise<{lat: number, lng: number} |
       });
     }
 
-    // Mobile - use Capacitor
-    const { Geolocation } = await import('@capacitor/geolocation').catch(() => ({ Geolocation: null }));
-    if (!Geolocation) {
+    const status = await requestLocationPermission();
+    if (!status.granted) {
       return null;
     }
-    
-    const position = await Geolocation.getCurrentPosition();
-    
+
+    const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
     return {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
   } catch (error) {
-    console.error('Error getting location:', error);
+    recordOfflineAction('location-error', {
+      error: error instanceof Error ? error.message : String(error)
+    });
     return null;
   }
+};
+
+const ensureSMSPermission = async () => {
+  if (!isMobile() || !Capacitor.isPluginAvailable('SMS')) {
+    return false;
+  }
+
+  const permission = SMS.checkPermission ? await SMS.checkPermission() : { granted: true };
+  if (permission?.granted) {
+    return true;
+  }
+
+  const requested = SMS.requestPermission ? await SMS.requestPermission() : { granted: false };
+  return !!requested?.granted;
 };
 
 /**
@@ -106,51 +216,74 @@ export const getCurrentLocation = async (): Promise<{lat: number, lng: number} |
  */
 export const requestSMSPermission = async (): Promise<PermissionStatus> => {
   if (!isMobile()) {
-    // Web - can use SMS URL scheme, return as granted
-    return { granted: true, denied: false, prompt: false };
+    return { granted: false, denied: true, prompt: false };
   }
 
-  // Mobile - SMS permissions are handled by the system when sending
-  // We'll assume available (actual permission check happens when sending)
-  return { granted: true, denied: false, prompt: false };
+  try {
+    const granted = await ensureSMSPermission();
+    return {
+      granted,
+      denied: !granted,
+      prompt: !granted
+    };
+  } catch (error) {
+    recordOfflineAction('sms-permission-error', {
+      error: error instanceof Error ? error.message : String(error)
+    });
+    return { granted: false, denied: true, prompt: false };
+  }
+};
+
+const buildSMSBody = (
+  message: string,
+  location?: { lat: number; lng: number }
+) => {
+  if (!location) {
+    return message;
+  }
+  const mapUrl = `https://maps.google.com/?q=${location.lat},${location.lng}`;
+  return `${message}\n\nLocation: ${mapUrl}`;
 };
 
 /**
  * Send emergency SMS message
  */
 export const sendEmergencySMS = async (
-  phoneNumber: string, 
-  message: string, 
-  location?: {lat: number, lng: number}
+  phoneNumber: string,
+  message: string,
+  location?: { lat: number; lng: number }
 ): Promise<boolean> => {
-  if (!isMobile()) {
-    // Web fallback - open SMS app
-    const smsBody = location 
-      ? `${message}\n\nLocation: https://maps.google.com/?q=${location.lat},${location.lng}`
-      : message;
-    
-    const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(smsBody)}`;
-    window.open(smsUrl, '_blank');
-    return true;
-  }
+  const smsBody = buildSMSBody(message, location);
 
   try {
-    // Placeholder for SMS functionality
-    // In production, this would use a proper SMS service
-    console.log(`SMS to ${phoneNumber}: ${message}`);
-    
-    // For now, fallback to opening SMS app
-    const smsBody = location 
-      ? `${message}\n\nLocation: https://maps.google.com/?q=${location.lat},${location.lng}`
-      : message;
-    
-    const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(smsBody)}`;
-    window.open(smsUrl, '_blank');
-    return true;
+    if (isMobile() && Capacitor.isPluginAvailable('SMS') && SMS.send) {
+      const granted = await ensureSMSPermission();
+      if (!granted) {
+        recordOfflineAction('sms-permission-denied', { phoneNumber });
+        return false;
+      }
+
+      const result = await SMS.send({ numbers: [phoneNumber], text: smsBody });
+      const success = result?.success ?? true;
+      if (!success) {
+        recordOfflineAction('sms-send-failed', { phoneNumber });
+      }
+      return success;
+    }
+
+    if (Capacitor?.openURL) {
+      await Capacitor.openURL(`sms:${phoneNumber}?body=${encodeURIComponent(smsBody)}`);
+      return true;
+    }
   } catch (error) {
-    console.error('Error sending SMS:', error);
-    return false;
+    recordOfflineAction('sms-error', {
+      phoneNumber,
+      error: error instanceof Error ? error.message : String(error)
+    });
   }
+
+  recordOfflineAction('sms-offline-queued', { phoneNumber, message: smsBody });
+  return false;
 };
 
 /**
@@ -158,10 +291,9 @@ export const sendEmergencySMS = async (
  */
 export const requestPhonePermission = async (): Promise<PermissionStatus> => {
   if (!isMobile()) {
-    return { granted: true, denied: false, prompt: false }; // Web can use tel: links
+    return { granted: false, denied: true, prompt: false };
   }
 
-  // Phone permissions are typically granted by default
   return { granted: true, denied: false, prompt: false };
 };
 
@@ -170,37 +302,42 @@ export const requestPhonePermission = async (): Promise<PermissionStatus> => {
  */
 export const makeEmergencyCall = async (phoneNumber: string): Promise<boolean> => {
   try {
-    const telUrl = `tel:${phoneNumber}`;
-    
-    if (isMobile()) {
-      // Placeholder for Capacitor App plugin
-      // In production, this would use proper Capacitor navigation
-      window.open(telUrl, '_blank');
-    } else {
-      // Web - open tel link
-      window.open(telUrl, '_blank');
+    if (Capacitor?.openURL) {
+      await Capacitor.openURL(`tel:${phoneNumber}`);
+      return true;
     }
-    
-    return true;
   } catch (error) {
-    console.error('Error making phone call:', error);
+    recordOfflineAction('phone-call-error', {
+      phoneNumber,
+      error: error instanceof Error ? error.message : String(error)
+    });
     return false;
   }
+
+  recordOfflineAction('phone-call-offline', { phoneNumber });
+  return false;
 };
 
 /**
  * Request contacts permission
  */
 export const requestContactsPermission = async (): Promise<PermissionStatus> => {
-  if (!isMobile()) {
+  if (!isMobile() || !Capacitor.isPluginAvailable('Contacts')) {
     return { granted: false, denied: true, prompt: false };
   }
 
   try {
-    // This would require a contacts plugin like @capacitor-community/contacts
-    // For now, we'll return false since we're not implementing contact import
-    return { granted: false, denied: true, prompt: false };
+    const status = Contacts.checkPermissions ? await Contacts.checkPermissions() : { contacts: 'denied' };
+    if (status?.contacts === 'granted') {
+      return toPermissionStatus('granted');
+    }
+
+    const requested = Contacts.requestPermissions ? await Contacts.requestPermissions() : { contacts: 'denied' };
+    return toPermissionStatus(requested?.contacts, false);
   } catch (error) {
+    recordOfflineAction('contacts-permission-error', {
+      error: error instanceof Error ? error.message : String(error)
+    });
     return { granted: false, denied: true, prompt: false };
   }
 };
@@ -211,24 +348,24 @@ export const requestContactsPermission = async (): Promise<PermissionStatus> => 
 export const requestNotificationPermission = async (): Promise<PermissionStatus> => {
   try {
     if (!isMobile()) {
-      // Web notifications
-      if ('Notification' in window) {
+      if (hasWindowContext && 'Notification' in window) {
         const permission = await Notification.requestPermission();
-        return {
-          granted: permission === 'granted',
-          denied: permission === 'denied',
-          prompt: permission === 'default'
-        };
+        return toPermissionStatus(permission as GenericPermissionState, permission === 'granted');
       }
       return { granted: false, denied: true, prompt: false };
     }
 
-    // Mobile notifications - placeholder
-    // In production, this would use proper Capacitor Local Notifications
-    console.log('Mobile notification permission - placeholder implementation');
-    return { granted: true, denied: false, prompt: false };
+    const status = await LocalNotifications.checkPermissions();
+    if (status.display === 'granted') {
+      return toPermissionStatus('granted');
+    }
+
+    const requested = await LocalNotifications.requestPermissions();
+    return toPermissionStatus(requested.display);
   } catch (error) {
-    console.error('Error requesting notification permission:', error);
+    recordOfflineAction('notification-permission-error', {
+      error: error instanceof Error ? error.message : String(error)
+    });
     return { granted: false, denied: true, prompt: false };
   }
 };
@@ -237,31 +374,42 @@ export const requestNotificationPermission = async (): Promise<PermissionStatus>
  * Show emergency notification
  */
 export const showEmergencyNotification = async (
-  title: string, 
+  title: string,
   body: string
 ): Promise<boolean> => {
   try {
     if (!isMobile()) {
-      // Web notification
-      if ('Notification' in window && Notification.permission === 'granted') {
+      if (hasWindowContext && 'Notification' in window && Notification.permission === 'granted') {
         new Notification(title, { body, icon: '/MATE/Mate192x192.png' });
         return true;
       }
+      recordOfflineAction('notification-web-blocked', { title, body });
       return false;
     }
 
-    // Mobile notification - placeholder
-    // In production, this would use proper Capacitor Local Notifications
-    console.log(`Mobile notification: ${title} - ${body}`);
-    
-    // Fallback - try web notification
-    if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification(title, { body, icon: '/MATE/Mate192x192.png' });
-      return true;
+    const permission = await requestNotificationPermission();
+    if (!permission.granted) {
+      return false;
     }
-    return true; // Assume success for placeholder
+
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          id: Date.now(),
+          title,
+          body,
+          schedule: { at: new Date() },
+          smallIcon: 'ic_stat_icon_config_sample',
+          sound: undefined
+        }
+      ]
+    });
+    return true;
   } catch (error) {
-    console.error('Error showing notification:', error);
+    recordOfflineAction('notification-error', {
+      title,
+      error: error instanceof Error ? error.message : String(error)
+    });
     return false;
   }
 };
@@ -270,13 +418,11 @@ export const showEmergencyNotification = async (
  * Check all emergency permissions status
  */
 export const checkAllPermissions = async (): Promise<EmergencyPermissions> => {
-  const [location, sms, phone, contacts, notifications] = await Promise.all([
-    requestLocationPermission(),
-    requestSMSPermission(),
-    requestPhonePermission(),
-    requestContactsPermission(),
-    requestNotificationPermission()
-  ]);
+  const location = await requestLocationPermission();
+  const sms = await requestSMSPermission();
+  const phone = await requestPhonePermission();
+  const contacts = await requestContactsPermission();
+  const notifications = await requestNotificationPermission();
 
   return {
     location,
@@ -291,12 +437,7 @@ export const checkAllPermissions = async (): Promise<EmergencyPermissions> => {
  * Request all critical emergency permissions
  */
 export const requestEmergencyPermissions = async (): Promise<EmergencyPermissions> => {
-  console.log('Requesting emergency permissions...');
-  
   const permissions = await checkAllPermissions();
-  
-  // Log permission status
-  console.log('Emergency permissions status:', permissions);
-  
+  recordOfflineAction('permissions-evaluated', permissions as unknown as Record<string, unknown>);
   return permissions;
 };

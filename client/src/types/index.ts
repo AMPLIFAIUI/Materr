@@ -1,8 +1,24 @@
 // Simple types for offline app - no database dependencies
 
-export interface User {
-  id: number;
-  username: string;
+export interface SpecialistTheme {
+  gradient?: string;
+  avatarBg?: string;
+  avatarText?: string;
+  assistantBubble?: string;
+  assistantText?: string;
+  userBubble?: string;
+  userText?: string;
+  accent?: string;
+  chip?: string;
+  color?: string;
+}
+
+export interface SpecialistKnowledgeBase {
+  persona?: string;
+  focusAreas?: string[];
+  techniques?: string[];
+  conversationStarters?: string[];
+  supportPhrases?: string[];
 }
 
 export interface Specialist {
@@ -13,15 +29,24 @@ export interface Specialist {
   description: string;
   icon: string;
   color: string;
+  aliases?: string[];
+  theme?: SpecialistTheme;
+  knowledgeBase?: SpecialistKnowledgeBase;
+}
+
+export interface User {
+  id: number;
+  username: string;
 }
 
 export interface Conversation {
   id: number;
   userId?: number;
   specialistId: number;
+  specialistKey?: string;
   title?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 }
 
 export interface Message {

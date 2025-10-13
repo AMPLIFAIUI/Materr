@@ -25,6 +25,7 @@ import { mapUserMessageToTags } from "@/lib/topicMapping";
 import { useLocalAI } from "@/hooks/useLocalAI";
 import { buildMatePrompt, getUserStyleSummary } from "@/lib/matePrompt";
 import { saveUserContext, getUserContext } from "@/lib/userContext";
+import { syncProfileConversationCount } from "@/lib/profileStorage";
 import type { Message, Conversation, Specialist } from "../types";
 
 // Generate or get session ID for user profiling
@@ -477,7 +478,8 @@ export default function Chat() {
         
         // Save conversation to localStorage
         localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
-        
+        syncProfileConversationCount();
+
         // Update current conversation
         setConversation(newConversation);
         targetConversationId = newConversationId;
