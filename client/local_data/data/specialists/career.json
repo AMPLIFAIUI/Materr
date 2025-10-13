@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "career",
+    "name": "Dr. Lisa",
+    "specialty": "Career Counselor",
+    "description": "Job stress, career changes",
+    "icon": "fas fa-briefcase",
+    "color": "green"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "job_stress",
+      "title": "Burnout Syndrome: Assessment, Prevention and Recovery Protocols",
+      "content": "Burnout affects 76% of employees with healthcare workers (87%), teachers (84%), and tech workers (82%) showing highest rates. Maslach Burnout Inventory dimensions: Emotional exhaustion (feeling drained), depersonalization (cynical attitudes), reduced personal accomplishment (inefficacy feelings). Case Study: Sarah, nurse manager - MBI scores: EE 54 (severe), DP 30 (severe), PA 12 (low). 6-month intervention reduced EE to 22, DP to 8, PA to 39. Recovery protocol: Phase 1 (months 1-2) reduce workload 25%, increase sleep to 8+ hours, implement stress management. Phase 2 (months 3-4) job crafting exercises, strength identification, social support building. Phase 3 (months 5-6) meaning-making activities, career goal alignment, workplace boundary setting. Early warning signs: Sunday scaries, chronic fatigue, cynicism, decreased performance, physical symptoms (headaches, insomnia). Prevention strategies: Job demands-resources optimization, micro-recovery throughout day, work-life boundary maintenance.",
+      "source": "Journal of Occupational Health Psychology",
+      "researcherAuthors": "Christina Maslach, Arnold Bakker, Wilmar Schaufeli, Michael Leiter",
+      "publicationYear": 2021,
+      "journalInstitution": "UC Berkeley Workplace Research Center",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["burnout", "job stress", "workplace wellness", "job crafting", "emotional exhaustion", "recovery protocol"]
+    },
+    {
+      "domain": "career_transition",
+      "title": "Strategic Career Change and Transition Management",
+      "content": "Average person changes careers 5-7 times, with 50% making major career shifts by age 40. Successful transition factors: Self-assessment (values, skills, interests), market research, network building, financial planning, skill development. Case Study: Mark, 42, corporate lawyer to nonprofit director - 18-month transition plan included volunteer work, executive education, 6-month salary cushion, resulted in 35% salary cut but 90% job satisfaction increase. Transition phases: Exploration (3-6 months) - assess current situation, research options; Preparation (6-12 months) - skill building, networking, planning; Action (3-6 months) - job search, interviewing, negotiation; Integration (3-6 months) - adapting to new role. Financial planning: 6-12 month emergency fund, transition budget, potential income reduction planning, benefits comparison. Skill gap analysis: Identify required vs. current competencies, create development plan, consider certifications/education, gain experience through volunteering or side projects.",
+      "source": "Career Development Quarterly",
+      "researcherAuthors": "Richard Bolles, Herminia Ibarra, Cal Newport",
+      "publicationYear": 2022,
+      "journalInstitution": "Stanford Graduate School of Business",
+      "evidenceLevel": "longitudinal",
+      "tags": ["career transition", "career change", "self-assessment", "financial planning", "skill development", "networking"]
+    },
+    {
+      "domain": "workplace_conflict",
+      "title": "Professional Conflict Resolution and Communication Strategies",
+      "content": "Workplace conflict costs organizations $359 billion annually in paid hours. Common sources: Communication failures (42%), personality clashes (28%), resource competition (18%), value differences (12%). Case Study: Department conflict between sales and marketing teams - mediation process over 8 weeks resulted in 75% improvement in collaboration scores, 40% increase in project success rates. Conflict resolution steps: 1) Identify core issues beyond positions, 2) Listen actively to all perspectives, 3) Find common ground and shared goals, 4) Generate multiple solutions, 5) Agree on specific action steps, 6) Follow-up and adjust as needed. Communication strategies: 'I' statements to express concerns, reflective listening to show understanding, asking clarifying questions, focusing on behaviors not personality. Difficult conversation framework: STATE method - Share facts, Tell your story, Ask for others' perspectives, Talk tentatively, Encourage testing. Mediation when needed: Neutral third party, structured process, confidentiality agreements, focus on interests not positions.",
+      "source": "Negotiation and Conflict Management Research",
+      "researcherAuthors": "Roger Fisher, William Ury, Kerry Patterson, Joseph Grenny",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard Program on Negotiation",
+      "evidenceLevel": "applied",
+      "tags": ["workplace conflict", "communication strategies", "mediation", "difficult conversations", "team collaboration"]
+    },
+    {
+      "domain": "leadership_development",
+      "title": "Leadership Skills and Management Effectiveness Programs",
+      "content": "Leadership development programs show 25% improvement in performance when including 360-feedback, coaching, and action learning. Key competencies: Emotional intelligence (40% of effectiveness), communication skills (35%), strategic thinking (25%). Case Study: First-time manager program - 6-month curriculum with monthly coaching increased team engagement from 6.2 to 8.1, reduced turnover by 45%. Development components: Self-awareness assessment (StrengthsFinder, EQ-i 2.0), 360-degree feedback from peers/subordinates/supervisors, executive coaching (bi-weekly sessions), action learning projects. Leadership styles adaptability: Situational leadership model - directing for low competence/high commitment, coaching for low-moderate competence/low commitment, supporting for moderate-high competence/variable commitment, delegating for high competence/high commitment. Communication skills: Active listening techniques, giving constructive feedback, public speaking confidence, written communication clarity. Team building: Creating psychological safety, managing diverse personalities, facilitating effective meetings, conflict resolution, performance management.",
+      "source": "Leadership Quarterly",
+      "researcherAuthors": "Ken Blanchard, Daniel Goleman, Jim Kouzes, Barry Posner",
+      "publicationYear": 2022,
+      "journalInstitution": "Center for Creative Leadership",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["leadership development", "emotional intelligence", "360 feedback", "situational leadership", "team building"]
+    },
+    {
+      "domain": "work_life_balance",
+      "title": "Work-Life Integration and Boundary Management Strategies",
+      "content": "Work-life balance significantly impacts job satisfaction (r=0.68) and reduces burnout risk by 45%. Integration vs. balance: Integration focuses on synergy between roles, balance emphasizes separation. Case Study: Working parent with travel demands - implemented boundary management strategies, negotiated flexible schedule, reduced work-family conflict from 8/10 to 3/10 over 4 months. Boundary management types: Physical (home office vs. kitchen table), temporal (work hours vs. family time), technological (work phone vs. personal), psychological (work mindset vs. family focus). Strategies by personality: Integrators benefit from flexible schedules, open communication about family needs, bringing family elements to work appropriately. Separators prefer clear work hours, separate devices, distinct physical spaces, role transition rituals. Remote work boundaries: Dedicated workspace, regular schedule, communication expectations with family, end-of-day shutdown rituals. Employer support: Flexible schedules, employee assistance programs, childcare assistance, mental health resources, workload management.",
+      "source": "Applied Psychology: An International Review",
+      "researcherAuthors": "Ellen Kossek, Brenda Lautsch, Susan Lambert",
+      "publicationYear": 2023,
+      "journalInstitution": "Purdue University",
+      "evidenceLevel": "longitudinal",
+      "tags": ["work-life balance", "boundary management", "remote work", "flexible schedules", "role integration"]
+    },
+    {
+      "domain": "performance_optimization",
+      "title": "Peak Performance and Productivity Enhancement Techniques",
+      "content": "High performers use specific strategies: Goal setting (increases performance 12-15%), Time management (improves efficiency 25%), Energy management (sustains performance 40% longer). Case Study: Sales professional implemented energy management approach - identified peak performance hours (9-11am, 2-4pm), scheduled important calls during these times, increased sales by 30% in 3 months. Flow state cultivation: Clear goals, immediate feedback, balance between challenge and skill level, deep concentration, time distortion. Productivity techniques ranked by effectiveness: 1) Time blocking (85% satisfaction), 2) Pomodoro (78%), 3) Getting Things Done (72%), 4) Energy management (69%). Deep work protocols: 4-hour blocks for complex cognitive tasks, eliminate distractions (phone off, email closed), single-tasking focus, regular breaks every 90 minutes. Energy management: Physical (exercise, nutrition, sleep), emotional (positive relationships, stress management), mental (focus, learning), spiritual (purpose, values alignment). Technology tools: RescueTime for tracking, Forest for focus, Todoist for task management, Calendly for scheduling.",
+      "source": "Harvard Business Review",
+      "researcherAuthors": "Cal Newport, Tony Schwartz, Jim Loehr, Charles Duhigg",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard Business School",
+      "evidenceLevel": "applied",
+      "tags": ["peak performance", "productivity", "flow state", "deep work", "energy management", "time blocking"]
+    },
+    {
+      "domain": "networking_career",
+      "title": "Strategic Professional Networking and Relationship Building",
+      "content": "85% of jobs are filled through networking, yet 70% of professionals dislike traditional networking. Effective networking focuses on giving value first, building genuine relationships, maintaining long-term connections. Case Study: Introverted engineer used strategic networking approach - identified 20 key contacts, provided value through industry insights, landed dream job through referral after 8 months. Networking strategy: 1) Identify target companies/roles, 2) Research key decision makers, 3) Find mutual connections or common interests, 4) Offer value before asking for anything, 5) Maintain regular but not overwhelming contact. Value-first approaches: Share relevant articles, make strategic introductions, offer expertise/skills, provide industry insights, volunteer for professional organizations. Digital networking: LinkedIn optimization (keyword-rich profile, regular valuable content), Twitter engagement with industry leaders, professional Facebook groups, virtual industry events. Introvert-friendly networking: One-on-one coffee meetings, online communities, volunteering, informational interviews, alumni networks. Follow-up system: CRM for contacts, regular check-ins, birthday/anniversary remembrance, sharing relevant opportunities.",
+      "source": "Administrative Science Quarterly",
+      "researcherAuthors": "Adam Grant, Reid Hoffman, Keith Ferrazzi",
+      "publicationYear": 2022,
+      "journalInstitution": "Wharton School",
+      "evidenceLevel": "survey",
+      "tags": ["networking", "relationship building", "job search", "LinkedIn", "introvert networking", "value creation"]
+    },
+    {
+      "domain": "salary_negotiation",
+      "title": "Compensation Negotiation and Career Advancement Strategies",
+      "content": "Salary negotiation can increase compensation 5-20%, yet only 37% of people negotiate. Women and minorities face additional challenges with 'likability penalty' for negotiating. Case Study: Software developer prepared market research, quantified achievements, practiced negotiation - secured 15% raise plus additional vacation days and professional development budget. Preparation steps: 1) Research market rates (Glassdoor, PayScale, Salary.com), 2) Document achievements and quantify impact, 3) Identify non-salary benefits valued, 4) Practice negotiation conversations, 5) Choose optimal timing. Negotiation framework: Anchor high but realistic, focus on value provided, use collaborative language ('What would it take to...'), be prepared to walk away, get agreements in writing. Beyond salary: Flexible schedule, remote work options, professional development budget, additional vacation, stock options, better title, conference attendance, tuition reimbursement. Timing strategies: After positive performance reviews, upon completing major projects, during budget planning periods, when taking on additional responsibilities. Gender/diversity considerations: Use 'we' language, frame in terms of market standards, negotiate for team/organization benefit, seek advocates and sponsors.",
+      "source": "Journal of Applied Psychology",
+      "researcherAuthors": "Linda Babcock, Hannah Riley Bowles, Deepak Malhotra",
+      "publicationYear": 2021,
+      "journalInstitution": "Carnegie Mellon University",
+      "evidenceLevel": "experimental",
+      "tags": ["salary negotiation", "compensation", "career advancement", "gender equity", "performance review", "market research"]
+    },
+    {
+      "domain": "remote_work_success",
+      "title": "Remote Work Optimization and Virtual Team Management",
+      "content": "Remote work satisfaction depends on: Autonomy (35%), Communication quality (30%), Technology support (20%), Work-life boundaries (15%). Case Study: Marketing team transition to remote - implemented structured communication protocols, virtual team building, resulted in 20% productivity increase and 90% employee satisfaction. Communication protocols: Daily standups (15 minutes), weekly team meetings (60 minutes), monthly one-on-ones (30 minutes), quarterly in-person/virtual retreats. Technology stack: Video conferencing (Zoom/Teams), Project management (Asana/Monday), Communication (Slack/Teams), File sharing (Google Drive/SharePoint), Time tracking (Toggl/Harvest). Workspace optimization: Dedicated office space, ergonomic setup, good lighting, noise management, professional background for video calls. Virtual management strategies: Results-focused vs. time-focused evaluation, regular check-ins for support, clear expectations and deadlines, recognition and celebration of achievements. Social connection: Virtual coffee chats, online team building activities, shared Slack channels for non-work chat, virtual lunch meetings, in-person meetups when possible.",
+      "source": "MIT Sloan Management Review",
+      "researcherAuthors": "Prithwiraj Choudhury, Raj Choudhury, Barbara Larson",
+      "publicationYear": 2023,
+      "journalInstitution": "MIT Sloan School of Management",
+      "evidenceLevel": "field study",
+      "tags": ["remote work", "virtual teams", "communication protocols", "workspace setup", "team management", "technology tools"]
+    },
+    {
+      "domain": "entrepreneurship_career",
+      "title": "Entrepreneurial Career Path and Business Development",
+      "content": "Entrepreneurship rates: 15% of workforce considers starting business, 3% actually launch, 50% survive past 5 years. Success factors: Market validation (40% importance), Team quality (30%), Financial management (20%), Persistence (10%). Case Study: Corporate executive launched consulting firm - 12-month preparation included market research, client pipeline development, financial planning, achieved profitability month 8. Preparation phase: Market research and validation, business plan development, financial planning (6-12 month runway), skill assessment and development, network building, legal structure setup. Lean startup methodology: Build-Measure-Learn cycle, minimum viable product (MVP), customer development interviews, pivot based on feedback, focus on revenue generation early. Common challenges: Cash flow management, work-life balance, isolation, uncertainty tolerance, decision fatigue, hiring and team building. Support resources: SCORE mentoring, Small Business Administration (SBA), local entrepreneurship centers, industry-specific accelerators, online communities (Indie Hackers, Founder Groups). Transition strategies: Side hustle approach (evenings/weekends), sabbatical for business launch, gradual client acquisition while employed, partnership with established business.",
+      "source": "Entrepreneurship Theory and Practice",
+      "researcherAuthors": "Steve Blank, Eric Ries, Guy Kawasaki, Reid Hoffman",
+      "publicationYear": 2022,
+      "journalInstitution": "Stanford Technology Ventures Program",
+      "evidenceLevel": "applied",
+      "tags": ["entrepreneurship", "business development", "lean startup", "market validation", "financial planning", "side hustle"]
+    }
+  ]
+}

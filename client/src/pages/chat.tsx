@@ -22,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import { mapUserMessageToTags } from "@/lib/topicMapping";
+import { buildMatePrompt } from "@/lib/matePrompt";
+import { getPersonaContext } from "@/lib/rag";
 import type { Message, Conversation, Specialist } from "../types";
 import { useLocalAI } from "../hooks/useLocalAI";
 
@@ -38,6 +40,7 @@ function getSessionId(): string {
 export default function Chat() {
   // Personalization: get username
   const username = getOrPromptUsername();
+  const [userId] = useState(() => getSessionId());
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
@@ -233,7 +236,7 @@ export default function Chat() {
   };
 
   // Send message using localStorage instead of API for offline functionality
-  const sendMessage = async (content: string) => {
+  const sendMessage = async (content: string, detectedTags: string[] = []) => {
     if (!content || content.trim().length === 0) {
       throw new Error('Message cannot be empty');
     }
@@ -267,6 +270,7 @@ export default function Chat() {
         setLocation(`/chat/${newConversationId}`);
       }
 
+      const cacheConversationId = targetConversationId ? String(targetConversationId) : `new-${userId}`;
       const userMessage: Message = {
         id: Date.now(),
         content: content.trim(),
@@ -284,7 +288,39 @@ export default function Chat() {
       let aiResponseContent: string;
       if (canUseLocalAI) {
         try {
-          aiResponseContent = await sendLocalAIMessage(content.trim());
+          const recentUserMessages = messages
+            .filter((msg) => msg.sender === 'user')
+            .slice(-5)
+            .map((msg) => msg.content);
+
+          let personaContextText = "";
+          try {
+            const personaContext = await getPersonaContext({
+              specialistKey: activeSpecialist.key,
+              userMessage: content.trim(),
+              conversationId: cacheConversationId,
+              detectedTags,
+            });
+            if (personaContext.context) {
+              personaContextText = `${personaContext.context}\n\n`;
+            }
+          } catch (contextError) {
+            console.warn('Failed to build persona context', contextError);
+          }
+
+          let matePrompt = content.trim();
+          try {
+            matePrompt = await buildMatePrompt({
+              userId,
+              recentMessages: recentUserMessages,
+              userMessage: content.trim(),
+            });
+          } catch (promptError) {
+            console.warn('Failed to build Mate prompt', promptError);
+          }
+
+          const finalPrompt = `${personaContextText}${matePrompt}`.trim() || content.trim();
+          aiResponseContent = await sendLocalAIMessage(finalPrompt);
         } catch (localError) {
           console.error('Local AI send error:', localError);
           const fallbackMessage = localError instanceof Error ? localError.message : 'Local AI failed to respond';
@@ -353,13 +389,9 @@ export default function Chat() {
 
     // Map user message to topic tags for AI prompt logic
     const detectedTags = mapUserMessageToTags(trimmedMessage);
-    // For now, just log them (replace with prompt logic integration)
-    if (detectedTags.length > 0) {
-      console.log("Detected topics:", detectedTags);
-    }
 
     try {
-      await sendMessage(trimmedMessage);
+      await sendMessage(trimmedMessage, detectedTags);
       // Only clear the message on successful send
       setMessage("");
       // Reset textarea height

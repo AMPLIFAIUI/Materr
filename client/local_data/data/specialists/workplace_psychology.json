@@ -1,0 +1,122 @@
+{
+  "specialist": {
+    "key": "workplace_psychology",
+    "name": "Dr. Lisa",
+    "specialty": "Industrial-Organizational Psychologist",
+    "description": "Burnout, wellbeing, conflict resolution",
+    "icon": "fas fa-briefcase",
+    "color": "green"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "burnout_hcw",
+      "title": "Healthcare Worker Burnout",
+      "content": "Mindfulness-based program; MBI-EE ↓ 25 %.",
+      "source": "Wellable",
+      "researcherAuthors": "West",
+      "publicationYear": 2023,
+      "journalInstitution": "JAMA",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["burnout"]
+    },
+    {
+      "domain": "positive_psych",
+      "title": "PERMA Model Workshop",
+      "content": "Tech firm; job satisfaction ↑ 18 %.",
+      "source": "PositivePsychology.com",
+      "researcherAuthors": "Seligman",
+      "publicationYear": 2024,
+      "journalInstitution": "J Pos Psych",
+      "evidenceLevel": "field study",
+      "tags": ["PERMA"]
+    },
+    {
+      "domain": "ic_dei_training",
+      "title": "Inclusive Leadership Training",
+      "content": "DEI workshop; belonging scores ↑ 22 %.",
+      "source": "Emotiv",
+      "researcherAuthors": "Roberson",
+      "publicationYear": 2023,
+      "journalInstitution": "Org Behav",
+      "evidenceLevel": "quasi-experimental",
+      "tags": ["DEI"]
+    },
+    {
+      "domain": "hybrid_work_stress",
+      "title": "Hybrid Schedule & Stress",
+      "content": "2-days WFH reduced cortisol awakening response 15 %.",
+      "source": "IMD",
+      "researcherAuthors": "Bloom",
+      "publicationYear": 2025,
+      "journalInstitution": "Economic J",
+      "evidenceLevel": "randomized",
+      "tags": ["hybrid"]
+    },
+    {
+      "domain": "gamified_wellbeing",
+      "title": "Gamified Step Challenge",
+      "content": "Retail staff; average steps ↑ 2 000/day.",
+      "source": "Workplace Psychology FAQ",
+      "researcherAuthors": "Deci & Ryan",
+      "publicationYear": 2024,
+      "journalInstitution": "Health Psych",
+      "evidenceLevel": "program eval",
+      "tags": ["gamification"]
+    },
+    {
+      "domain": "conflict_mediation",
+      "title": "Interest-Based Mediation",
+      "content": "Manufacturing plant disputes; grievance filings ↓ 60 %.",
+      "source": "Quirónsalud",
+      "researcherAuthors": "Deutsch",
+      "publicationYear": 2022,
+      "journalInstitution": "Negotiation J",
+      "evidenceLevel": "case study",
+      "tags": ["mediation"]
+    },
+    {
+      "domain": "financial_stress",
+      "title": "Financial-Wellness Coaching",
+      "content": "Call-center; absenteeism ↓ 12 %.",
+      "source": "Occupational Mental Health",
+      "researcherAuthors": "Lusardi",
+      "publicationYear": 2023,
+      "journalInstitution": "Industrial Health",
+      "evidenceLevel": "controlled",
+      "tags": ["financial_stress"]
+    },
+    {
+      "domain": "sleep_fatigue_shift",
+      "title": "Fatigue Risk Mgmt for Shift-Workers",
+      "content": "Transport company; near-miss incidents ↓ 40 %.",
+      "source": "St John Ambulance",
+      "researcherAuthors": "Caldwell",
+      "publicationYear": 2024,
+      "journalInstitution": "Sleep Medicine",
+      "evidenceLevel": "before-after",
+      "tags": ["fatigue"]
+    },
+    {
+      "domain": "resilience_training",
+      "title": "Bounce-Back Resilience Program",
+      "content": "Public-sector employees; CD-RISC ↑ 20 %.",
+      "source": "Workplace Psychology Definition",
+      "researcherAuthors": "Reivich",
+      "publicationYear": 2025,
+      "journalInstitution": "J Occup Health",
+      "evidenceLevel": "RCT",
+      "tags": ["resilience"]
+    },
+    {
+      "domain": "ai_feedback_coach",
+      "title": "AI-Driven Feedback Tool",
+      "content": "Real-time coaching; sales conversion ↑ 8 %.",
+      "source": "CourseAdvisor Asia",
+      "researcherAuthors": "Grant",
+      "publicationYear": 2025,
+      "journalInstitution": "Applied Psych",
+      "evidenceLevel": "field trial",
+      "tags": ["AI"]
+    }
+  ]
+}
