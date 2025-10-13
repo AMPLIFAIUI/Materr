@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import { mapUserMessageToTags } from "@/lib/topicMapping";
+import { syncProfileConversationCount } from "@/lib/profileStorage";
 import type { Message, Conversation, Specialist } from "../types";
 import { useLocalAI } from "../hooks/useLocalAI";
 
@@ -262,6 +263,7 @@ export default function Chat() {
         };
 
         localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
+        syncProfileConversationCount();
         setConversation(newConversation);
         targetConversationId = newConversationId;
         setLocation(`/chat/${newConversationId}`);
