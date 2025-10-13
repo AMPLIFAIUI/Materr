@@ -20,10 +20,11 @@ import { TypingIndicator } from "@/components/typing-indicator";
 import { PrivacyToggle } from "@/components/privacy-toggle";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
 import { mapUserMessageToTags } from "@/lib/topicMapping";
 import { loadSpecialists, getSpecialistTheme, findSpecialistByKey, findSpecialistById, getFallbackSpecialists } from "@/lib/specialists";
+import { syncProfileConversationCount } from "@/lib/profileStorage";
 import type { Message, Conversation, Specialist } from "../types";
+import { useLocalAI } from "../hooks/useLocalAI";
 
 // Generate or get session ID for user profiling
 function getSessionId(): string {
@@ -71,6 +72,7 @@ export default function Chat() {
   const [specialist, setSpecialist] = useState<Specialist | null>(null);
   const [isSending, setIsSending] = useState(false);
 
+
   useEffect(() => {
     let mounted = true;
     setIsLoading(true);
@@ -91,6 +93,18 @@ export default function Chat() {
     };
   }, []);
 
+
+  const {
+    isInitialized: isLocalAIInitialized,
+    isLoading: isLocalAILoading,
+    error: localAIError,
+    hasNativeRuntime,
+    sendMessage: sendLocalAIMessage,
+    initializeAI: initializeLocalAI
+  } = useLocalAI();
+  const [localAIStatusMessage, setLocalAIStatusMessage] = useState<string | null>(null);
+
+  // Load messages from localStorage on component mount
   useEffect(() => {
     if (conversationId) {
       const savedMessages = localStorage.getItem(`conversation_${conversationId}_messages`);
@@ -188,6 +202,7 @@ export default function Chat() {
   }, [conversation, specialists, specialist, id]);
 
   useEffect(() => {
+
     if (specialist && messages.length === 0) {
       setShowWelcome(true);
     } else {
@@ -200,6 +215,29 @@ export default function Chat() {
   const specialistTagline = specialist?.knowledgeBase?.persona;
 
   const generateAIResponse = (userMessage: string, activeSpecialist: Specialist, detectedTags: string[]): string => {
+    if (!hasNativeRuntime) {
+      setLocalAIStatusMessage('Local AI is available on native builds. Using fallback responses in the web preview.');
+      return;
+    }
+
+    if (localAIError) {
+      setLocalAIStatusMessage(`${localAIError} Fallback responses will be used.`);
+      return;
+    }
+
+    if (!isLocalAIInitialized) {
+      setLocalAIStatusMessage(isLocalAILoading ? 'Loading on-device AI model...' : 'Local AI is not initialized yet. Fallback responses will be used.');
+      return;
+    }
+
+    setLocalAIStatusMessage(null);
+  }, [hasNativeRuntime, localAIError, isLocalAIInitialized, isLocalAILoading]);
+
+  const canUseLocalAI = hasNativeRuntime && isLocalAIInitialized && !localAIError;
+  const showTypingIndicator = isTyping || isLocalAILoading;
+
+  // Generate AI response based on user input and specialist
+  const generateFallbackResponse = (userMessage: string, specialist: Specialist): string => {
     const lowerMessage = userMessage.toLowerCase();
     const name = username ? `, ${username}` : '';
 
@@ -232,7 +270,18 @@ export default function Chat() {
     return [opener, focusSentence, techniqueSentence, supportSentence].filter(Boolean).join(' ');
   };
 
+
   const sendMessage = async (content: string, detectedTags: string[]) => {
+
+  const getFallbackResponse = async (userMessage: string, specialist: Specialist): Promise<string> => {
+    return await new Promise((resolve) => {
+      const delay = 1000 + Math.random() * 2000;
+      setTimeout(() => resolve(generateFallbackResponse(userMessage, specialist)), delay);
+    });
+  };
+
+  // Send message using localStorage instead of API for offline functionality
+  const sendMessage = async (content: string) => {
     if (!content || content.trim().length === 0) {
       throw new Error('Message cannot be empty');
     }
@@ -241,15 +290,24 @@ export default function Chat() {
       throw new Error('Message is too long. Please keep it under 5000 characters.');
     }
 
+    const activeSpecialist = specialist || specialists[0];
+    if (!activeSpecialist) {
+      throw new Error('No specialist selected');
+    }
+
     setIsSending(true);
     try {
       let targetConversationId = conversationId;
 
+
       if (!targetConversationId && specialist) {
         const now = new Date().toISOString();
+      if (!targetConversationId) {
+
         const newConversationId = Date.now();
         const newConversation: Conversation = {
           id: newConversationId,
+
           specialistId: specialist.id,
           specialistKey: specialist.key,
           title: `${specialist.specialty} Support`,
@@ -258,6 +316,15 @@ export default function Chat() {
         };
 
         localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
+
+          specialistId: activeSpecialist.id,
+          title: 'New Conversation',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+
+        localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
+        syncProfileConversationCount();
         setConversation(newConversation);
         targetConversationId = newConversationId;
         setLocation(`/chat/${newConversationId}`);
@@ -308,6 +375,37 @@ export default function Chat() {
         localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
         setIsTyping(false);
       }, 1000 + Math.random() * 2000);
+      setIsTyping(true);
+
+      let aiResponseContent: string;
+      if (canUseLocalAI) {
+        try {
+          aiResponseContent = await sendLocalAIMessage(content.trim());
+        } catch (localError) {
+          console.error('Local AI send error:', localError);
+          const fallbackMessage = localError instanceof Error ? localError.message : 'Local AI failed to respond';
+          setLocalAIStatusMessage(`${fallbackMessage}. Using fallback responses.`);
+          aiResponseContent = await getFallbackResponse(content.trim(), activeSpecialist);
+        }
+      } else {
+        if (hasNativeRuntime && localAIError) {
+          setLocalAIStatusMessage(`${localAIError} Fallback responses will be used.`);
+        }
+        aiResponseContent = await getFallbackResponse(content.trim(), activeSpecialist);
+      }
+
+      const aiResponse: Message = {
+        id: Date.now() + 1,
+        content: aiResponseContent,
+        sender: 'specialist',
+        timestamp: new Date(),
+        conversationId: targetConversationId!
+      };
+
+      const finalMessages = [...updatedMessages, aiResponse];
+      setMessages(finalMessages);
+      localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
+      setIsTyping(false);
     } catch (error) {
       setIsTyping(false);
       throw error;
@@ -375,7 +473,7 @@ export default function Chat() {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isLocalAILoading]);
 
   useEffect(() => {
     const savedNotes = localStorage.getItem("mateNotes");
@@ -461,6 +559,26 @@ export default function Chat() {
           </div>
         </header>
 
+        {localAIStatusMessage && (
+          <div className="px-4 pt-3">
+            <div className="glass-card border border-yellow-300/70 dark:border-yellow-700/70 bg-yellow-50/80 dark:bg-yellow-900/40 text-sm text-yellow-900 dark:text-yellow-100 rounded-2xl px-3 py-2 flex items-start justify-between gap-2">
+              <span>{localAIStatusMessage}</span>
+              {hasNativeRuntime && localAIError && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => initializeLocalAI()}
+                  className="text-yellow-900 dark:text-yellow-100 hover:bg-yellow-200/60 dark:hover:bg-yellow-800/60"
+                  disabled={isLocalAILoading}
+                >
+                  Retry
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-32">
           {isLoading ? (
             <div className="space-y-4">
@@ -528,6 +646,8 @@ export default function Chat() {
                   <TypingIndicator theme={specialistTheme} icon={specialistIcon} />
                 </div>
               )}
+              
+              {showTypingIndicator && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
             </>
           )}
           <div ref={messagesEndRef} />
