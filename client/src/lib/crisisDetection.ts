@@ -1,10 +1,11 @@
-import { 
-  getCurrentLocation, 
-  sendEmergencySMS, 
-  makeEmergencyCall, 
+import {
+  getCurrentLocation,
+  sendEmergencySMS,
+  makeEmergencyCall,
   showEmergencyNotification,
-  requestEmergencyPermissions 
+  requestEmergencyPermissions
 } from './emergencyPermissions';
+import { decryptData } from './secureStorage';
 
 export interface EmergencyContact {
   id: number;
@@ -114,9 +115,12 @@ export class CrisisDetectionService {
     message: string,
     userId: number
   ): Promise<CrisisAlert> {
-    
+
     // Get user's emergency contacts
-    const emergencyContacts = this.getEmergencyContacts(userId);
+    const emergencyContacts = await this.getEmergencyContacts(userId);
+    if (emergencyContacts.length === 0) {
+      console.warn('No emergency contacts configured for crisis response.');
+    }
     
     // Get user's location if permission granted
     const location = await this.getCurrentLocation();
@@ -153,9 +157,26 @@ export class CrisisDetectionService {
     return alert;
   }
   
-  private static getEmergencyContacts(userId: number): EmergencyContact[] {
+  private static async getEmergencyContacts(userId: number): Promise<EmergencyContact[]> {
     const stored = localStorage.getItem(`emergencyContacts_${userId}`);
-    return stored ? JSON.parse(stored) : [];
+    if (!stored) {
+      return [];
+    }
+
+    try {
+      const decrypted = await decryptData(stored);
+      if (!decrypted) {
+        return [];
+      }
+      return JSON.parse(decrypted);
+    } catch (error) {
+      console.error('Failed to decrypt emergency contacts:', error);
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return [];
+      }
+    }
   }
   
   private static async getCurrentLocation(): Promise<{latitude: number, longitude: number, address?: string} | undefined> {

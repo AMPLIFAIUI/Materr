@@ -24,6 +24,7 @@ import { mapUserMessageToTags } from "@/lib/topicMapping";
 import { loadSpecialists, getSpecialistTheme, findSpecialistByKey, findSpecialistById, getFallbackSpecialists } from "@/lib/specialists";
 import { syncProfileConversationCount } from "@/lib/profileStorage";
 import type { Message, Conversation, Specialist } from "../types";
+import { CrisisDetectionService } from "@/lib/crisisDetection";
 import { useLocalAI } from "../hooks/useLocalAI";
 
 // Generate or get session ID for user profiling
@@ -36,6 +37,23 @@ function getSessionId(): string {
   return sessionId;
 }
 
+function getEmergencyUserId(): number {
+  try {
+    const stored = localStorage.getItem('emergencyUserId');
+    if (stored) {
+      const parsed = parseInt(stored, 10);
+      if (!Number.isNaN(parsed)) {
+        return parsed;
+      }
+    }
+
+    const fallback = 1;
+    localStorage.setItem('emergencyUserId', fallback.toString());
+    return fallback;
+  } catch {
+    return 1;
+  }
+}
 const ensureSentence = (text?: string) => {
   if (!text) return '';
   const trimmed = text.trim();
@@ -71,6 +89,7 @@ export default function Chat() {
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [specialist, setSpecialist] = useState<Specialist | null>(null);
   const [isSending, setIsSending] = useState(false);
+  const emergencyUserIdRef = useRef<number>(getEmergencyUserId());
 
 
   useEffect(() => {
@@ -446,6 +465,19 @@ export default function Chat() {
     }
 
     try {
+      const riskLevel = CrisisDetectionService.assessRiskLevel(trimmedMessage);
+      if (riskLevel === "high" || riskLevel === "critical") {
+        CrisisDetectionService.triggerEmergencyResponse(
+          riskLevel,
+          trimmedMessage,
+          emergencyUserIdRef.current || 1
+        ).catch((error) => {
+          console.error('Emergency response workflow failed:', error);
+        });
+      }
+
+      await sendMessage(trimmedMessage);
+      // Only clear the message on successful send
       await sendMessage(trimmedMessage, detectedTags);
       setMessage("");
       if (textareaRef.current) {
