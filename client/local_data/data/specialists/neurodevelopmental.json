@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "neurodevelopmental",
+    "name": "Dr. Cameron",
+    "specialty": "Neurodevelopmental Support Specialist",
+    "description": "ADHD, autism, learning disabilities, executive function",
+    "icon": "fas fa-brain",
+    "color": "cyan"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "autism_spectrum_support",
+      "title": "Autism Spectrum Disorder: Comprehensive Support and Evidence-Based Interventions",
+      "content": "ASD affects 1 in 36 children (CDC 2023), characterized by social communication challenges, restricted/repetitive behaviors, sensory processing differences. Early intervention crucial - children receiving services before age 3 show 80% greater improvement than those starting later. Case Study: Non-speaking 4-year-old Emma - 2-year intensive intervention including ABA, speech therapy, occupational therapy resulted in functional communication, reduced challenging behaviors by 85%, mainstream classroom placement with support. Core intervention approaches: Applied Behavior Analysis (ABA) - 25-40 hours weekly for young children, discrete trial training, natural environment teaching, pivotal response training. Early Start Denver Model (ESDM) - play-based intervention for toddlers, parent training component. TEACCH - structured teaching, visual supports, environmental modifications. Social skills interventions: Social Stories™ for understanding social situations, video modeling for skill demonstration, peer-mediated interventions, structured social skills groups. Sensory support: Occupational therapy for sensory processing, sensory diets and accommodations, weighted blankets/compression garments, environmental modifications. Communication support: Augmentative and Alternative Communication (AAC) including speech-generating devices, Picture Exchange Communication System (PECS), sign language, functional communication training. Transition planning: Preparation for school changes, vocational training, independent living skills, community integration support.",
+      "source": "Journal of Autism and Developmental Disorders",
+      "researcherAuthors": "Catherine Lord, Connie Kasari, Geraldine Dawson, Sally Rogers",
+      "publicationYear": 2023,
+      "journalInstitution": "UCLA Center for Autism Research",
+      "evidenceLevel": "systematic reviews",
+      "tags": ["autism spectrum disorder", "early intervention", "ABA therapy", "social skills", "sensory processing", "communication support"]
+    },
+    {
+      "domain": "adhd_comprehensive",
+      "title": "ADHD: Multimodal Treatment and Executive Function Development",
+      "content": "ADHD affects 9.4% of children, 4.4% of adults. Three presentations: Predominantly inattentive (difficulty sustaining attention, organization), predominantly hyperactive-impulsive (fidgeting, difficulty waiting), combined presentation (both symptom sets). Case Study: 8-year-old Marcus with combined ADHD - medication (methylphenidate 20mg), behavioral intervention at school, parent training, social skills group resulted in 70% improvement in academic performance, reduced disruptive behaviors. Medication options: Stimulants first-line (methylphenidate, amphetamines) - 70-80% response rate, effect size 0.9. Non-stimulants: atomoxetine, guanfacine, clonidine for those who don't tolerate stimulants. Behavioral interventions: Parent training in behavior management, classroom behavior modification, organizational skills training, social skills groups. School accommodations: Extended time on tests, preferential seating, movement breaks, visual schedules, reduced distractions, chunking assignments. Executive function training: Working memory exercises, cognitive flexibility tasks, inhibitory control practice, planning and organization skills, time management training. Adult ADHD considerations: Later diagnosis common, different presentation (internal restlessness vs. hyperactivity), workplace accommodations, relationship impacts, comorbid conditions (anxiety, depression). Technology supports: Apps for organization and time management, reminder systems, fidget tools, noise-canceling headphones, standing desks.",
+      "source": "Journal of the American Academy of Child & Adolescent Psychiatry",
+      "researcherAuthors": "Russell Barkley, Joel Nigg, Joseph Biederman, Craig Newschaffer",
+      "publicationYear": 2023,
+      "journalInstitution": "Medical University of South Carolina",
+      "evidenceLevel": "meta-analyses",
+      "tags": ["ADHD treatment", "executive function", "stimulant medication", "behavioral interventions", "school accommodations", "adult ADHD"]
+    },
+    {
+      "domain": "learning_disabilities",
+      "title": "Learning Disabilities: Assessment, Intervention, and Academic Support",
+      "content": "Learning disabilities affect 15% of school-age children. Types include: Dyslexia (reading difficulties), Dyscalculia (math difficulties), Dysgraphia (writing difficulties), Auditory/Visual processing disorders. Early identification and intervention prevent academic failure and secondary emotional problems. Case Study: 7-year-old Sophia with dyslexia - reading at kindergarten level in 2nd grade. Orton-Gillingham structured literacy approach plus school accommodations (audio books, extended time) resulted in grade-level reading within 18 months. Dyslexia interventions: Structured literacy approaches (Orton-Gillingham, Wilson Reading), multisensory learning (visual, auditory, kinesthetic), phonics instruction, reading fluency practice, comprehension strategies. Dyscalculia support: Number sense development, visual-spatial strategies, manipulatives and concrete materials, step-by-step problem-solving approaches, accommodations for math anxiety. Dysgraphia interventions: Occupational therapy for fine motor skills, assistive technology (typing, speech-to-text), alternative assessment methods, handwriting instruction programs. Assessment process: Comprehensive psychoeducational evaluation, cognitive ability testing, academic achievement testing, processing skills assessment, ruling out other factors (vision, hearing, emotional). School-based services: Individualized Education Program (IEP), 504 accommodation plans, specialized instruction, assistive technology, progress monitoring. Emotional support: Address self-esteem issues, anxiety about academic performance, social skills support, counseling for frustration and motivation.",
+      "source": "Learning Disabilities Research & Practice",
+      "researcherAuthors": "Sally Shaywitz, Fumiko Hoeft, Jack Fletcher, Lynn Fuchs",
+      "publicationYear": 2022,
+      "journalInstitution": "Yale University",
+      "evidenceLevel": "educational research",
+      "tags": ["learning disabilities", "dyslexia", "dyscalculia", "dysgraphia", "structured literacy", "educational accommodations"]
+    },
+    {
+      "domain": "executive_function",
+      "title": "Executive Function Development and Cognitive Training Interventions",
+      "content": "Executive functions include working memory (holding information in mind), cognitive flexibility (switching between tasks/rules), and inhibitory control (resisting impulses). These skills develop through age 25 and can be improved through targeted intervention. Case Study: High school student Alex with executive function difficulties - chronic homework problems, poor time management, missed deadlines. 6-month coaching program plus organizational tools resulted in GPA improvement from 2.1 to 3.4. Working memory interventions: Cogmed training program, dual n-back exercises, memory strategy instruction, environmental supports (written instructions, visual cues), chunking information into smaller parts. Cognitive flexibility training: Task-switching exercises, perspective-taking activities, problem-solving with multiple solutions, mindfulness practices, adapting to changing rules/expectations. Inhibitory control development: Stop-signal tasks, go/no-go exercises, delay of gratification training, self-monitoring strategies, environmental modifications to reduce temptations. Real-world applications: Time management and planning skills, organization systems (planners, apps, visual schedules), study skills and homework completion, social problem-solving, emotional regulation strategies. Technology supports: Executive function apps, reminder systems, calendar management, task breakdown tools, progress monitoring systems. Coaching approaches: Goal setting and progress monitoring, strategy instruction and practice, environmental design, self-advocacy skills, family and school collaboration.",
+      "source": "Developmental Science",
+      "researcherAuthors": "Adele Diamond, Philip Zelazo, Stephanie Carlson, Laurie Cutting",
+      "publicationYear": 2023,
+      "journalInstitution": "University of British Columbia",
+      "evidenceLevel": "cognitive development research",
+      "tags": ["executive function", "working memory", "cognitive flexibility", "inhibitory control", "cognitive training", "academic success"]
+    },
+    {
+      "domain": "sensory_processing",
+      "title": "Sensory Processing Differences and Occupational Therapy Interventions",
+      "content": "Sensory processing differences affect 5-16% of children, involving over- or under-responsiveness to sensory input (touch, sound, movement, visual, taste/smell). Often co-occurs with autism, ADHD, and learning disabilities. Case Study: 6-year-old Tyler with sensory over-responsiveness - meltdowns from clothing textures, avoidance of playground activities, difficulty concentrating in noisy classroom. Sensory diet and environmental modifications reduced meltdowns by 80%, improved classroom participation. Sensory systems: Tactile (touch) - light touch sensitivity, texture aversions, need for deep pressure. Auditory (hearing) - hypersensitivity to noise, difficulty filtering background sounds. Visual - light sensitivity, visual overwhelm, difficulty with visual attention. Vestibular (movement/balance) - seeking or avoiding movement, balance difficulties. Proprioceptive (body awareness) - difficulty judging force, need for heavy work activities. Interventions: Sensory diet - scheduled sensory activities throughout day, environmental modifications, sensory tools (fidgets, weighted blankets, noise-canceling headphones). Occupational therapy: Sensory integration therapy, motor skills development, self-regulation strategies, adaptive strategies for daily activities. School accommodations: Sensory breaks, alternative seating options, noise reduction strategies, modified lighting, sensory tools availability. Home strategies: Sensory-friendly environments, bedtime routines with sensory considerations, clothing modifications, food texture accommodations.",
+      "source": "American Journal of Occupational Therapy",
+      "researcherAuthors": "A. Jean Ayres, Lucy Miller, Sarah Schoen, Roseann Schaaf",
+      "publicationYear": 2022,
+      "journalInstitution": "USC Division of Occupational Science",
+      "evidenceLevel": "occupational therapy research",
+      "tags": ["sensory processing", "sensory integration", "occupational therapy", "sensory diet", "environmental modifications", "self-regulation"]
+    },
+    {
+      "domain": "social_communication",
+      "title": "Social Communication Disorders and Pragmatic Language Intervention",
+      "content": "Social communication disorder involves persistent difficulties with verbal and nonverbal communication for social purposes. Affects ability to change communication for different contexts, follow conversation rules, understand implicit meanings. Case Study: 9-year-old Maria - difficulty making friends, interrupting conversations, missing social cues, literal interpretation of language. Speech-language therapy plus social skills group over 12 months improved peer relationships and classroom social participation. Pragmatic language skills: Turn-taking in conversation, maintaining appropriate topics, adjusting language for different listeners, understanding nonverbal cues (facial expressions, body language), comprehending implied meanings and humor. Assessment areas: Conversational skills observation, narrative abilities, understanding of social rules, nonverbal communication interpretation, perspective-taking abilities. Intervention strategies: Video modeling of social interactions, social stories for understanding social situations, peer-mediated interventions, role-playing activities, explicit instruction in social rules. Speech-language therapy: Pragmatic language instruction, conversation skills training, narrative development, nonverbal communication awareness, social problem-solving strategies. Social skills groups: Structured practice opportunities, peer interaction with guidance, feedback on social behaviors, generalization to natural settings, parent and teacher collaboration. Technology supports: Social skills apps, video analysis of interactions, virtual reality social practice, communication devices for augmentative support.",
+      "source": "Journal of Speech, Language, and Hearing Research",
+      "researcherAuthors": "Catherine Adams, Judith Kaderavek, Marc Fey, Ronald Gillam",
+      "publicationYear": 2023,
+      "journalInstitution": "Vanderbilt University",
+      "evidenceLevel": "communication research",
+      "tags": ["social communication disorder", "pragmatic language", "speech-language therapy", "social skills", "conversation skills", "nonverbal communication"]
+    },
+    {
+      "domain": "transition_planning",
+      "title": "Transition Planning for Neurodivergent Individuals: Education to Adult Life",
+      "content": "Transition planning begins at age 14 (legally required by 16) and continues through age 21 for students with disabilities. Focus on post-secondary education, employment, independent living, and community participation. Only 37% of students with disabilities graduate high school compared to 84% of typical students. Case Study: 18-year-old Jordan with autism and intellectual disability - comprehensive transition planning including job training, independent living skills, community college support resulted in part-time employment and semi-independent living arrangement. Post-secondary education supports: Disability services offices, academic accommodations, social supports, assistive technology, modified coursework when appropriate, career counseling. Employment preparation: Vocational assessment, job sampling experiences, social skills for workplace, interview preparation, on-the-job support, self-advocacy training. Independent living skills: Money management, meal preparation, household management, transportation training, personal care, safety skills, community navigation. Person-centered planning: Individual's preferences and goals drive planning, family involvement, coordination among team members, regular progress review and plan updates. Supported decision-making: Alternatives to guardianship, helping individuals make informed choices, identifying support people, teaching decision-making skills. Community resources: Vocational rehabilitation services, disability-specific organizations, supported employment programs, independent living centers, recreational programs.",
+      "source": "Career Development and Transition for Exceptional Individuals",
+      "researcherAuthors": "David Test, Valerie Mazzotti, Dawn Rowe, Paula Kohler",
+      "publicationYear": 2022,
+      "journalInstitution": "University of North Carolina Charlotte",
+      "evidenceLevel": "transition research",
+      "tags": ["transition planning", "post-secondary education", "vocational training", "independent living", "person-centered planning", "supported decision-making"]
+    },
+    {
+      "domain": "assistive_technology",
+      "title": "Assistive Technology and Accommodations for Neurodevelopmental Differences",
+      "content": "Assistive technology includes any device or system that helps individuals with disabilities participate more fully in activities. Ranges from low-tech (pencil grips) to high-tech (communication devices). Proper assessment and training essential for successful implementation. Case Study: College student with dyslexia and ADHD - combination of text-to-speech software, digital note-taking apps, time management tools, and extended test time resulted in academic success (3.2 GPA improvement). Communication devices: Speech-generating devices (SGDs), tablet-based communication apps, switch-activated devices, eye-gaze systems for individuals with motor impairments. Academic supports: Text-to-speech software, word prediction programs, graphic organizers, digital calendars and planners, note-taking applications, calculator accommodations. Sensory supports: FM systems for auditory processing, noise-canceling headphones, visual schedules and timers, tactile supports, environmental control systems. Motor supports: Alternative keyboards, touchscreen devices, voice recognition software, adaptive seating, mobility devices. Assessment process: Comprehensive evaluation of needs, trial periods with different technologies, training for individual and support staff, ongoing technical support. Implementation considerations: Device reliability, user acceptance, training requirements, cost-benefit analysis, backup plans for technology failures, regular updates and maintenance.",
+      "source": "Assistive Technology",
+      "researcherAuthors": "Joy Zabala, Penny Reed, Gayl Bowser, Susan Johnston",
+      "publicationYear": 2023,
+      "journalInstitution": "RESNA (Rehabilitation Engineering and Assistive Technology Society)",
+      "evidenceLevel": "assistive technology research",
+      "tags": ["assistive technology", "communication devices", "academic accommodations", "technology assessment", "digital supports", "accessibility"]
+    },
+    {
+      "domain": "family_support",
+      "title": "Family-Centered Support and Caregiver Resilience for Neurodevelopmental Differences",
+      "content": "Families of children with neurodevelopmental differences experience increased stress, with 40% of mothers reporting clinically significant stress levels. Family-centered approach recognizes family as constant in child's life and primary decision-makers. Case Study: Family with twins - one with autism, one typical development. Parent training, sibling support group, respite care, and advocacy training resulted in improved family functioning, reduced parental stress by 60%, positive sibling relationship. Parent training components: Understanding child's specific needs, behavior management strategies, communication techniques, advocacy skills, stress management, accessing community resources. Sibling support: Age-appropriate information about disability, sibling support groups, individual attention from parents, addressing feelings of embarrassment or resentment, celebrating sibling's unique qualities. Stress management: Respite care services, parent support groups, counseling services, mindfulness and relaxation techniques, maintaining adult relationships and interests. Advocacy skills: Understanding rights and services, effective communication with professionals, navigating educational systems, participating in IEP/504 meetings, connecting with disability organizations. Community resources: Early intervention services, special education programs, therapeutic services, recreational programs, financial assistance, support groups. Cultural considerations: Respecting cultural beliefs about disability, language preferences, family structure variations, religious considerations, community stigma addressing.",
+      "source": "Topics in Early Childhood Special Education",
+      "researcherAuthors": "Ann Turnbull, Rud Turnbull, Carl Dunst, Donald Bailey",
+      "publicationYear": 2022,
+      "journalInstitution": "University of Kansas",
+      "evidenceLevel": "family systems research",
+      "tags": ["family-centered care", "parent training", "sibling support", "caregiver stress", "advocacy skills", "cultural considerations"]
+    },
+    {
+      "domain": "neurodiversity_paradigm",
+      "title": "Neurodiversity-Affirming Practices and Strengths-Based Approaches",
+      "content": "Neurodiversity paradigm views neurological differences as natural human variation rather than deficits to be fixed. Emphasizes accommodating differences, building on strengths, and changing environments rather than changing individuals. Growing acceptance in educational and therapeutic settings. Case Study: Autistic teenager Sam - traditional therapy focused on reducing stimming and forcing eye contact caused increased anxiety. Strengths-based approach celebrating special interests, accommodating sensory needs, teaching self-advocacy resulted in improved self-esteem and academic performance. Principles of neurodiversity-affirming practice: Presume competence, respect for autonomy and self-determination, accommodation rather than normalization, identity-first language when preferred by individual, involving neurodivergent voices in decisions. Strengths-based approaches: Identify and build upon individual strengths and interests, use special interests as motivation and learning tools, develop self-advocacy skills, promote self-understanding and acceptance. Environmental modifications: Sensory-friendly environments, flexible communication methods, alternative assessment options, reduced stigma and bias, inclusive practices. Self-advocacy development: Understanding of own needs and rights, communication skills for requesting accommodations, self-determination skills, connecting with neurodivergent community, leadership opportunities. Professional development: Training in neurodiversity-affirming practices, examining biases and assumptions, learning from neurodivergent individuals, collaborative approach with families, ongoing education about neurodevelopmental differences.",
+      "source": "Autism in Adulthood",
+      "researcherAuthors": "Ari Ne'eman, Julia Bascom, Kassiane Asasumasu, Lydia Brown",
+      "publicationYear": 2023,
+      "journalInstitution": "Autistic Self Advocacy Network",
+      "evidenceLevel": "neurodiversity research",
+      "tags": ["neurodiversity", "strengths-based approaches", "self-advocacy", "environmental accommodations", "identity-affirming practices", "autistic community"]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "psychology",
+    "name": "Dr. Sarah",
+    "specialty": "Clinical Psychologist",
+    "description": "Depression, anxiety, therapy",
+    "icon": "fas fa-brain",
+    "color": "purple"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "depression_treatment",
+      "title": "Evidence-Based Depression Interventions and Treatment Protocols",
+      "content": "Major Depressive Disorder affects 8.5% of adults annually. Treatment response rates: CBT (65%), medication (60%), combined therapy (85%). DETAILED CBT PROTOCOL: Session 1-4: Psychoeducation and behavioral activation. Beck Depression Inventory baseline, activity scheduling, pleasure/mastery rating. Case Study: John, 42, severe depression (PHQ-9 score 21) - behavioral activation increased weekly activities from 3 to 15, mood improved 40% before cognitive work began. Session 5-8: Cognitive restructuring. Thought records, cognitive distortions identification, balanced thinking. Session 9-12: Schema work and core beliefs. Downward arrow technique, historical origins exploration. Session 13-16: Relapse prevention and maintenance. Warning signs identification, coping strategy reinforcement. MEDICATION ALGORITHMS: First-line SSRIs: Sertraline 50-200mg (fewer drug interactions), Escitalopram 10-20mg (high efficacy, low side effects). Second-line SNRIs: Duloxetine 60-120mg (pain comorbidity), Venlafaxine 75-375mg (severe depression). Third-line: Bupropion 300-450mg (sexual side effects, smoking cessation), Mirtazapine 15-45mg (sleep/appetite issues). TREATMENT-RESISTANT DEPRESSION (TRD): 30% of patients don't respond to initial treatment. Ketamine infusions: 70% response rate, 6 sessions over 3 weeks. Transcranial Magnetic Stimulation (TMS): 50% response rate, 36 sessions over 6 weeks. Electroconvulsive Therapy (ECT): 80% response rate for severe cases, 6-12 treatments. DIGITAL THERAPEUTICS: Silvercloud CBT platform - self-guided modules with therapist support. MindShift app for anxiety/depression comorbidity. Sanvello for mood tracking and CBT skills. SUICIDE RISK ASSESSMENT: Columbia Suicide Severity Rating Scale (C-SSRS). Safety planning intervention: Warning signs, coping strategies, support people, professional contacts, means restriction.",
+      "source": "American Journal of Psychiatry",
+      "researcherAuthors": "Aaron Beck, Judith Beck, David Burns, Martin Seligman",
+      "publicationYear": 2023,
+      "journalInstitution": "Beck Institute for Cognitive Behavior Therapy",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["depression", "CBT", "medication", "TRD", "suicide prevention", "digital therapeutics"]
+    },
+    {
+      "domain": "anxiety_disorders",
+      "title": "Comprehensive Anxiety Disorder Treatment and Exposure Protocols",
+      "content": "Anxiety disorders affect 18% of adults annually. DISORDER-SPECIFIC PROTOCOLS: Generalized Anxiety Disorder (GAD): Worry time technique - 15 minutes daily scheduled worry, thought challenging, relaxation training. Case Study: Maria, 35, GAD with GAD-7 score 18 - 12-week CBT reduced score to 4, maintained at 6-month follow-up. Social Anxiety Disorder: Graduated exposure hierarchy, video feedback, cognitive restructuring of safety behaviors. Panic Disorder: Interoceptive exposure (induced panic sensations), breathing retraining, catastrophic thinking challenges. Specific Phobias: Systematic desensitization, in-vivo exposure, virtual reality exposure therapy. EXPOSURE THERAPY PROTOCOLS: Fear hierarchy construction: 10-point scale, start with 3-4 level items. Session structure: 45-90 minutes, stay until anxiety reduces 50%. Habituation curves: Within-session and between-session reduction tracking. Case Study: Agoraphobic patient - 16-session exposure therapy, started with 5-minute car rides, progressed to 2-hour mall visits. MEDICATION OPTIONS: SSRIs first-line for most anxiety disorders. Benzodiazepines for short-term crisis (2-4 weeks maximum). Buspirone for GAD without addiction potential. Beta-blockers for performance anxiety. SPECIALIZED INTERVENTIONS: Mindfulness-Based Cognitive Therapy (MBCT) for anxiety - 8-week program combining mindfulness with cognitive techniques. Acceptance and Commitment Therapy (ACT) - psychological flexibility, values-based action. Eye Movement Desensitization and Reprocessing (EMDR) for trauma-related anxiety. GROUP THERAPY PROTOCOLS: CBT groups for social anxiety - 12 weeks, 6-8 members, role-playing exercises. Support groups for specific phobias - peer exposure challenges, success sharing.",
+      "source": "Behavior Research and Therapy",
+      "researcherAuthors": "David Clark, Aaron Beck, Michelle Craske, Stefan Hofmann",
+      "publicationYear": 2022,
+      "journalInstitution": "Oxford University",
+      "evidenceLevel": "rct",
+      "tags": ["anxiety disorders", "exposure therapy", "CBT", "EMDR", "group therapy", "medication"]
+    },
+    {
+      "domain": "trauma_ptsd",
+      "title": "Trauma-Informed Treatment and PTSD Recovery Protocols",
+      "content": "PTSD affects 3.5% of adults annually, 6.8% lifetime prevalence. EVIDENCE-BASED TREATMENTS: Prolonged Exposure (PE): 8-15 sessions, imaginal exposure to trauma memory, in-vivo exposure to avoided situations. Success rate 60-80%. Case Study: Combat veteran, 12 sessions PE, PTSD Checklist reduced from 65 to 22. Cognitive Processing Therapy (CPT): 12 sessions, challenging trauma-related stuck points, impact statements. Effective for combat and sexual trauma. Eye Movement Desensitization and Reprocessing (EMDR): 8-12 sessions, bilateral stimulation during trauma processing. Effective for single-incident trauma. TRAUMA ASSESSMENT TOOLS: Clinician-Administered PTSD Scale (CAPS-5) - gold standard diagnostic interview. PTSD Checklist for DSM-5 (PCL-5) - 20-item self-report measure. Childhood Trauma Questionnaire (CTQ) for historical trauma. COMPLEX PTSD TREATMENT: Phase-oriented treatment: 1) Stabilization and safety, 2) Trauma processing, 3) Integration and reconnection. Dialectical Behavior Therapy (DBT) skills for emotion regulation. Internal Family Systems (IFS) for dissociative symptoms. SOMATIC APPROACHES: Trauma-Sensitive Yoga (TSY) - choice, non-coercion, present moment awareness. Case Study: Sexual assault survivors (n=64) - 10-week TSY reduced PTSD symptoms by 52%. Somatic Experiencing (SE) - nervous system regulation, pendulation, titration. Body-based interventions for trauma stored in the body. SPECIALIZED POPULATIONS: Military veterans: Combat-specific protocols, military cultural competency. First responders: Cumulative trauma, critical incident debriefing. Children: Trauma-Focused CBT, play therapy, attachment considerations. PREVENTION AND EARLY INTERVENTION: Psychological First Aid immediately post-trauma. Critical Incident Stress Management for groups. Early CBT within 72 hours prevents PTSD development in 60% of cases.",
+      "source": "Journal of Traumatic Stress",
+      "researcherAuthors": "Edna Foa, Patricia Resick, Francine Shapiro, Bessel van der Kolk",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Pennsylvania",
+      "evidenceLevel": "clinical trials",
+      "tags": ["PTSD", "trauma therapy", "EMDR", "prolonged exposure", "somatic therapy", "complex trauma"]
+    },
+    {
+      "domain": "personality_disorders",
+      "title": "Personality Disorder Treatment and Dialectical Behavior Therapy",
+      "content": "Personality disorders affect 10-15% of population. BORDERLINE PERSONALITY DISORDER (BPD): Dialectical Behavior Therapy (DBT) gold standard - 1-year program with 78% completion rate, 50% reduction in self-harm behaviors. DBT MODULES: 1) Mindfulness skills (wise mind, observe/describe/participate, non-judgmental stance). 2) Distress tolerance (TIPP for crisis survival, radical acceptance, distraction techniques). 3) Emotion regulation (emotion identification, opposite action, PLEASE skills). 4) Interpersonal effectiveness (DEAR MAN, GIVE, FAST techniques). Case Study: Sarah, 25, BPD - 18 months DBT, hospitalization reduced from 4x/year to 0, relationship stability improved significantly. ANTISOCIAL PERSONALITY DISORDER: Cognitive-behavioral approaches, motivational interviewing. Treatment compliance challenges - external motivation (legal system) often required. NARCISSISTIC PERSONALITY DISORDER: Schema therapy, mentalization-based treatment. Challenge grandiosity while building genuine self-esteem. AVOIDANT PERSONALITY DISORDER: Graduated exposure therapy, social skills training, cognitive restructuring of rejection sensitivity. DEPENDENT PERSONALITY DISORDER: Assertiveness training, independence building, anxiety management for separation fears. SPECIALIZED APPROACHES: Schema Therapy for personality disorders - 18 early maladaptive schemas, mode work, limited reparenting. Mentalization-Based Treatment (MBT) - understanding mental states underlying behavior. Transference-Focused Psychotherapy (TFP) - psychodynamic approach for severe personality disorders. GROUP THERAPY: DBT skills groups - 2.5 hours weekly, homework assignments, skills practice. Therapeutic communities for severe personality disorders. Peer support groups for family members (BPD Family Connections).",
+      "source": "Personality Disorders: Theory, Research, and Treatment",
+      "researcherAuthors": "Marsha Linehan, Jeffrey Young, Peter Fonagy, Otto Kernberg",
+      "publicationYear": 2022,
+      "journalInstitution": "University of Washington",
+      "evidenceLevel": "longitudinal",
+      "tags": ["personality disorders", "DBT", "BPD", "schema therapy", "mentalization", "group therapy"]
+    },
+    {
+      "domain": "bipolar_disorder",
+      "title": "Bipolar Disorder Management and Mood Stabilization",
+      "content": "Bipolar disorder affects 2.8% of adults, high suicide risk (15-20x general population). MEDICATION MANAGEMENT: Mood stabilizers: Lithium (gold standard, 0.6-1.2 mEq/L), Valproate (500-2000mg), Lamotrigine (100-400mg for depression). Atypical antipsychotics: Quetiapine, Olanzapine, Risperidone for acute mania/mixed episodes. Case Study: Michael, 28, Bipolar I - lithium 1200mg + therapy maintained stability for 3 years, no hospitalizations. PSYCHOSOCIAL INTERVENTIONS: Cognitive Behavioral Therapy for Bipolar (CBT-BD) - mood monitoring, cognitive restructuring, relapse prevention. Interpersonal and Social Rhythm Therapy (IPSRT) - routine stabilization, sleep hygiene, social rhythm tracking. Family-Focused Therapy (FFT) - psychoeducation, communication skills, problem-solving for families. MOOD MONITORING: Daily mood charts, sleep tracking, medication adherence monitoring. Apps: Daylio, eMoods, IMoodJournal for pattern recognition. Life chart methodology for identifying triggers and patterns. EPISODE MANAGEMENT: Manic episode protocol: Hospitalization if severe, antipsychotic initiation, sleep restoration, stimulation reduction. Depressive episode: Avoid antidepressant monotherapy (mania trigger), lamotrigine preferred, light therapy, behavioral activation. Mixed episodes: Most dangerous (highest suicide risk), antipsychotics + mood stabilizers, close monitoring. RAPID CYCLING TREATMENT: Occurs in 20% of bipolar patients, defined as 4+ episodes per year. Thyroid optimization, avoid antidepressants, high-dose mood stabilizers. SUICIDE PREVENTION: Safety planning, means restriction, family education. Lithium has specific anti-suicide effects beyond mood stabilization. Crisis response plans with emergency contacts and protocols.",
+      "source": "Bipolar Disorders",
+      "researcherAuthors": "Kay Redfield Jamison, Ellen Frank, David Miklowitz, Susan McElroy",
+      "publicationYear": 2023,
+      "journalInstitution": "Johns Hopkins University",
+      "evidenceLevel": "clinical guidelines",
+      "tags": ["bipolar disorder", "mood stabilizers", "lithium", "mania", "depression", "suicide prevention"]
+    },
+    {
+      "domain": "eating_disorders",
+      "title": "Eating Disorder Treatment and Recovery Protocols",
+      "content": "Eating disorders have highest mortality rate of mental health conditions. ANOREXIA NERVOSA: Medical stabilization priority - weight restoration to 90% expected body weight. Family-Based Treatment (FBT/Maudsley Method) for adolescents - 85% success rate. Phase 1: Parents control all eating, Phase 2: Gradual return of control, Phase 3: Establishing healthy identity. Case Study: 16-year-old, BMI 14, hospitalized 6 weeks, FBT over 12 months achieved full recovery. Cognitive Behavioral Therapy-Enhanced (CBT-E) for adults - 40 sessions over 40 weeks, addressing perfectionism, low self-esteem, interpersonal difficulties. BULIMIA NERVOSA: CBT most effective - 60% achieve abstinence from binge/purge behaviors. Nutritional rehabilitation, regular eating pattern establishment. Fluoxetine 60mg only FDA-approved medication. Dialectical Behavior Therapy for emotional dysregulation components. BINGE EATING DISORDER: Cognitive Behavioral Therapy, Interpersonal Psychotherapy. Medications: Lisdexamfetamine (Vyvanse), topiramate for binge reduction. Weight management component without restriction focus. MEDICAL COMPLICATIONS MONITORING: Anorexia: Bradycardia, hypotension, bone density loss, electrolyte imbalances. Bulimia: Dental erosion, electrolyte disturbances, gastric complications. Regular medical monitoring including ECG, labs, bone scans. FAMILY THERAPY APPROACHES: Multi-family groups for eating disorders. Caregiver skills training. Meal support techniques and food challenge protocols. INPATIENT/RESIDENTIAL TREATMENT: Criteria: Medical instability, severe malnutrition, failed outpatient treatment. Average length of stay 30-90 days depending on severity.",
+      "source": "International Journal of Eating Disorders",
+      "researcherAuthors": "Christopher Fairburn, Daniel Le Grange, Katharine Loeb, James Lock",
+      "publicationYear": 2022,
+      "journalInstitution": "Stanford University",
+      "evidenceLevel": "treatment guidelines",
+      "tags": ["eating disorders", "anorexia", "bulimia", "family therapy", "CBT-E", "medical monitoring"]
+    },
+    {
+      "domain": "autism_adhd",
+      "title": "Neurodevelopmental Disorders: Autism and ADHD Treatment",
+      "content": "AUTISM SPECTRUM DISORDER (ASD): Prevalence 1 in 44 children, 4:1 male to female ratio. EVIDENCE-BASED INTERVENTIONS: Applied Behavior Analysis (ABA) - 25-40 hours/week early intervention, discrete trial training, natural environment teaching. Case Study: 3-year-old with severe autism, 2 years intensive ABA increased language from 5 to 200+ words, reduced challenging behaviors by 85%. Social Skills Training groups for higher-functioning individuals. Cognitive Behavioral Therapy adapted for autism - concrete thinking style, visual supports, special interests incorporation. SENSORY INTERVENTIONS: Occupational therapy for sensory processing difficulties. Weighted blankets, compression garments, sensory diets. Environmental modifications - noise reduction, lighting adjustments, quiet spaces. ATTENTION-DEFICIT/HYPERACTIVITY DISORDER (ADHD): Affects 9.4% of children, 4.4% of adults. MULTIMODAL TREATMENT: Stimulant medications: Methylphenidate (Ritalin, Concerta), Amphetamines (Adderall, Vyvanse). 70-80% response rate. Non-stimulants: Atomoxetine (Strattera), Guanfacine (Intuniv) for those who can't tolerate stimulants. Behavioral interventions: Parent training, classroom behavior management, organizational skills training. Case Study: 8-year-old ADHD, combined medication + behavior therapy improved school performance from failing to B average. ADULT ADHD TREATMENT: Late diagnosis common, different presentation than childhood. Executive function training, time management skills, cognitive behavioral therapy. Workplace accommodations and career counseling. COMORBIDITY MANAGEMENT: ADHD + anxiety: Start with ADHD treatment, anxiety often improves. Autism + ADHD co-occurrence in 50-70% of cases requires integrated treatment approach.",
+      "source": "Journal of Autism and Developmental Disorders",
+      "researcherAuthors": "Catherine Lord, Russell Barkley, Joel Nigg, Geraldine Dawson",
+      "publicationYear": 2023,
+      "journalInstitution": "UCLA Center for Autism Research",
+      "evidenceLevel": "treatment reviews",
+      "tags": ["autism", "ADHD", "ABA", "stimulant medication", "social skills", "executive function"]
+    },
+    {
+      "domain": "substance_mental_health",
+      "title": "Dual Diagnosis: Co-Occurring Substance Use and Mental Health",
+      "content": "Dual diagnosis prevalence: 50% of people with severe mental illness also have substance use disorders. INTEGRATED TREATMENT MODEL: Simultaneous addressing of both conditions by cross-trained team. Trauma-informed care principles essential - 90% of individuals with dual diagnosis have trauma history. COMMON COMBINATIONS: Depression + Alcohol (40% of depressed individuals) - self-medication for mood symptoms. Case Study: 45-year-old with major depression and alcohol dependence, integrated CBT + naltrexone achieved 18-month sobriety and remission of depression. Anxiety + Benzodiazepines/Cannabis (30%) - avoidance of anxiety-provoking situations. PTSD + Multiple substances (25%) - numbing traumatic memories and hyperarousal. ADHD + Stimulants/Cannabis (20%) - self-medication for focus and sleep issues. TREATMENT PHASES: Phase 1 (months 1-3): Engagement and motivation building, safety stabilization, crisis management. Motivational interviewing techniques, harm reduction approach. Phase 2 (months 3-6): Acute stabilization, detoxification if needed, medication optimization. Phase 3 (months 6+): Relapse prevention, skill building, recovery maintenance. SPECIALIZED INTERVENTIONS: Seeking Safety for PTSD/addiction - present-focused coping skills, safety prioritization. Cognitive Behavioral Therapy for depression/substance use - mood monitoring, substance use tracking, trigger identification. Dialectical Behavior Therapy for personality disorders/addiction - distress tolerance skills, emotion regulation. MEDICATION CONSIDERATIONS: Addiction potential of psychiatric medications, drug interactions, compliance challenges. Avoid benzodiazepines in addiction history, prefer SSRIs over tricyclics. FAMILY INVOLVEMENT: Psychoeducation about both conditions, codependency issues, support group referrals (Al-Anon, NAMI).",
+      "source": "Journal of Dual Diagnosis",
+      "researcherAuthors": "Robert Drake, Kim Mueser, Kenneth Minkoff",
+      "publicationYear": 2022,
+      "journalInstitution": "Dartmouth Medical School",
+      "evidenceLevel": "integrated treatment",
+      "tags": ["dual diagnosis", "integrated treatment", "trauma-informed", "co-occurring disorders", "medication safety"]
+    },
+    {
+      "domain": "cultural_psychology",
+      "title": "Culturally Responsive Mental Health Treatment",
+      "content": "Cultural factors significantly impact mental health presentation, help-seeking, and treatment response. CULTURAL CONSIDERATIONS BY POPULATION: Hispanic/Latino: Familismo (family-centered decision making), personalismo (personal relationships), simpatía (positive relationships). Manifestations: Somatization of emotional distress, spiritual/religious coping, extended family involvement in treatment. Case Study: Mexican-American family therapy for adolescent depression - inclusion of grandparents and cultural values increased engagement from 30% to 85%. African American: Historical trauma, medical mistrust, strength-based narratives, community resilience. Church-based interventions show higher acceptance rates. Culturally adapted CBT includes racial socialization discussions. Asian American: Model minority myth, shame/face-saving concepts, indirect communication, academic pressure. Suicide rates highest among elderly Asian women. Family hierarchy considerations in treatment planning. Native American: Historical trauma, connection to nature, tribal identity, storytelling traditions. Healing circles and traditional practices integration with Western therapy. LGBTQ+ AFFIRMATIVE THERAPY: Minority stress model - chronic stress from stigma, discrimination, rejection. Affirmative approaches validate identity, address internalized homophobia. Transition-related therapy for transgender individuals. RELIGIOUS/SPIRITUAL INTEGRATION: Assessment of spiritual resources and conflicts. Collaboration with religious leaders when appropriate. Prayer, meditation, forgiveness work as therapeutic tools. LANGUAGE AND COMMUNICATION: Interpreter services for non-English speakers. Cultural concepts of distress (susto, ataque de nervios, hwa-byung). Nonverbal communication differences across cultures. TREATMENT ADAPTATIONS: Group vs. individual therapy preferences vary by culture. Directive vs. non-directive approaches. Family involvement levels and decision-making processes.",
+      "source": "Cultural Diversity and Mental Health",
+      "researcherAuthors": "Stanley Sue, Derald Wing Sue, Angela Ponterotto, Melba Vasquez",
+      "publicationYear": 2023,
+      "journalInstitution": "University of California, Davis",
+      "evidenceLevel": "cultural adaptation",
+      "tags": ["cultural competency", "Hispanic mental health", "African American therapy", "LGBTQ affirmative", "religious integration"]
+    },
+    {
+      "domain": "digital_mental_health",
+      "title": "Technology-Enhanced Mental Health Interventions",
+      "content": "Digital mental health interventions increase access and reduce costs while maintaining efficacy. EVIDENCE-BASED APPS: Headspace for anxiety/depression - 8-week program reduces symptoms by 25-30%. Calm for sleep and anxiety - guided meditations, sleep stories, nature sounds. CBT Companion for skill practice - thought records, mood tracking, behavioral experiments. Sanvello for anxiety management - mood tracking, coping toolbox, guided journeys. TELETHERAPY EFFECTIVENESS: Video therapy shows 85% equivalence to in-person for most conditions. Higher completion rates for rural populations (78% vs. 62% in-person). Best practices: Reliable internet, private space, backup communication plan. VIRTUAL REALITY THERAPY: Exposure therapy for phobias - 90% efficacy rate, reduced dropout. Case Study: Fear of flying treatment using VR - 8 sessions achieved same results as real-world exposure with 60% cost reduction. PTSD treatment using virtual environments for processing trauma. Social anxiety training in virtual social situations. ARTIFICIAL INTELLIGENCE APPLICATIONS: Chatbots for crisis support - Woebot shows 30% depression reduction in college students. Natural language processing for suicide risk detection on social media. Personalized treatment recommendations based on symptom patterns. DIGITAL THERAPEUTICS (Prescription Apps): Rebounder for substance use disorder - FDA breakthrough device designation. SilverCloud for depression/anxiety - clinician-supported modules. Reset for substance use disorder - 12-week CBT program. LIMITATIONS AND CONSIDERATIONS: Digital divide affecting low-income populations. Privacy and data security concerns. Lack of human connection for severe mental illness. Regulatory oversight and quality control issues. Integration with traditional care models for comprehensive treatment.",
+      "source": "Journal of Medical Internet Research",
+      "researcherAuthors": "Helen Christensen, John Torous, Nicholas Jacobson, Sarah Batterham",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard Medical School",
+      "evidenceLevel": "systematic review",
+      "tags": ["digital therapeutics", "teletherapy", "mental health apps", "VR therapy", "AI mental health", "technology access"]
+    }
+  ]
+}

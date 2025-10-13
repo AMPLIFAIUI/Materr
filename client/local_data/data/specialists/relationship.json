@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "relationship",
+    "name": "Dr. Alex",
+    "specialty": "Relationship Counselor",
+    "description": "Marriage, communication",
+    "icon": "fas fa-heart",
+    "color": "pink"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "couple_communication",
+      "title": "Gottman Method and Communication Pattern Analysis",
+      "content": "The Four Horsemen predict divorce with 94% accuracy: Criticism (attacking character), Contempt (superiority/disrespect), Defensiveness (victim mentality), Stonewalling (emotional withdrawal). Case Study: Couple therapy with Mark and Susan - eliminated contemptuous communication in 8 sessions, relationship satisfaction increased from 3/10 to 8/10. Antidotes protocol: Replace criticism with complaints using 'I' statements, build culture of appreciation to counter contempt, take responsibility instead of defensiveness, self-soothe during stonewalling. Love Map exercise: 60 questions about partner's inner world, dreams, fears, hopes. Daily connection rituals: 6-minute daily check-in (2 min each partner, 2 min appreciation). Repair attempts: humor, affection, taking responsibility, stopping action. Success rate: Gottman Method Couples Therapy shows 85% improvement in relationship satisfaction.",
+      "source": "Journal of Marital and Family Therapy",
+      "researcherAuthors": "John Gottman, Julie Gottman, Dan Wile, Sue Johnson",
+      "publicationYear": 2019,
+      "journalInstitution": "Gottman Institute",
+      "evidenceLevel": "rct",
+      "tags": ["communication", "Gottman method", "four horsemen", "repair attempts", "love maps", "couple therapy"]
+    },
+    {
+      "domain": "emotionally_focused_therapy",
+      "title": "EFT Implementation and Attachment-Based Interventions",
+      "content": "EFT achieves 70-73% recovery rates with 90% showing significant improvement. Three stages: Stage 1 (4-8 sessions) - identify negative cycles, access underlying emotions; Stage 2 (4-8 sessions) - restructure interactions, create bonding events; Stage 3 (2-4 sessions) - consolidate changes, plan maintenance. Case Study: David and Lisa, married 12 years, stuck in pursue-withdraw cycle - Stage 1 identified Lisa's fear of abandonment driving pursuit, David's fear of inadequacy causing withdrawal. Stage 2 breakthrough: David expressed vulnerability about feeling criticized, Lisa responded with empathy instead of pursuit. Attachment styles impact: Secure-secure couples (easiest treatment), anxious-avoidant (most common challenging pattern), disorganized attachment requires trauma processing first. Bonding events exercises: Structured vulnerability conversations, physical comfort practices, appreciation rituals.",
+      "source": "Clinical Psychology Review",
+      "researcherAuthors": "Sue Johnson, Leslie Greenberg, Jim Furrow",
+      "publicationYear": 2020,
+      "journalInstitution": "International Centre for Excellence in EFT",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["EFT", "attachment theory", "negative cycles", "bonding events", "vulnerability", "pursue-withdraw"]
+    },
+    {
+      "domain": "sexual_intimacy",
+      "title": "Sexual Health and Intimacy Restoration Protocols",
+      "content": "Sexual satisfaction correlates with relationship satisfaction at r=0.73. Common issues: 40% of couples report sexual frequency mismatch, 30% experience desire discrepancy, 25% struggle with communication about sex. Case Study: Couple with 2-year sexual disconnect - 12-session protocol increased sexual satisfaction from 2/10 to 7/10, frequency from monthly to bi-weekly. Treatment phases: 1) Sexual health assessment and education (2 sessions), 2) Communication skills for sexual topics (3 sessions), 3) Sensate focus exercises (4 sessions), 4) Addressing specific dysfunctions (3 sessions). Sensate focus protocol: Stage 1 non-genital touching (2 weeks), Stage 2 genital touching without orgasm (2 weeks), Stage 3 intercourse focus on sensation not performance. Medical integration: Coordinate with physicians for hormone evaluation, medication side effects, physical health factors. Resources: Come As You Are book, Mating in Captivity concepts, certified sex therapist referrals.",
+      "source": "Archives of Sexual Behavior",
+      "researcherAuthors": "Barry McCarthy, Emily Nagoski, Eli Coleman, Marta Meana",
+      "publicationYear": 2022,
+      "journalInstitution": "American University",
+      "evidenceLevel": "clinical",
+      "tags": ["sexual intimacy", "desire discrepancy", "sensate focus", "sexual communication", "dysfunction treatment"]
+    },
+    {
+      "domain": "conflict_resolution",
+      "title": "Structured Conflict Resolution and Problem-Solving Protocols",
+      "content": "Healthy couples engage in conflict resolution 5:1 positive to negative interaction ratio during disagreements. Structured problem-solving protocol: 1) Problem definition (each partner states issue in 2 minutes), 2) Brainstorming solutions (no evaluation), 3) Negotiation and compromise, 4) Implementation plan with specific steps, 5) Follow-up evaluation. Case Study: Financial conflict between partners - used structured approach to resolve $15,000 debt disagreement, created joint budget, reduced financial stress by 80%. Time-out procedure: Recognize flooding (heart rate >100 bpm), call time-out for minimum 20 minutes, self-soothe, return when calm. Perpetual vs. solvable problems: 69% of problems are perpetual (personality/value differences), require dialogue not solutions. Fair fighting rules: No name-calling, stay on topic, use 'I' statements, no bringing up past grievances, focus on specific behaviors not character.",
+      "source": "Family Process",
+      "researcherAuthors": "Howard Markman, Scott Stanley, Susan Blumberg",
+      "publicationYear": 2021,
+      "journalInstitution": "University of Denver",
+      "evidenceLevel": "rct",
+      "tags": ["conflict resolution", "problem-solving", "fair fighting", "perpetual problems", "flooding", "negotiation"]
+    },
+    {
+      "domain": "infidelity_recovery",
+      "title": "Affair Recovery and Trust Rebuilding Process",
+      "content": "Infidelity affects 25% of marriages, but 60-75% of couples who receive therapy can rebuild their relationship. Recovery phases: Crisis/Discovery (0-3 months), Processing/Understanding (3-12 months), Rebuilding/Integration (12+ months). Case Study: Emotional affair recovery - 18-month process from discovery to renewed intimacy, trust scores improved from 1/10 to 8/10. Betrayed partner needs: Complete disclosure, no contact with affair partner, transparency (phone/email access), consistent support and empathy. Unfaithful partner requirements: Take full responsibility, show genuine remorse, attend individual therapy, commit to transparency. Disclosure protocol: Complete truth in structured session with therapist present, written timeline of affair, answer all questions honestly. Rebuilding rituals: Daily check-ins, weekly relationship meetings, monthly progress assessments, quarterly intensive sessions. Relapse prevention: Identify triggers, establish boundaries, ongoing therapy, accountability measures.",
+      "source": "Journal of Couple & Relationship Therapy",
+      "researcherAuthors": "Janis Spring, Esther Perel, John Gottman, Shirley Glass",
+      "publicationYear": 2020,
+      "journalInstitution": "Western Connecticut State University",
+      "evidenceLevel": "clinical",
+      "tags": ["infidelity", "affair recovery", "trust rebuilding", "disclosure", "transparency", "betrayal trauma"]
+    },
+    {
+      "domain": "premarital_counseling",
+      "title": "Premarital Education and Relationship Preparation Programs",
+      "content": "Couples who receive premarital education have 31% lower risk of divorce and higher satisfaction scores. PREPARE assessment identifies strengths and growth areas across 11 categories. Case Study: Engaged couple completed 8-session PREPARE program, identified communication and financial management as growth areas, reported 85% satisfaction with marriage preparation. Session topics: Session 1-2 communication and conflict resolution, Session 3-4 financial management and planning, Session 5-6 family of origin influences, Session 7-8 intimacy and commitment. Assessment tools: PREPARE/ENRICH inventory, Relationship Checkup, Love Language assessment. Skill building exercises: Speaker-listener technique, financial planning worksheets, family genogram creation, spiritual/values clarification. Red flags requiring additional support: History of abuse, active addiction, significant mental health issues, major value conflicts. Success metrics: 95% of couples completing program feel more prepared for marriage.",
+      "source": "Family Relations",
+      "researcherAuthors": "David Olson, Scott Stanley, Howard Markman",
+      "publicationYear": 2022,
+      "journalInstitution": "Life Innovations",
+      "evidenceLevel": "longitudinal",
+      "tags": ["premarital counseling", "PREPARE assessment", "relationship preparation", "communication skills", "conflict prevention"]
+    },
+    {
+      "domain": "blended_families",
+      "title": "Stepfamily Dynamics and Integration Strategies",
+      "content": "60% of second marriages involve children from previous relationships. Stepfamily integration takes 5-7 years on average. Common challenges: loyalty conflicts (75% of stepchildren), discipline disagreements (68% of couples), ex-spouse boundary issues (55% of families). Case Study: Blended family with his 2, her 1, their 1 - structured integration process over 2 years resulted in family cohesion score improving from 4/10 to 8/10. Integration protocol: Year 1 focus on couple relationship stability, Year 2-3 establish stepparent relationships gradually, Year 4+ work toward family identity. Discipline guidelines: Biological parent handles major discipline for first 2 years, stepparent builds relationship before authority, consistent rules across households when possible. Co-parenting coordination: Structured communication with ex-spouses, child-focused decisions, boundary maintenance. Support resources: Stepfamily Association support groups, Smart Steps classes, family therapy specialized in blended families.",
+      "source": "Clinical Child and Family Psychology Review",
+      "researcherAuthors": "Patricia Papernow, Emily Visher, John Visher",
+      "publicationYear": 2021,
+      "journalInstitution": "Institute for Stepfamily Education",
+      "evidenceLevel": "longitudinal",
+      "tags": ["stepfamilies", "blended families", "loyalty conflicts", "co-parenting", "family integration", "discipline"]
+    },
+    {
+      "domain": "lgbtq_relationships",
+      "title": "LGBTQ+ Relationship Dynamics and Culturally Affirming Therapy",
+      "content": "LGBTQ+ couples face unique stressors: minority stress, family acceptance issues, internalized homophobia, legal/social discrimination. Relationship satisfaction rates similar to heterosexual couples when controlling for external stressors. Case Study: Same-sex male couple dealing with one partner's family rejection - 12-session affirming therapy improved relationship satisfaction from 5/10 to 9/10, developed coping strategies for family stress. Affirming therapy principles: Validate identity and relationship, address minority stress, support chosen family concepts, navigate internalized oppression. Coming out process impact: Individual coming out timelines may differ, support partner's process, address relationship visibility decisions together. Legal considerations: Marriage equality benefits, parental rights navigation, healthcare proxy decisions, financial planning differences. Community support: LGBTQ+ community centers, Pride events, online support groups, PFLAG for family education. Specialized training: Therapists need cultural competency training, understanding of heteronormative assumptions, awareness of conversion therapy harms.",
+      "source": "Psychology of Sexual Orientation and Gender Diversity",
+      "researcherAuthors": "Douglas Haldeman, Eli Coleman, Lisa Diamond",
+      "publicationYear": 2023,
+      "journalInstitution": "American Psychological Association Division 44",
+      "evidenceLevel": "review",
+      "tags": ["LGBTQ+ relationships", "minority stress", "affirming therapy", "coming out", "chosen family", "cultural competency"]
+    },
+    {
+      "domain": "long_distance_relationships",
+      "title": "Long-Distance Relationship Maintenance and Technology Integration",
+      "content": "14 million couples in US are in long-distance relationships (LDRs). Success factors: Trust (most important), communication frequency and quality, future planning, visit frequency. Case Study: Military deployment couple - structured communication plan and reunion protocols maintained relationship satisfaction above 7/10 throughout 12-month deployment. Communication protocol: Daily brief check-ins (15 minutes), weekly longer conversations (60+ minutes), monthly relationship state discussions. Technology tools: Video calls for connection, shared calendars for planning, couple apps (Lasting, Relish), online activities together (games, movie watching). Trust building: Transparency about activities, regular reassurance, addressing jealousy promptly, maintaining individual friendships. Reunion strategies: Plan transition time, discuss expectations, address changes that occurred during separation. Closure planning: Clear timeline for distance end, concrete steps toward reunification, backup plans if primary plan fails.",
+      "source": "Personal Relationships",
+      "researcherAuthors": "Laura Stafford, Katherine Merolla, Andy Merolla",
+      "publicationYear": 2022,
+      "journalInstitution": "Bowling Green State University",
+      "evidenceLevel": "longitudinal",
+      "tags": ["long-distance relationships", "communication technology", "military couples", "trust building", "reunion planning"]
+    },
+    {
+      "domain": "relationship_maintenance",
+      "title": "Daily Practices and Long-Term Relationship Sustainability",
+      "content": "Successful long-term relationships require intentional maintenance behaviors. Research shows 5:1 positive to negative interaction ratio predicts relationship stability. Daily practices: Express gratitude (3 specific appreciations), physical affection (6 non-sexual touches), quality time (20 minutes undivided attention), positive communication (avoid criticism). Case Study: 25-year marriage renewed through structured maintenance program - implemented daily rituals, weekly dates, monthly relationship meetings, resulting in satisfaction increase from 6/10 to 9/10 over 6 months. Love languages application: Words of affirmation (specific praise), Acts of service (helpful behaviors), Receiving gifts (thoughtful gestures), Quality time (focused attention), Physical touch (appropriate affection). Relationship rituals: Morning connection before leaving, reunion after work, bedtime appreciation, weekly date nights, annual relationship retreats. Crisis prevention: Regular relationship checkups, early intervention for problems, maintaining friendship foundation, preserving romance amid life stressors.",
+      "source": "Current Opinion in Psychology",
+      "researcherAuthors": "John Gottman, Eli Finkel, Gary Chapman",
+      "publicationYear": 2023,
+      "journalInstitution": "Northwestern University",
+      "evidenceLevel": "longitudinal",
+      "tags": ["relationship maintenance", "daily practices", "love languages", "relationship rituals", "long-term satisfaction"]
+    }
+  ]
+}

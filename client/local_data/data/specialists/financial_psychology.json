@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "financial_psychology",
+    "name": "Dr. Rachel",
+    "specialty": "Financial Psychologist",
+    "description": "Money mindset, financial stress, debt management",
+    "icon": "fas fa-dollar-sign",
+    "color": "green"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "money_mindset",
+      "title": "Financial Beliefs and Money Scripts: Childhood Origins and Adult Patterns",
+      "content": "Money scripts formed in childhood (ages 6-14) influence adult financial behaviors. Four primary money scripts: Money Avoidance (47% of people) - 'money is root of evil', Money Worship (24%) - 'money solves all problems', Money Status (23%) - 'money equals self-worth', Money Vigilance (6%) - 'money should be saved not spent'. Case Study: Sarah, 35, compulsive shopper with Money Worship script traced to childhood poverty - mother constantly worried about money, created belief that money equals security. 6-month therapy focusing on script awareness and cognitive restructuring reduced credit card debt by $15,000, developed healthy spending habits. Origin assessment: Klontz Money Script Inventory, childhood money memory exploration, family financial genogram creation, values clarification exercises. Script modification techniques: Cognitive restructuring of limiting beliefs, behavioral experiments challenging old patterns, mindfulness around spending impulses, values-based budgeting alignment. Financial genogram process: Map 3 generations of family money patterns, identify inherited beliefs and behaviors, recognize emotional money triggers, develop new family money legacy. Healthy money beliefs development: Money as tool not master, abundance mindset cultivation, spending alignment with values, financial self-compassion practices.",
+      "source": "Financial Planning Review",
+      "researcherAuthors": "Brad Klontz, Rick Kahler, Ted Klontz, Sonya Britt",
+      "publicationYear": 2022,
+      "journalInstitution": "Kansas State University",
+      "evidenceLevel": "clinical assessment",
+      "tags": ["money scripts", "financial beliefs", "childhood money messages", "financial genogram", "money mindset", "cognitive restructuring"]
+    },
+    {
+      "domain": "financial_stress",
+      "title": "Financial Stress Physiology and Mental Health Impact",
+      "content": "Financial stress affects 73% of Americans, causing physical symptoms in 60% (headaches, muscle tension, fatigue), mental health issues in 55% (anxiety, depression, irritability). Chronic financial stress increases cortisol levels by 150%, disrupts sleep in 70% of cases, affects relationships in 85% of couples. Case Study: Teacher Michael, 28, student loan debt $75,000, credit card debt $25,000 - experiencing panic attacks, insomnia, relationship conflict. 12-week financial therapy program reduced stress scores from 9/10 to 4/10, improved sleep quality, restored relationship stability. Physiological impacts: Elevated cortisol leading to weight gain, compromised immune system, high blood pressure, digestive issues, chronic fatigue. Psychological symptoms: Rumination about money (80% of financially stressed), avoidance behaviors (40%), shame and guilt cycles (65%), depression symptoms (45%), anxiety disorders (35%). Assessment tools: Financial Stress Scale, Financial Therapy Assessment, Debt-Related Stress Inventory, Quality of Life Impact Questionnaire. Stress reduction interventions: Financial mindfulness practices, progressive muscle relaxation, cognitive restructuring of catastrophic thinking, exposure therapy for money avoidance, support group participation. Coping strategies: Breaking overwhelming problems into manageable steps, seeking professional financial guidance, practicing self-compassion, maintaining social connections despite financial shame.",
+      "source": "Journal of Economic Psychology",
+      "researcherAuthors": "Melanie Hanson, Kristy Archuleta, E. Thomas Garman",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Georgia",
+      "evidenceLevel": "stress physiology",
+      "tags": ["financial stress", "cortisol levels", "anxiety depression", "financial therapy", "coping strategies", "physiological impact"]
+    },
+    {
+      "domain": "debt_psychology",
+      "title": "Debt Trauma and Recovery: Psychological Approaches to Debt Management",
+      "content": "Average American household debt $6,194 credit cards, $28,950 auto loans, $37,338 student loans. Debt trauma symptoms: Sleep disturbances (75%), relationship conflict (68%), social isolation (55%), depression (48%), substance use increase (25%). Case Study: Couple Lisa and James, combined debt $85,000 - marriage nearly ended due to financial conflict, implemented debt therapy approach with communication skills and systematic payoff plan, achieved debt freedom in 3.5 years while strengthening relationship. Debt psychology factors: Shame and guilt cycles preventing action, learned helplessness from repeated failed attempts, all-or-nothing thinking about debt payoff, social comparison increasing spending pressure. Debt recovery phases: Acknowledgment and acceptance (months 1-2), emergency stabilization (months 3-6), systematic debt reduction (years 1-3), maintenance and prevention (ongoing). Therapeutic approaches: Debt support groups for accountability and normalization, cognitive-behavioral therapy for spending triggers, couples therapy for financial communication, exposure therapy for money management avoidance. Practical interventions: Debt snowball vs. avalanche methods, automated payment systems, spending tracking apps, envelope budgeting method, emergency fund building. Relapse prevention: Identifying spending triggers, developing healthy coping alternatives, creating accountability systems, practicing delayed gratification, celebrating progress milestones.",
+      "source": "Journal of Financial Therapy",
+      "researcherAuthors": "Kristy Archuleta, John Grable, Russell James",
+      "publicationYear": 2022,
+      "journalInstitution": "Texas Tech University",
+      "evidenceLevel": "clinical outcomes",
+      "tags": ["debt trauma", "debt recovery", "financial therapy", "debt snowball", "spending triggers", "financial couples therapy"]
+    },
+    {
+      "domain": "financial_behavior_change",
+      "title": "Behavioral Economics and Financial Decision-Making Improvement",
+      "content": "Behavioral biases affect 95% of financial decisions: Present bias (immediate gratification), loss aversion (fear of losing more than gain excitement), mental accounting (treating money differently based on source), social proof (following others' financial behaviors). Case Study: Investment advisor helped client overcome loss aversion - client was avoiding stock market despite rational knowledge of long-term gains. Systematic desensitization to market volatility over 6 months led to appropriate risk allocation and 35% portfolio improvement. Common cognitive biases: Anchoring (first price influences all decisions), availability heuristic (recent news affects risk perception), confirmation bias (seeking information confirming existing beliefs), overconfidence (overestimating financial knowledge). Behavioral interventions: Automatic savings plans (removes decision fatigue), commitment devices (pre-deciding future actions), default option optimization (401k auto-enrollment), social accountability (sharing financial goals), gamification (rewards for positive behaviors). Decision architecture: Choice timing optimization (morning vs. evening decisions), decision complexity reduction, feedback loop creation, temptation bundling (pairing unpleasant financial tasks with enjoyable activities). Nudge techniques: Visual cues for spending awareness, spending cooling-off periods, automatic bill paying, round-up savings programs, progress visualization tools.",
+      "source": "Behavioral Economics",
+      "researcherAuthors": "Daniel Kahneman, Richard Thaler, Dan Ariely, Sendhil Mullainathan",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Chicago Booth School",
+      "evidenceLevel": "experimental economics",
+      "tags": ["behavioral economics", "cognitive biases", "financial decision-making", "nudge theory", "automatic savings", "behavioral interventions"]
+    },
+    {
+      "domain": "financial_communication",
+      "title": "Couples Financial Communication and Money Conflict Resolution",
+      "content": "Money arguments predict divorce with 85% accuracy, occurring monthly in 70% of couples, weekly in 35%. Financial conflict sources: Different spending priorities (65%), income disparity (45%), debt brought into relationship (40%), financial goal disagreements (60%), money management style differences (55%). Case Study: Married couple Tom and Susan - weekly money fights, separate accounts, financial secrecy. Couples financial therapy over 4 months established joint financial meetings, transparent communication, shared decision-making process, reduced conflicts by 90%. Communication protocol establishment: Weekly money meetings (30 minutes), agenda-setting for financial discussions, emotion regulation before money talks, active listening practices, compromise negotiation skills. Financial roles clarification: Who pays bills, investment decisions, spending threshold agreements, individual vs. joint account structures, financial goal priority setting. Conflict resolution framework: Identify underlying values driving positions, explore both partners' money scripts, find common ground in shared goals, negotiate win-win solutions, regular relationship and financial check-ins. Trust rebuilding after financial betrayal: Complete financial disclosure, transparent tracking systems, gradual responsibility return, counseling support, accountability measures. Prevention strategies: Premarital financial planning, regular financial health checkups, shared financial education, celebration of financial milestones together.",
+      "source": "Family Relations",
+      "researcherAuthors": "Sonya Britt, Sandra Huston, Kristy Archuleta",
+      "publicationYear": 2022,
+      "journalInstitution": "Kansas State University",
+      "evidenceLevel": "couples research",
+      "tags": ["couples financial therapy", "money conflicts", "financial communication", "financial infidelity", "financial roles", "relationship money"]
+    },
+    {
+      "domain": "financial_trauma",
+      "title": "Financial Trauma Recovery and Economic PTSD Treatment",
+      "content": "Financial trauma results from sudden economic loss (job loss, foreclosure, bankruptcy, major medical bills), creating lasting psychological impact similar to PTSD. Symptoms include hypervigilance about money (85%), avoidance of financial planning (70%), intrusive money worries (65%), emotional numbing around finances (45%). Case Study: Executive Janet lost job during 2008 recession, foreclosed home, filed bankruptcy - 8 years later still experiencing financial anxiety despite stable income. Trauma-informed financial therapy over 12 months processed loss grief, rebuilt financial confidence, established healthy money relationship. Trauma types: Sudden income loss, medical bankruptcy, identity theft/financial fraud, economic abuse in relationships, intergenerational poverty trauma, natural disaster financial loss. Assessment tools: Financial Trauma Scale, Economic PTSD Inventory, Financial Stress Impact Assessment, Resilience After Financial Crisis Scale. Treatment approaches: EMDR for financial trauma memories, somatic experiencing for body-stored financial fear, cognitive processing therapy for money-related negative beliefs, exposure therapy for financial avoidance behaviors. Recovery phases: Safety and stabilization (emergency financial plan), trauma processing (working through specific financial losses), integration (rebuilding healthy financial relationships). Protective factors development: Emergency fund creation, diversified income sources, financial education and literacy, supportive financial relationships, meaning-making from financial adversity.",
+      "source": "Traumatology",
+      "researcherAuthors": "Judith Herman, Bessel van der Kolk, Resmaa Menakem",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard Medical School",
+      "evidenceLevel": "trauma treatment",
+      "tags": ["financial trauma", "economic PTSD", "trauma-informed financial therapy", "financial recovery", "financial grief", "economic abuse"]
+    },
+    {
+      "domain": "financial_planning_psychology",
+      "title": "Psychology of Financial Planning and Goal Achievement",
+      "content": "Only 32% of Americans have written financial goals, but those who do are 42% more likely to achieve them. Financial planning psychology involves overcoming present bias, managing goal complexity, maintaining motivation over time. Case Study: Software engineer Paul, 25, wanted to buy house but couldn't save consistently - implementation intention strategy ('When I get paid, I will transfer $800 to savings before any spending') plus visual progress tracking led to $20,000 down payment in 18 months. Goal-setting principles: SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound), values alignment assessment, obstacle anticipation and planning, progress celebration milestones. Motivation maintenance strategies: Visual progress tracking (charts, apps), accountability partners, regular goal review and adjustment, reward systems for milestones, connecting daily actions to long-term vision. Psychological barriers to planning: Analysis paralysis from too many options, perfectionism preventing imperfect plans, overwhelm from complex financial products, optimism bias underestimating challenges. Planning behavioral supports: Automatic systems reducing decision fatigue, default option selection, commitment devices (public goal sharing), implementation intentions (if-then planning), environmental design supporting goals. Financial advisor relationship psychology: Trust building through transparency, communication style matching, collaborative vs. directive approaches, client empowerment vs. dependency, managing client emotional reactions to market volatility.",
+      "source": "Journal of Financial Planning",
+      "researcherAuthors": "Dave Ramsey, Suze Orman, Carl Richards, Sarah Newcomb",
+      "publicationYear": 2022,
+      "journalInstitution": "CFP Board Center for Financial Planning",
+      "evidenceLevel": "planning effectiveness",
+      "tags": ["financial goal setting", "financial planning psychology", "motivation maintenance", "implementation intentions", "financial advisor relationships", "goal achievement"]
+    },
+    {
+      "domain": "workplace_financial_wellness",
+      "title": "Employee Financial Wellness Programs and Workplace Money Stress",
+      "content": "Financial stress costs employers $1,500-$2,000 per employee annually through reduced productivity, increased healthcare costs, absenteeism. 64% of employees report financial stress affecting work performance, 52% spend work time on personal financial issues, 32% have been contacted by debt collectors at work. Case Study: Manufacturing company implemented comprehensive financial wellness program - employee engagement increased 25%, turnover decreased 18%, productivity measures improved 12% over 2-year period. Program components effectiveness: Financial education workshops (40% improvement in financial behaviors), one-on-one financial coaching (65% improvement), emergency loan programs (30% reduction in financial stress), automatic savings enrollment (85% participation rate), debt management assistance (average $5,000 debt reduction). Implementation best practices: Voluntary participation to reduce stigma, diverse delivery methods (online, in-person, mobile), culturally relevant content, confidential coaching services, partnership with qualified financial professionals. ROI measurement: Productivity metrics tracking, healthcare cost analysis, turnover cost calculation, employee engagement surveys, financial stress assessment scores. Special populations: Low-wage workers need basic banking and budgeting, high earners need investment and tax planning, different age groups require targeted content, various cultural backgrounds need culturally sensitive approaches.",
+      "source": "Compensation & Benefits Review",
+      "researcherAuthors": "Employee Benefit Research Institute, Society for Human Resource Management",
+      "publicationYear": 2023,
+      "journalInstitution": "SHRM Foundation",
+      "evidenceLevel": "workplace research",
+      "tags": ["employee financial wellness", "workplace financial stress", "financial education programs", "employee assistance", "productivity impact", "ROI measurement"]
+    },
+    {
+      "domain": "retirement_psychology",
+      "title": "Retirement Planning Psychology and Life Transition Mental Health",
+      "content": "Retirement represents major life transition affecting identity, purpose, relationships, daily structure. 25% experience retirement depression, 40% report feeling lost without work identity, 60% struggle with time management in retirement. Case Study: Corporate executive Robert, 62, forced early retirement due to company downsizing - experienced identity crisis, depression, marital conflict. Pre-retirement counseling and phased retirement approach over 18 months facilitated successful transition, found purpose in mentoring role. Psychological retirement challenges: Loss of work identity and status, social connection reduction, purpose and meaning questions, financial security anxieties, health decline concerns, mortality awareness increase. Retirement phases: Pre-retirement (planning and anticipation), honeymoon (initial freedom enjoyment), disenchantment (reality of retirement challenges), reestablishment (finding new routines and meaning), stability (successful adaptation). Financial psychology factors: Spending vs. saving mindset shift, market volatility anxiety in retirement accounts, healthcare cost fears, legacy planning emotional aspects, fixed income adjustment challenges. Successful retirement factors: Financial preparedness (reduces anxiety 60%), health maintenance (physical and mental wellness), social connection preservation, meaningful activity engagement, gradual transition when possible. Intervention approaches: Retirement coaching for transition planning, financial therapy for money anxieties, couples counseling for relationship adjustment, career counseling for encore careers, support groups for social connection.",
+      "source": "Journal of Applied Gerontology",
+      "researcherAuthors": "Robert Atchley, Nancy Schlossberg, Gene Cohen",
+      "publicationYear": 2022,
+      "journalInstitution": "National Institute on Aging",
+      "evidenceLevel": "retirement studies",
+      "tags": ["retirement psychology", "retirement depression", "life transition", "retirement planning", "retirement identity", "successful aging"]
+    },
+    {
+      "domain": "financial_addiction",
+      "title": "Financial Addictions: Shopping, Gambling, and Compulsive Money Behaviors",
+      "content": "Compulsive buying affects 8-16% of population, online shopping increasing prevalence. Gambling disorder affects 2-3% of adults, financial consequences average $55,000 debt. Both conditions involve dopamine reward system dysfunction similar to substance addictions. Case Study: Marketing executive Jennifer, compulsive shopper with $45,000 credit card debt - purchased items daily for emotional regulation, hidden purchases from partner, experienced shame and anxiety cycles. 12-step program plus CBT therapy achieved 18-month spending sobriety. Compulsive buying characteristics: Shopping for mood regulation (85%), purchase regret immediately after (70%), financial problems from overspending (90%), relationship conflicts about spending (65%), lying about purchases (55%). Gambling addiction warning signs: Chasing losses with bigger bets, neglecting responsibilities to gamble, borrowing money for gambling, lying about gambling activities, restlessness when not gambling. Treatment approaches: Cognitive-behavioral therapy for trigger identification, 12-step programs (Debtors Anonymous, Gamblers Anonymous), medication for impulse control (SSRIs), financial therapy for money relationship healing, couples therapy for relationship repair. Recovery strategies: Spending plans and budgets, automatic savings, credit card removal, accountability partners, alternative mood regulation activities, relapse prevention planning. Environmental modifications: Avoiding shopping triggers, blocking gambling websites, removing gambling apps, changing social environments, creating spending friction (waiting periods, cash-only policies).",
+      "source": "Journal of Behavioral Addictions",
+      "researcherAuthors": "Donald Black, Lorrin Koran, April Benson, Jon Grant",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Iowa",
+      "evidenceLevel": "addiction research",
+      "tags": ["compulsive buying", "gambling addiction", "financial addiction", "impulse control", "spending addiction", "behavioral addiction treatment"]
+    }
+  ]
+}
