@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { mapUserMessageToTags } from "@/lib/topicMapping";
 import type { Message, Conversation, Specialist } from "../types";
+import { useLocalAI } from "../hooks/useLocalAI";
 
 // Generate or get session ID for user profiling
 function getSessionId(): string {
@@ -74,6 +75,16 @@ export default function Chat() {
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [specialist, setSpecialist] = useState<Specialist | null>(null);
   const [isSending, setIsSending] = useState(false);
+
+  const {
+    isInitialized: isLocalAIInitialized,
+    isLoading: isLocalAILoading,
+    error: localAIError,
+    hasNativeRuntime,
+    sendMessage: sendLocalAIMessage,
+    initializeAI: initializeLocalAI
+  } = useLocalAI();
+  const [localAIStatusMessage, setLocalAIStatusMessage] = useState<string | null>(null);
 
   // Load messages from localStorage on component mount
   useEffect(() => {
@@ -147,8 +158,30 @@ export default function Chat() {
     }
   }, [conversation, specialists, specialist, id]);
 
+  useEffect(() => {
+    if (!hasNativeRuntime) {
+      setLocalAIStatusMessage('Local AI is available on native builds. Using fallback responses in the web preview.');
+      return;
+    }
+
+    if (localAIError) {
+      setLocalAIStatusMessage(`${localAIError} Fallback responses will be used.`);
+      return;
+    }
+
+    if (!isLocalAIInitialized) {
+      setLocalAIStatusMessage(isLocalAILoading ? 'Loading on-device AI model...' : 'Local AI is not initialized yet. Fallback responses will be used.');
+      return;
+    }
+
+    setLocalAIStatusMessage(null);
+  }, [hasNativeRuntime, localAIError, isLocalAIInitialized, isLocalAILoading]);
+
+  const canUseLocalAI = hasNativeRuntime && isLocalAIInitialized && !localAIError;
+  const showTypingIndicator = isTyping || isLocalAILoading;
+
   // Generate AI response based on user input and specialist
-  const generateAIResponse = (userMessage: string, specialist: Specialist): string => {
+  const generateFallbackResponse = (userMessage: string, specialist: Specialist): string => {
     const lowerMessage = userMessage.toLowerCase();
     // Personalize with username if available
     const name = localStorage.getItem('username') || '';
@@ -192,9 +225,15 @@ export default function Chat() {
     return specialistResponses[Math.floor(Math.random() * specialistResponses.length)];
   };
 
+  const getFallbackResponse = async (userMessage: string, specialist: Specialist): Promise<string> => {
+    return await new Promise((resolve) => {
+      const delay = 1000 + Math.random() * 2000;
+      setTimeout(() => resolve(generateFallbackResponse(userMessage, specialist)), delay);
+    });
+  };
+
   // Send message using localStorage instead of API for offline functionality
   const sendMessage = async (content: string) => {
-    // Input validation
     if (!content || content.trim().length === 0) {
       throw new Error('Message cannot be empty');
     }
@@ -203,34 +242,31 @@ export default function Chat() {
       throw new Error('Message is too long. Please keep it under 5000 characters.');
     }
 
+    const activeSpecialist = specialist || specialists[0];
+    if (!activeSpecialist) {
+      throw new Error('No specialist selected');
+    }
+
     setIsSending(true);
     try {
       let targetConversationId = conversationId;
 
-      // If no conversation exists (e.g., /chat/new), create one first
-      if (!targetConversationId && specialist) {
-        // Create new conversation ID
+      if (!targetConversationId) {
         const newConversationId = Date.now();
         const newConversation = {
           id: newConversationId,
-          specialistId: specialist.id,
+          specialistId: activeSpecialist.id,
           title: 'New Conversation',
           createdAt: new Date(),
           updatedAt: new Date()
         };
-        
-        // Save conversation to localStorage
+
         localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
-        
-        // Update current conversation
         setConversation(newConversation);
         targetConversationId = newConversationId;
-        
-        // Update URL to reflect new conversation
         setLocation(`/chat/${newConversationId}`);
       }
 
-      // Create user message
       const userMessage: Message = {
         id: Date.now(),
         content: content.trim(),
@@ -239,32 +275,41 @@ export default function Chat() {
         conversationId: targetConversationId!
       };
 
-      // Add user message to messages
       const updatedMessages = [...messages, userMessage];
       setMessages(updatedMessages);
-      
-      // Save messages to localStorage
       localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(updatedMessages));
 
-      // Show typing indicator
       setIsTyping(true);
 
-      // Simulate AI response after a delay
-      setTimeout(() => {
-        const aiResponse: Message = {
-          id: Date.now() + 1,
-          content: generateAIResponse(content.trim(), specialist!),
-          sender: 'specialist',
-          timestamp: new Date(),
-          conversationId: targetConversationId!
-        };
+      let aiResponseContent: string;
+      if (canUseLocalAI) {
+        try {
+          aiResponseContent = await sendLocalAIMessage(content.trim());
+        } catch (localError) {
+          console.error('Local AI send error:', localError);
+          const fallbackMessage = localError instanceof Error ? localError.message : 'Local AI failed to respond';
+          setLocalAIStatusMessage(`${fallbackMessage}. Using fallback responses.`);
+          aiResponseContent = await getFallbackResponse(content.trim(), activeSpecialist);
+        }
+      } else {
+        if (hasNativeRuntime && localAIError) {
+          setLocalAIStatusMessage(`${localAIError} Fallback responses will be used.`);
+        }
+        aiResponseContent = await getFallbackResponse(content.trim(), activeSpecialist);
+      }
 
-        const finalMessages = [...updatedMessages, aiResponse];
-        setMessages(finalMessages);
-        localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
-        setIsTyping(false);
-      }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
+      const aiResponse: Message = {
+        id: Date.now() + 1,
+        content: aiResponseContent,
+        sender: 'specialist',
+        timestamp: new Date(),
+        conversationId: targetConversationId!
+      };
 
+      const finalMessages = [...updatedMessages, aiResponse];
+      setMessages(finalMessages);
+      localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
+      setIsTyping(false);
     } catch (error) {
       setIsTyping(false);
       throw error;
@@ -348,7 +393,7 @@ export default function Chat() {
   // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isLocalAILoading]);
 
   // Check if there are saved notes
   useEffect(() => {
@@ -383,7 +428,7 @@ export default function Chat() {
         <header className="bg-gradient-to-r from-blue-500/80 to-purple-500/80 dark:from-gray-800 dark:to-gray-900 text-white px-4 py-3 pt-safe shadow-lg sticky top-0 z-10 rounded-t-3xl glass-card">
           <div className="flex items-center justify-between min-h-[64px] h-16 md:h-20">
             <div className="flex items-center gap-3">
-              <button 
+              <button
                 onClick={() => window.history.length > 1 ? window.history.back() : setLocation('/')}
                 className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                 title="Back"
@@ -408,6 +453,25 @@ export default function Chat() {
             </div>
           </div>
         </header>
+
+        {localAIStatusMessage && (
+          <div className="px-4 pt-3">
+            <div className="glass-card border border-yellow-300/70 dark:border-yellow-700/70 bg-yellow-50/80 dark:bg-yellow-900/40 text-sm text-yellow-900 dark:text-yellow-100 rounded-2xl px-3 py-2 flex items-start justify-between gap-2">
+              <span>{localAIStatusMessage}</span>
+              {hasNativeRuntime && localAIError && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => initializeLocalAI()}
+                  className="text-yellow-900 dark:text-yellow-100 hover:bg-yellow-200/60 dark:hover:bg-yellow-800/60"
+                  disabled={isLocalAILoading}
+                >
+                  Retry
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-32">
@@ -473,7 +537,7 @@ export default function Chat() {
                 </div>
               ))}
               
-              {isTyping && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
+              {showTypingIndicator && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
             </>
           )}
           <div ref={messagesEndRef} />
