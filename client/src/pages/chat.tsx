@@ -1,18 +1,33 @@
-import { useState, useEffect, useRef } from "react";
+// Prompt for username on first launch
+function getOrPromptUsername(): string {
+  let username = localStorage.getItem('username');
+  if (!username) {
+    username = window.prompt('Welcome! What is your first name?') || '';
+    if (username) {
+      localStorage.setItem('username', username);
+    }
+  }
+  return username || '';
+}
+import "../styles/chat.css";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import BottomNav from "@/components/BottomNav";
-import { ArrowLeft, StickyNote, Send } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
+import { ProfileIconWithName } from "@/components/ProfileIconWithName";
 import { useLocation, useParams } from "wouter";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { queryClient, apiRequest } from "@/lib/queryClient";
 import { MessageBubble } from "@/components/message-bubble";
 import { TypingIndicator } from "@/components/typing-indicator";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { PrivacyToggle } from "@/components/privacy-toggle";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
 import { mapUserMessageToTags } from "@/lib/topicMapping";
-import type { Message, Conversation, Specialist } from "@shared/schema";
+import { buildMatePrompt } from "@/lib/matePrompt";
+import { getPersonaContext } from "@/lib/rag";
+import { loadSpecialists, getSpecialistTheme, findSpecialistByKey, findSpecialistById, getFallbackSpecialists } from "@/lib/specialists";
+import { syncProfileConversationCount } from "@/lib/profileStorage";
+import type { Message, Conversation, Specialist } from "../types";
+import { CrisisDetectionService } from "@/lib/crisisDetection";
+import { useLocalAI } from "../hooks/useLocalAI";
 
 // Generate or get session ID for user profiling
 function getSessionId(): string {
@@ -24,8 +39,40 @@ function getSessionId(): string {
   return sessionId;
 }
 
+function getEmergencyUserId(): number {
+  try {
+    const stored = localStorage.getItem('emergencyUserId');
+    if (stored) {
+      const parsed = parseInt(stored, 10);
+      if (!Number.isNaN(parsed)) {
+        return parsed;
+      }
+    }
+
+    const fallback = 1;
+    localStorage.setItem('emergencyUserId', fallback.toString());
+    return fallback;
+  } catch {
+    return 1;
+  }
+}
+const ensureSentence = (text?: string) => {
+  if (!text) return '';
+  const trimmed = text.trim();
+  if (!trimmed) return '';
+  return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+};
+
+const pickRandom = <T,>(items?: T[]): T | undefined => {
+  if (!items || items.length === 0) return undefined;
+  const index = Math.floor(Math.random() * items.length);
+  return items[index];
+};
+
 export default function Chat() {
-  const { id } = useParams();
+  const username = getOrPromptUsername();
+  const [userId] = useState(() => getSessionId());
+  const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -38,324 +85,447 @@ export default function Chat() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const conversationId = (id && id !== 'new' && !isNaN(parseInt(id))) ? parseInt(id) : null;
-  
-  // Check if this is a fresh session (app was closed and reopened)
-  useEffect(() => {
-    const sessionFlag = sessionStorage.getItem('chat-session-active');
-    if (!sessionFlag) {
-      // Fresh session - clear any old chat data and show welcome message
-      setShowWelcome(true);
-      sessionStorage.setItem('chat-session-active', 'true');
-      
-      // Clear any cached conversation data from React Query
-      queryClient.clear();
-      
-      // Clear any temporary chat state
-      localStorage.removeItem('chatDraft');
-    }
-    
-    // Clear session and data when page is unloaded (app closed)
-    const handleUnload = () => {
-      sessionStorage.removeItem('chat-session-active');
-      // Optional: Clear draft messages on close
-      localStorage.removeItem('chatDraft');
-    };
-    
-    window.addEventListener('beforeunload', handleUnload);
-    return () => window.removeEventListener('beforeunload', handleUnload);
-  }, []);
-  
-  // If the parsed ID is invalid, redirect to home
-  useEffect(() => {
-    if (id && id !== 'new' && isNaN(parseInt(id))) {
-      setLocation('/');
-      return;
-    }
-  }, [id, setLocation]);
 
-  const { data: messages = [], isLoading } = useQuery<Message[]>({
-    queryKey: ['/api/conversations', conversationId, 'messages'],
-    queryFn: () => fetch(`/api/conversations/${conversationId}/messages`, { credentials: 'include' }).then(res => res.json()),
-    enabled: conversationId !== null
-  });
-
-  const { data: conversation, error: conversationError } = useQuery<Conversation>({
-    queryKey: ['/api/conversations', conversationId],
-    queryFn: async () => {
-      const response = await fetch(`/api/conversations/${conversationId}`, { credentials: 'include' });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch conversation: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Fetched conversation:', data);
-      return data;
-    },
-    enabled: conversationId !== null && conversationId > 0 // Only fetch for existing conversations
-  });
-
-  // Log conversation errors
-  useEffect(() => {
-    if (conversationError) {
-      console.error('Conversation fetch error:', conversationError);
-    }
-  }, [conversationError]);
-
-  // Load specialist data from specialists list as fallback
-  const { data: specialists = [] } = useQuery<Specialist[]>({
-    queryKey: ['/api/specialists'],
-    queryFn: () => fetch('/api/specialists', { credentials: 'include' }).then(res => res.json())
-  });
-
+  const [specialists, setSpecialists] = useState<Specialist[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [conversation, setConversation] = useState<Conversation | null>(null);
   const [specialist, setSpecialist] = useState<Specialist | null>(null);
+  const [isSending, setIsSending] = useState(false);
+  const emergencyUserIdRef = useRef<number>(getEmergencyUserId());
 
-  // Set specialist from conversation data only - no fallback to first specialist
-  // Set specialist from conversation data or fallback to first available for /chat/new
+
   useEffect(() => {
-    if (conversation?.specialistId && specialists.length > 0) {
-      const foundSpecialist = specialists.find(s => s.id === conversation.specialistId);
-      if (foundSpecialist) {
-        setSpecialist(foundSpecialist);
+    let mounted = true;
+    setIsLoading(true);
+    loadSpecialists()
+      .then((data) => {
+        if (!mounted) return;
+        setSpecialists(data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        if (!mounted) return;
+        console.warn('Falling back to bundled specialist data');
+        setSpecialists(getFallbackSpecialists());
+        setIsLoading(false);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+
+  const {
+    isInitialized: isLocalAIInitialized,
+    isLoading: isLocalAILoading,
+    error: localAIError,
+    hasNativeRuntime,
+    sendMessage: sendLocalAIMessage,
+    initializeAI: initializeLocalAI
+  } = useLocalAI();
+  const [localAIStatusMessage, setLocalAIStatusMessage] = useState<string | null>(null);
+
+  // Load messages from localStorage on component mount
+  useEffect(() => {
+    if (conversationId) {
+      const savedMessages = localStorage.getItem(`conversation_${conversationId}_messages`);
+      if (savedMessages) {
+        try {
+          const parsed = JSON.parse(savedMessages);
+          const hydrated: Message[] = Array.isArray(parsed)
+            ? parsed.map((msg: any) => ({
+                ...msg,
+                timestamp: msg.timestamp ? new Date(msg.timestamp) : undefined,
+              }))
+            : [];
+          setMessages(hydrated);
+        } catch (error) {
+          console.error('Error parsing saved messages:', error);
+          setMessages([]);
+        }
+      } else {
+        setMessages([]);
+      }
+    } else {
+      setMessages([]);
+    }
+  }, [conversationId]);
+
+  useEffect(() => {
+    if (conversationId) {
+      const savedConversation = localStorage.getItem(`conversation_${conversationId}`);
+      if (savedConversation) {
+        try {
+          const parsed = JSON.parse(savedConversation);
+          setConversation(parsed);
+        } catch (error) {
+          console.error('Error parsing saved conversation:', error);
+        }
+      }
+    } else {
+      setConversation(null);
+    }
+  }, [conversationId]);
+
+  useEffect(() => {
+    if (specialists.length === 0) return;
+
+    if (conversation?.specialistId) {
+      const found = findSpecialistById(specialists, conversation.specialistId);
+      if (found) {
+        setSpecialist(found);
         return;
       }
     }
-    // Fallback: if on /chat/new and no specialist selected, pick the first available
+
+    if (conversation?.specialistKey) {
+      const foundByKey = findSpecialistByKey(specialists, conversation.specialistKey);
+      if (foundByKey) {
+        setSpecialist(foundByKey);
+        return;
+      }
+    }
+
+    if (!specialist) {
+      const savedSpecialist = localStorage.getItem('selectedSpecialist');
+      if (savedSpecialist) {
+        try {
+          const parsed = JSON.parse(savedSpecialist);
+          const resolved = findSpecialistByKey(specialists, parsed?.key) || findSpecialistById(specialists, parsed?.id);
+          if (resolved) {
+            setSpecialist(resolved);
+          }
+        } catch (error) {
+          console.error('Error parsing saved specialist:', error);
+        } finally {
+          localStorage.removeItem('selectedSpecialist');
+        }
+        if (specialist) return;
+      }
+    }
+
+    if (!specialist && id === 'new') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const specialistKey = urlParams.get('specialist');
+      if (specialistKey) {
+        const foundSpecialist = findSpecialistByKey(specialists, specialistKey);
+        if (foundSpecialist) {
+          setSpecialist(foundSpecialist);
+          return;
+        }
+      }
+    }
+
     if (!conversation && specialists.length > 0 && id === 'new' && !specialist) {
-      setSpecialist(specialists[0]);
+      const fallbackSpecialist = findSpecialistByKey(specialists, 'mens_mental_health') || specialists[0];
+      setSpecialist(fallbackSpecialist);
     }
   }, [conversation, specialists, specialist, id]);
 
-  const sendMessageMutation = useMutation({
-    mutationFn: async (content: string) => {
-      // Input validation
-      if (!content || content.trim().length === 0) {
-        throw new Error('Message cannot be empty');
-      }
+  useEffect(() => {
 
-      if (content.length > 5000) {
-        throw new Error('Message is too long. Please keep it under 5000 characters.');
-      }
+    if (specialist && messages.length === 0) {
+      setShowWelcome(true);
+    } else {
+      setShowWelcome(false);
+    }
+  }, [specialist, messages.length]);
 
+  const specialistTheme = useMemo(() => getSpecialistTheme(specialist), [specialist]);
+  const specialistIcon = specialist?.icon ?? 'fas fa-comment';
+  const specialistTagline = specialist?.knowledgeBase?.persona;
+
+  const generateAIResponse = (userMessage: string, activeSpecialist: Specialist, detectedTags: string[]): string => {
+    if (!hasNativeRuntime) {
+      setLocalAIStatusMessage('Local AI is available on native builds. Using fallback responses in the web preview.');
+      return;
+    }
+
+    if (localAIError) {
+      setLocalAIStatusMessage(`${localAIError} Fallback responses will be used.`);
+      return;
+    }
+
+    if (!isLocalAIInitialized) {
+      setLocalAIStatusMessage(isLocalAILoading ? 'Loading on-device AI model...' : 'Local AI is not initialized yet. Fallback responses will be used.');
+      return;
+    }
+
+    setLocalAIStatusMessage(null);
+  }, [hasNativeRuntime, localAIError, isLocalAIInitialized, isLocalAILoading]);
+
+  const canUseLocalAI = hasNativeRuntime && isLocalAIInitialized && !localAIError;
+  const showTypingIndicator = isTyping || isLocalAILoading;
+
+  // Generate AI response based on user input and specialist
+  const generateFallbackResponse = (userMessage: string, specialist: Specialist): string => {
+    const lowerMessage = userMessage.toLowerCase();
+    const name = username ? `, ${username}` : '';
+
+    if (lowerMessage.includes('suicide') || lowerMessage.includes('kill myself') || lowerMessage.includes('end it all')) {
+      return "Mate, I'm really concerned about you right now. Your life has value, and there are people who want to help. Please reach out to Lifeline at 13 11 14 immediately. They're available 24/7. Can you promise me you'll stay safe while we talk?";
+    }
+
+    if (lowerMessage.includes('hurt myself') || lowerMessage.includes('self harm')) {
+      return "I'm worried about you, mate. Those feelings of wanting to hurt yourself are a sign that you're in real pain. Let's work through this together. Have you felt this way before? What usually helps you feel safer?";
+    }
+
+    const knowledge = activeSpecialist.knowledgeBase ?? {};
+    const opener = pickRandom(knowledge.conversationStarters) ?? `Thanks for sharing that${name}. What feels most important right now?`;
+    const technique = pickRandom(knowledge.techniques);
+    const support = pickRandom(knowledge.supportPhrases) ?? "You're not alone in this—we'll navigate it together.";
+    const relevantFocus = knowledge.focusAreas?.find((focus) =>
+      detectedTags.some((tag) => focus.toLowerCase().includes(tag.toLowerCase()))
+    );
+
+    const techniqueSentence = technique ? ensureSentence(`One approach we can explore is ${technique}`) : '';
+    const focusSentence = relevantFocus
+      ? ensureSentence(`We'll keep your goal of ${relevantFocus.toLowerCase()} front of mind as we continue`)
+      : '';
+    const trimmedSupport = support.trim();
+    const supportWithCompanion = username
+      ? `${trimmedSupport}${/[.!?]$/.test(trimmedSupport) ? '' : '.'} ${username}, I'm right here with you.`
+      : trimmedSupport;
+    const supportSentence = ensureSentence(supportWithCompanion);
+
+    return [opener, focusSentence, techniqueSentence, supportSentence].filter(Boolean).join(' ');
+  };
+
+
+  const sendMessage = async (content: string, detectedTags: string[]) => {
+
+  const getFallbackResponse = async (userMessage: string, specialist: Specialist): Promise<string> => {
+    return await new Promise((resolve) => {
+      const delay = 1000 + Math.random() * 2000;
+      setTimeout(() => resolve(generateFallbackResponse(userMessage, specialist)), delay);
+    });
+  };
+
+  // Send message using localStorage instead of API for offline functionality
+  const sendMessage = async (content: string, detectedTags: string[] = []) => {
+    if (!content || content.trim().length === 0) {
+      throw new Error('Message cannot be empty');
+    }
+
+    if (content.length > 5000) {
+      throw new Error('Message is too long. Please keep it under 5000 characters.');
+    }
+
+    const activeSpecialist = specialist || specialists[0];
+    if (!activeSpecialist) {
+      throw new Error('No specialist selected');
+    }
+
+    setIsSending(true);
+    try {
       let targetConversationId = conversationId;
 
-      // If no conversation exists (e.g., /chat/new), create one first
+
       if (!targetConversationId && specialist) {
-        const createResponse = await apiRequest('POST', '/api/conversations', {
-          specialistId: specialist.id,
-          title: 'New Conversation'
-        });
-        
-        if (!createResponse.ok) {
-          throw new Error('Failed to create conversation');
-        }
-        
-        const newConversation = await createResponse.json();
-        targetConversationId = newConversation.id;
-        
-        // Update the URL to reflect the new conversation
-        setLocation(`/chat/${targetConversationId}`);
-      }
-
+        const now = new Date().toISOString();
       if (!targetConversationId) {
-        throw new Error('No conversation available');
-      }
 
-      const sessionId = getSessionId();
-      const response = await apiRequest('POST', `/api/conversations/${targetConversationId}/messages`, {
-        content: content.trim(),
-        sessionId
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Failed to send message: ${response.status}`);
-      }
-      
-      return response.json();
-    },
-    onMutate: async (content: string) => {
-      setIsTyping(true);
-      
-      // Optimistic update - add message to UI immediately
-      const previousMessages = queryClient.getQueryData(['/api/conversations', conversationId, 'messages']);
-      
-      // Create optimistic message with unique ID to prevent duplicates
-      const optimisticMessage = {
-        id: `optimistic-${Date.now()}-${Math.random()}`, // unique temporary ID
-        content,
-        sender: 'user',
-        timestamp: new Date().toISOString(),
-        conversationId,
-        isOptimistic: true // flag to identify optimistic messages
-      };
-      
-      // Update the messages query data
-      queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], (old: any) => {
-        return old ? [...old, optimisticMessage] : [optimisticMessage];
-      });
-      
-      return { previousMessages };
-    },
-    onSuccess: (data) => {
-      setSpecialist(data.specialist);
-      
-      // Handle specialist recommendations
-      if (data.recommendedSpecialist && data.recommendedSpecialist.key !== specialist?.key) {
-        setRecommendedSpecialist(data.recommendedSpecialist);
-        setShowSpecialistSwitch(true);
-        
-        // Auto-hide specialist recommendation after 10 seconds
-        setTimeout(() => {
-          setShowSpecialistSwitch(false);
-        }, 10000);
-      }
-      
-      // Log user insights for debugging
-      if (data.userInsights) {
-        console.log('User insights:', data.userInsights);
-      }
-      
-      // Clear optimistic messages and set real data
-      const targetConversationId = conversationId || (data as any)?.conversationId;
-      if (targetConversationId) {
-        // Remove optimistic messages and add real ones
-        queryClient.setQueryData(['/api/conversations', targetConversationId, 'messages'], (old: any) => {
-          if (!old) return [data.userMessage, data.assistantMessage];
-          
-          // Remove optimistic messages and add real ones
-          const filteredMessages = old.filter((msg: any) => !msg.isOptimistic);
-          return [...filteredMessages, data.userMessage, data.assistantMessage];
-        });
-      }
-      setIsTyping(false);
-    },
-    onError: (error: any, variables, context) => {
-      setIsTyping(false);
-      console.error('Failed to send message:', error);
-      
-      // Get the conversation ID that was actually used
-      const targetConversationId = (context as any)?.targetConversationId || conversationId;
-      
-      if (targetConversationId) {
-        // Rollback optimistic update
-        if (context?.previousMessages) {
-          queryClient.setQueryData(['/api/conversations', targetConversationId, 'messages'], context.previousMessages);
-        }
-        
-        // Add error message to the chat
-        const errorMessage = {
-          id: Date.now() + 1, // temporary ID
-          content: getErrorMessage(error),
-          sender: 'system' as const,
-          timestamp: new Date().toISOString(),
-          conversationId: targetConversationId,
-          isError: true
+        const newConversationId = Date.now();
+        const newConversation: Conversation = {
+          id: newConversationId,
+
+          specialistId: specialist.id,
+          specialistKey: specialist.key,
+          title: `${specialist.specialty} Support`,
+          createdAt: now,
+          updatedAt: now,
         };
-        
-        queryClient.setQueryData(['/api/conversations', targetConversationId, 'messages'], (old: any) => {
-          return old ? [...old, errorMessage] : [errorMessage];
-        });
-      }
-    }
-  });
 
-  // Specialist switch mutation
-  const switchSpecialistMutation = useMutation({
-    mutationFn: async (specialistId: number) => {
-      if (!conversationId) {
-        throw new Error('No conversation to switch specialist for');
-      }
-      
-      const response = await apiRequest('PATCH', `/api/conversations/${conversationId}/specialist`, {
-        specialistId
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to switch specialist');
-      }
-      
-      return response.json();
-    },
-    onSuccess: (data) => {
-      // Navigate to the new conversation
-      setLocation(`/chat/${data.conversation.id}`);
-      setShowSpecialistSwitch(false);
-      setRecommendedSpecialist(null);
-      
-      // Clear current messages and reload
-      queryClient.invalidateQueries({ queryKey: ['/api/conversations'] });
-    },
-    onError: (error) => {
-      console.error('Failed to switch specialist:', error);
-    }
-  });
+        localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
 
-  // Helper function to get user-friendly error messages
+          specialistId: activeSpecialist.id,
+          title: 'New Conversation',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+
+        localStorage.setItem(`conversation_${newConversationId}`, JSON.stringify(newConversation));
+        syncProfileConversationCount();
+        setConversation(newConversation);
+        targetConversationId = newConversationId;
+        setLocation(`/chat/${newConversationId}`);
+      }
+
+      const cacheConversationId = targetConversationId ? String(targetConversationId) : `new-${userId}`;
+      const userMessage: Message = {
+        id: Date.now(),
+        content: content.trim(),
+        sender: 'user',
+        timestamp: new Date(),
+        conversationId: targetConversationId!,
+      };
+
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
+      localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(updatedMessages));
+
+      const conversationKey = `conversation_${targetConversationId}`;
+      const savedConversation = localStorage.getItem(conversationKey);
+      if (savedConversation) {
+        try {
+          const parsed = JSON.parse(savedConversation);
+          parsed.updatedAt = new Date().toISOString();
+          if (specialist) {
+            parsed.specialistId = specialist.id;
+            parsed.specialistKey = specialist.key;
+          }
+          localStorage.setItem(conversationKey, JSON.stringify(parsed));
+          setConversation(parsed);
+        } catch (error) {
+          console.error('Failed to update conversation metadata:', error);
+        }
+      }
+
+      setIsTyping(true);
+
+      setTimeout(() => {
+        const aiResponse: Message = {
+          id: Date.now() + 1,
+          content: generateAIResponse(content.trim(), specialist!, detectedTags),
+          sender: 'specialist',
+          timestamp: new Date(),
+          conversationId: targetConversationId!,
+        };
+
+        const finalMessages = [...updatedMessages, aiResponse];
+        setMessages(finalMessages);
+        localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
+        setIsTyping(false);
+      }, 1000 + Math.random() * 2000);
+      setIsTyping(true);
+
+      let aiResponseContent: string;
+      if (canUseLocalAI) {
+        try {
+          const recentUserMessages = messages
+            .filter((msg) => msg.sender === 'user')
+            .slice(-5)
+            .map((msg) => msg.content);
+
+          let personaContextText = "";
+          try {
+            const personaContext = await getPersonaContext({
+              specialistKey: activeSpecialist.key,
+              userMessage: content.trim(),
+              conversationId: cacheConversationId,
+              detectedTags,
+            });
+            if (personaContext.context) {
+              personaContextText = `${personaContext.context}\n\n`;
+            }
+          } catch (contextError) {
+            console.warn('Failed to build persona context', contextError);
+          }
+
+          let matePrompt = content.trim();
+          try {
+            matePrompt = await buildMatePrompt({
+              userId,
+              recentMessages: recentUserMessages,
+              userMessage: content.trim(),
+            });
+          } catch (promptError) {
+            console.warn('Failed to build Mate prompt', promptError);
+          }
+
+          const finalPrompt = `${personaContextText}${matePrompt}`.trim() || content.trim();
+          aiResponseContent = await sendLocalAIMessage(finalPrompt);
+        } catch (localError) {
+          console.error('Local AI send error:', localError);
+          const fallbackMessage = localError instanceof Error ? localError.message : 'Local AI failed to respond';
+          setLocalAIStatusMessage(`${fallbackMessage}. Using fallback responses.`);
+          aiResponseContent = await getFallbackResponse(content.trim(), activeSpecialist);
+        }
+      } else {
+        if (hasNativeRuntime && localAIError) {
+          setLocalAIStatusMessage(`${localAIError} Fallback responses will be used.`);
+        }
+        aiResponseContent = await getFallbackResponse(content.trim(), activeSpecialist);
+      }
+
+      const aiResponse: Message = {
+        id: Date.now() + 1,
+        content: aiResponseContent,
+        sender: 'specialist',
+        timestamp: new Date(),
+        conversationId: targetConversationId!
+      };
+
+      const finalMessages = [...updatedMessages, aiResponse];
+      setMessages(finalMessages);
+      localStorage.setItem(`conversation_${targetConversationId}_messages`, JSON.stringify(finalMessages));
+      setIsTyping(false);
+    } catch (error) {
+      setIsTyping(false);
+      throw error;
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   const getErrorMessage = (error: any): string => {
     if (typeof error === 'string') return error;
-    
+
     if (error?.message) {
-      // Handle specific error messages
       if (error.message.includes('timeout') || error.message.includes('408')) {
         return "Response took too long. Please try again.";
       }
-      
+
       if (error.message.includes('too long')) {
         return "Message is too long. Please try breaking it into shorter messages.";
       }
-      
+
       if (error.message.includes('empty')) {
         return "Please enter a message before sending.";
       }
-      
-      if (error.message.includes('404')) {
-        return "Session not found. Please refresh the page.";
-      }
-      
-      if (error.message.includes('5')) { // 500 errors
-        return "Server issue. Please try again, or call Lifeline at 13 11 14 if you need immediate support.";
-      }
-      
+
       return error.message;
     }
-    
+
     return "Something went wrong. Please try again.";
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     const trimmedMessage = message.trim();
-    if (!trimmedMessage || sendMessageMutation.isPending) return;
+    if (!trimmedMessage || isSending) return;
 
-    // Hide welcome message after first interaction
-    if (showWelcome) {
-      setShowWelcome(false);
-    }
-
-    // Map user message to topic tags for AI prompt logic
     const detectedTags = mapUserMessageToTags(trimmedMessage);
-    // For now, just log them (replace with prompt logic integration)
+
+    try {
+      await sendMessage(trimmedMessage, detectedTags);
     if (detectedTags.length > 0) {
       console.log("Detected topics:", detectedTags);
     }
 
-    // Store the message before clearing (in case of error)
-    const messageToSend = trimmedMessage;
-    
-    sendMessageMutation.mutate(messageToSend, {
-      onSuccess: (data) => {
-        console.log('Message sent successfully:', data);
-        // Only clear the message on successful send
-        setMessage("");
-        // Reset textarea height
-        if (textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-        }
-      },
-      onError: (error) => {
-        console.error("Failed to send message:", error);
-        // Keep the message in the input if sending fails
-        // Don't clear setMessage so user can retry
+    try {
+      const riskLevel = CrisisDetectionService.assessRiskLevel(trimmedMessage);
+      if (riskLevel === "high" || riskLevel === "critical") {
+        CrisisDetectionService.triggerEmergencyResponse(
+          riskLevel,
+          trimmedMessage,
+          emergencyUserIdRef.current || 1
+        ).catch((error) => {
+          console.error('Emergency response workflow failed:', error);
+        });
       }
-    });
+
+      await sendMessage(trimmedMessage);
+      // Only clear the message on successful send
+      await sendMessage(trimmedMessage, detectedTags);
+      setMessage("");
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      alert(getErrorMessage(error));
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -367,371 +537,220 @@ export default function Chat() {
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
-    
-    // Auto-resize textarea
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
   };
 
-  const quickResponses = [
-    "Tell me more",
-    "What should I do?",
-    "That's helpful"
-  ];
-
-  const handleQuickResponse = (response: string) => {
-    setMessage(response);
-  };
-
-  // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isLocalAILoading]);
 
-  // Add welcome message if no messages exist
-  useEffect(() => {
-    if (messages.length === 0 && !isLoading && specialist) {
-      // Add initial welcome message (this would typically come from the backend)
-      const welcomeMessage = `G'day mate! I'm ${specialist.name}, your ${specialist.specialty.toLowerCase()}. What's going on?`;
-      
-      // We can simulate this or update the backend to automatically create a welcome message
-    }
-  }, [messages, isLoading, specialist]);
-
-  // Check for draft from notes page
-  useEffect(() => {
-    const draft = localStorage.getItem("chatDraft");
-    if (draft) {
-      setMessage(draft);
-      localStorage.removeItem("chatDraft"); // Clear after using
-      // Focus the textarea
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 100);
-    }
-  }, []);
-
-  // Check if there are saved notes
   useEffect(() => {
     const savedNotes = localStorage.getItem("mateNotes");
     setHasNotes(!!savedNotes && savedNotes.trim().length > 0);
   }, []);
 
-  // Update notes status when page becomes visible (user returns from notes)
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        const savedNotes = localStorage.getItem("mateNotes");
-        setHasNotes(!!savedNotes && savedNotes.trim().length > 0);
+    const chatDraft = localStorage.getItem("chatDraft");
+    if (chatDraft) {
+      setMessage(chatDraft);
+      localStorage.removeItem("chatDraft");
+      if (textareaRef.current) {
+        setTimeout(() => {
+          textareaRef.current!.style.height = 'auto';
+          textareaRef.current!.style.height = Math.min(textareaRef.current!.scrollHeight, 120) + 'px';
+        }, 0);
       }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }
   }, []);
 
-  // Check private mode status and react to changes immediately
-  useEffect(() => {
-    const checkPrivateMode = () => {
-      const privateModeData = localStorage.getItem('mate-private-mode');
-      const isPrivateNow = !!privateModeData;
-      
-      if (privateMode !== isPrivateNow) {
-        if (isPrivateNow) {
-          // Private mode just turned on - clear UI immediately for privacy
-          queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-          setShowWelcome(true);
-        }
-        setPrivateMode(isPrivateNow);
-      }
-    };
-    
-    checkPrivateMode();
-    
-    // Listen for private mode changes via storage events
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'mate-private-mode') {
-        checkPrivateMode();
-      }
-    };
-    
-    // Listen for private mode changes via focus events (when user returns to tab)
-    const handleFocus = () => {
-      checkPrivateMode();
-    };
-    
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('focus', handleFocus);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('focus', handleFocus);
-    };
-  }, [privateMode, conversationId, queryClient]);
+  const buildWelcomeMessage = (type: 'first' | 'return') => {
+    if (!specialist) return '';
+    const displayName = specialist.name.replace(/\s*\([^)]*\)/g, '');
+    const personaLine = specialist.knowledgeBase?.persona
+      ? ensureSentence(`I'm ${displayName}, ${specialist.knowledgeBase.persona}`)
+      : ensureSentence(`I'm ${displayName}, your ${specialist.specialty} specialist`);
+    const opener = type === 'first'
+      ? specialist.knowledgeBase?.conversationStarters?.[0] ?? "What's on your mind today?"
+      : specialist.knowledgeBase?.supportPhrases?.[0] ?? "How are you feeling today?";
+    return [`G'day${username ? `, ${username}` : ''}!`, personaLine, opener].filter(Boolean).join(' ');
+  };
 
-  // Clear chat UI when private mode turns off (but keep data in backend)
-  useEffect(() => {
-    const checkPrivateModeChange = () => {
-      const privateModeData = localStorage.getItem('mate-private-mode');
-      const isPrivateNow = !!privateModeData;
-      
-      if (privateMode !== isPrivateNow) {
-        if (!isPrivateNow && privateMode) {
-          // Private mode was turned off - clear chat UI
-          queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-          setShowWelcome(true);
-        } else if (isPrivateNow && !privateMode) {
-          // Private mode was turned on - clear chat UI for privacy
-          queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-          setShowWelcome(true);
-        }
-        setPrivateMode(isPrivateNow);
-      }
-    };
-    
-    // Run immediately and then on interval
-    checkPrivateModeChange();
-    const interval = setInterval(checkPrivateModeChange, 200);
-    return () => clearInterval(interval);
-  }, [privateMode, conversationId, queryClient]);
-
-  // Clear chat UI when leaving app (but retain data in backend)
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // App is being hidden/closed - clear UI after delay
-        setTimeout(() => {
-          if (document.hidden) {
-            queryClient.setQueryData(['/api/conversations', conversationId, 'messages'], []);
-            setShowWelcome(true);
-          }
-        }, 5000); // 5 second delay to allow for quick tab switches
-      }
-    };
-    
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [conversationId, queryClient]);
+  const placeholderAccent = specialistTheme.accent?.startsWith('text-')
+    ? specialistTheme.accent.replace('text-', 'placeholder:text-')
+    : 'placeholder:text-gray-400';
 
   return (
-    <div className="min-h-screen modern-bg-blobs flex flex-col items-center justify-start">
-      <div className="max-w-md w-full mx-auto glass-card modern-card min-h-screen relative flex flex-col">
-        {/* Header */}
-  <header className="bg-gradient-to-r from-blue-500/80 to-purple-500/80 dark:from-gray-800 dark:to-gray-900 text-white px-4 py-3 shadow-lg sticky top-0 z-10 rounded-b-3xl glass-card">
-    <div className="flex items-center justify-between min-h-[64px] h-16 md:h-20">
-      <div className="flex items-center gap-3">
-        <button 
-          onClick={() => window.history.length > 1 ? window.history.back() : setLocation('/')}
-          className="p-2 modern-btn rounded-full flex items-center justify-center min-h-[40px]"
-          title="Go back"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <div className="flex flex-col justify-center">
-          <h1 className="text-xl font-semibold leading-tight">
-            {specialist?.name || 'Mate'}
-          </h1>
-          <p className="text-blue-200 dark:text-gray-300 text-sm leading-tight">
-            {specialist ? `${specialist.specialty} • Online` : 'AI Assistant • Online'}
-          </p>
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <PrivacyToggle />
-        <button className="p-2 modern-btn rounded-full flex items-center justify-center" title="Profile" onClick={() => setLocation('/profile')}>
-          <i className="fas fa-user-circle text-xl"></i>
-        </button>
-        <button className="p-2 modern-btn rounded-full flex items-center justify-center" title="Settings" onClick={() => setLocation('/settings')}>
-          <i className="fas fa-cog"></i>
-        </button>
-      </div>
-    </div>
-  </header>
+    <div className="min-h-screen flex flex-col items-center justify-start relative">
+      <div className="modern-bg-blobs"></div>
 
-  {/* Messages Area */}
-  <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-32">
-    {isLoading ? (
-      <div className="space-y-4">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="animate-pulse">
-            <div className="flex space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-300/60 to-purple-300/60 dark:from-gray-700 dark:to-gray-800 rounded-full"></div>
-              <div className="flex-1">
-                <div className="glass-card p-4 max-w-xs h-16"></div>
-              </div>
+      <div className="max-w-md w-full mx-auto glass-card shadow-2xl min-h-screen relative flex flex-col pb-20 z-10">
+        <header className={`bg-gradient-to-r ${specialistTheme.gradient} text-white px-4 py-3 pt-safe shadow-lg sticky top-0 z-10 rounded-t-3xl glass-card`}>
+          <div className="flex items-center justify-between min-h-[64px] h-16 md:h-20">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => window.history.length > 1 ? window.history.back() : setLocation('/')}
+                className="p-2 rounded-full hover:bg-white/20 transition-colors"
+                title="Back"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              {specialist ? (
+                <div className="flex items-center gap-3">
+                  <div className={`w-12 h-12 ${specialistTheme.avatarBg} rounded-2xl flex items-center justify-center shadow-inner`}>
+                    <i className={`${specialistIcon} ${specialistTheme.avatarText} text-xl`}></i>
+                  </div>
+                  <div className="flex flex-col">
+                    <h1 className="text-lg font-semibold leading-tight line-clamp-1">{specialist.name}</h1>
+                    <span className={`text-sm ${specialistTheme.accent} opacity-90`}>{specialist.specialty}</span>
+                    {specialistTagline && (
+                      <span className={`text-xs ${specialistTheme.accent} opacity-80 line-clamp-2`}>{specialistTagline}</span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <h1 className="text-xl font-semibold leading-tight">Mate</h1>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <PrivacyToggle />
+              <ProfileIconWithName onClick={() => setLocation('/profile')} />
+              <button
+                className="p-3 hover:bg-white/20 rounded-full transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                title="Settings"
+                onClick={() => setLocation('/settings')}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7 text-blue-100">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.01c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.01 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.01 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.01c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.572-1.01c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.01-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.01-2.572c-.94-1.543.826-3.31 2.37-2.37.996.608 2.265.07 2.572-1.01z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </button>
             </div>
           </div>
-        ))}
-      </div>
-    ) : !specialist && id === 'new' ? (
-      // Show specialist selection prompt when accessing /chat/new without a specialist
-      <div className="flex flex-col items-center justify-center h-full space-y-6 text-center px-6">
-        <div className="text-6xl">🤝</div>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-            Choose Your Support Specialist
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            To get started, you'll need to select a specialist who can best help with your needs.
-          </p>
-          <Button 
-            onClick={() => setLocation('/specialists')}
-            className="modern-btn px-6 py-3 font-semibold"
-          >
-            Select a Specialist
-          </Button>
-        </div>
-      </div>
-    ) : (
-      <>
-        {/* Welcome message on fresh session or when no messages exist */}
-        {(messages.length === 0 || showWelcome) && specialist && (
-          <div className="glass-card modern-card p-4">
-            <MessageBubble
-              content={messages.length === 0 ? 
-                `G'day mate! I'm ${specialist.name}. What's going on?` :
-                `Welcome back, mate! How are you feeling today?`
-              }
-              sender="specialist"
-              timestamp={new Date()}
-              specialistName={specialist?.name}
-              specialistSpecialty={specialist?.specialty}
-            />
+        </header>
+
+        {localAIStatusMessage && (
+          <div className="px-4 pt-3">
+            <div className="glass-card border border-yellow-300/70 dark:border-yellow-700/70 bg-yellow-50/80 dark:bg-yellow-900/40 text-sm text-yellow-900 dark:text-yellow-100 rounded-2xl px-3 py-2 flex items-start justify-between gap-2">
+              <span>{localAIStatusMessage}</span>
+              {hasNativeRuntime && localAIError && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => initializeLocalAI()}
+                  className="text-yellow-900 dark:text-yellow-100 hover:bg-yellow-200/60 dark:hover:bg-yellow-800/60"
+                  disabled={isLocalAILoading}
+                >
+                  Retry
+                </Button>
+              )}
+            </div>
           </div>
         )}
-        
-        {messages.map((msg) => (
-          <div className="glass-card modern-card p-2" key={msg.id}>
-            <MessageBubble
-              content={msg.content}
-              sender={msg.sender as any}
-              timestamp={msg.timestamp ? new Date(msg.timestamp) : undefined}
-              specialistName={specialist?.name}
-              specialistSpecialty={specialist?.specialty}
-            />
-          </div>
-        ))}
-        
-        {isTyping && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
-      </>
-    )}
-    <div ref={messagesEndRef} />
-  </div>
 
-  {/* Specialist Recommendation Banner */}
-  {showSpecialistSwitch && recommendedSpecialist && (
-    <div className="fixed top-20 left-0 right-0 max-w-md mx-auto z-30 p-4">
-      <div className="glass-card modern-card bg-amber-50/80 dark:bg-amber-900/80 border border-amber-200 dark:border-amber-700 rounded-xl p-4 shadow-lg">
-        <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
-            <i className={`fas ${recommendedSpecialist.icon} text-white text-xs`}></i>
-          </div>
-          <div className="flex-1">
-            <h3 className="font-semibold text-amber-800 dark:text-amber-200">
-              Switch to {recommendedSpecialist.name}?
-            </h3>
-            <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
-              Based on what you're sharing, {recommendedSpecialist.name} ({recommendedSpecialist.specialty}) might be better suited to help.
-            </p>
-            <div className="flex space-x-2 mt-3">
-              <Button
-                size="sm"
-                onClick={() => switchSpecialistMutation.mutate(recommendedSpecialist.id)}
-                disabled={switchSpecialistMutation.isPending}
-                className="modern-btn bg-amber-600 hover:bg-amber-700 text-white"
-              >
-                {switchSpecialistMutation.isPending ? 'Switching...' : 'Switch Now'}
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setShowSpecialistSwitch(false)}
-                className="modern-btn border-amber-300 text-amber-700 hover:bg-amber-100"
-              >
-                Stay Here
-              </Button>
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-32">
+          {isLoading ? (
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="flex space-x-3">
+                    <div className={`w-8 h-8 ${specialistTheme.avatarBg} rounded-full`}></div>
+                    <div className="flex-1">
+                      <div className="glass-card p-4 max-w-xs h-16"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-          <button
-            onClick={() => setShowSpecialistSwitch(false)}
-            className="modern-btn text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-            title="Dismiss recommendation"
-          >
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  )}
-
-  {/* Message Input Area - only show when specialist is selected */}
-  {specialist && (
-    <div className="fixed bottom-16 left-0 right-0 border-t border-gray-200 dark:border-gray-600 p-4 glass-card modern-card bg-white/80 dark:bg-gray-800/80 flex items-end space-x-2 max-w-md mx-auto">
-    <button 
-      onClick={() => setLocation('/notes')}
-      className="modern-btn p-3 text-yellow-500 dark:text-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-300 transition-colors relative" 
-      title="Open notepad"
-    >
-      {hasNotes ? (
-        // Filled sticky note with shadow and content indication
-        <div className="relative w-5 h-5">
-          <div className="absolute inset-0 bg-yellow-400 dark:bg-yellow-500 rounded-sm shadow-sm">
-            {/* Folded corner */}
-            <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-300 dark:bg-yellow-400 rounded-sm shadow-sm transform rotate-45 origin-bottom-left"></div>
-            {/* Content lines */}
-            <div className="absolute top-1 left-0.5 right-1 space-y-0.5">
-              <div className="h-0.5 bg-yellow-600 dark:bg-yellow-700 rounded opacity-60"></div>
-              <div className="h-0.5 bg-yellow-600 dark:bg-yellow-700 rounded opacity-60 w-3/4"></div>
-              <div className="h-0.5 bg-yellow-600 dark:bg-yellow-700 rounded opacity-60 w-1/2"></div>
+          ) : !specialist && id === 'new' ? (
+            <div className="flex flex-col items-center justify-center h-full space-y-6 text-center px-6">
+              <div className="text-6xl">🤝</div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                  Choose Your Support Specialist
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  To get started, you'll need to select a specialist who can best help with your needs.
+                </p>
+                <Button
+                  onClick={() => setLocation('/specialists')}
+                  className="modern-btn px-6 py-3 font-semibold"
+                >
+                  Select a Specialist
+                </Button>
+              </div>
             </div>
-          </div>
-        </div>
-      ) : (
-        // Empty sticky note outline
-        <StickyNote className="w-5 h-5 rotate-90" />
-      )}
-    </button>
-    <div className="flex-1 relative">
-      <Textarea
-        ref={textareaRef}
-        value={message}
-        onChange={handleTextareaChange}
-        onKeyDown={handleKeyPress}
-        placeholder="Type your message..."
-        className="modern-input w-full pr-12 min-h-[48px]"
-        rows={1}
-      />
-      <button 
-        onClick={handleSendMessage}
-        disabled={!message.trim() || sendMessageMutation.isPending || !specialist}
-        className="modern-btn absolute right-2 bottom-2 p-2 text-primary dark:text-blue-400 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        title="Send message"
-      >
-        <Send className="w-4 h-4" />
-      </button>
-    </div>
-  </div>
-  )}
-  
-  {/* Quick Response Suggestions - only show when specialist is selected */}
-  {specialist && (
-  <div className="flex space-x-2 mt-3 overflow-x-auto">
-    {quickResponses.map((response: string, index: number) => (
-      <Button
-        key={index}
-        variant="outline"
-        size="sm"
-        onClick={() => handleQuickResponse(response)}
-        className="modern-btn px-4 py-2 rounded-full text-sm whitespace-nowrap"
-      >
-        {response}
-      </Button>
-    ))}
-  </div>
-  )}
+          ) : (
+            <>
+              {(messages.length === 0 && showWelcome) && specialist && (
+                <div className="glass-card modern-card p-4">
+                  <MessageBubble
+                    content={buildWelcomeMessage('first')}
+                    sender="specialist"
+                    timestamp={new Date()}
+                    specialistName={specialist.name}
+                    specialistSpecialty={specialist.specialty}
+                    specialistIcon={specialistIcon}
+                    theme={specialistTheme}
+                  />
+                </div>
+              )}
 
-  <BottomNav />
+              {messages.map((msg) => (
+                <div className="glass-card modern-card p-2" key={msg.id}>
+                  <MessageBubble
+                    content={msg.content}
+                    sender={msg.sender as any}
+                    timestamp={msg.timestamp}
+                    specialistName={specialist?.name}
+                    specialistSpecialty={specialist?.specialty}
+                    specialistIcon={specialistIcon}
+                    theme={specialistTheme}
+                  />
+                </div>
+              ))}
+
+              {isTyping && (
+                <div className="glass-card modern-card p-2">
+                  <TypingIndicator theme={specialistTheme} icon={specialistIcon} />
+                </div>
+              )}
+              
+              {showTypingIndicator && <div className="glass-card modern-card p-2"><TypingIndicator /></div>}
+            </>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {specialist && (
+          <footer className="fixed bottom-16 left-0 w-full max-w-md mx-auto px-2 z-40">
+            <div className="glass-card modern-card flex gap-2 p-4 rounded-2xl shadow-xl border border-white/20 backdrop-blur-md items-center">
+              <Textarea
+                ref={textareaRef}
+                value={message}
+                onChange={handleTextareaChange}
+                onKeyDown={handleKeyPress}
+                placeholder="Type your message..."
+                className={`flex-1 modern-input glass-card font-mono resize-none min-h-[48px] max-h-32 border-white/20 bg-transparent text-white ${placeholderAccent}`}
+                style={{ marginBottom: 0 }}
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={isSending || !message.trim()}
+                className="flex items-center justify-center ml-2 focus:outline-none disabled:opacity-50 bg-transparent border-0 p-0"
+                title="Send"
+                type="button"
+                style={{ alignSelf: 'center' }}
+              >
+                <Send className={`${specialistTheme.accent} hover:opacity-90 transition-colors -rotate-45`} />
+              </button>
+            </div>
+          </footer>
+        )}
+
+        <BottomNav />
       </div>
     </div>
   );

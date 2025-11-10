@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "personality_disorders",
+    "name": "Dr. Adrian",
+    "specialty": "Personality Disorders Specialist",
+    "description": "BPD, NPD, DBT, schema therapy",
+    "icon": "fas fa-user-cog",
+    "color": "amber"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "borderline_personality",
+      "title": "Borderline Personality Disorder: Comprehensive DBT Treatment Protocols",
+      "content": "BPD affects 1.4% of adults, characterized by emotional dysregulation, interpersonal difficulties, identity disturbance, impulsivity. DBT shows 77% reduction in self-harm behaviors, 50% reduction in hospitalizations, 60% improvement in social functioning over 12 months. Case Study: Jessica, 24, multiple suicide attempts, frequent hospitalizations, relationship chaos - completed 12-month DBT program achieving stable relationships, employment, and 18-month period without self-harm. DBT skills training modules: Mindfulness (wise mind, observe/describe/participate, non-judgmental stance), Distress tolerance (TIPP for crisis survival, radical acceptance, distraction techniques), Emotion regulation (emotion identification, opposite action, PLEASE skills - treating PhysicaL illness, balanced Eating, avoiding mood-Altering substances, balanced Sleep, Exercise), Interpersonal effectiveness (DEAR MAN, GIVE, FAST techniques). Individual therapy components: Chain analysis of problem behaviors, skills coaching, capability enhancement, motivation strengthening, environmental intervention when needed. Phone coaching availability for skills practice in real-time crisis situations. Weekly consultation team for therapist support and treatment adherence. Treatment targets hierarchy: Life-threatening behaviors (top priority), therapy-interfering behaviors, quality of life-interfering behaviors, skills acquisition.",
+      "source": "Journal of Personality Disorders",
+      "researcherAuthors": "Marsha Linehan, Thomas Lynch, Kelly Koerner, Shari Manning",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Washington",
+      "evidenceLevel": "randomized controlled trials",
+      "tags": ["borderline personality disorder", "DBT", "emotion regulation", "self-harm", "suicide prevention", "dialectical behavior therapy"]
+    },
+    {
+      "domain": "narcissistic_personality",
+      "title": "Narcissistic Personality Disorder: Treatment Challenges and Interventions",
+      "content": "NPD affects 1-6% of population, characterized by grandiosity, lack of empathy, exploitation of others, fragile self-esteem beneath grandiose exterior. Treatment engagement challenging due to limited insight and external blame tendencies. Case Study: Corporate executive David, 45, multiple failed relationships, workplace conflicts, came to therapy due to wife's ultimatum - 18-month schema therapy helped identify vulnerable self beneath grandiose presentation, improved empathy and relationship functioning. NPD subtypes: Grandiose (overt narcissism, attention-seeking, exhibitionist), Vulnerable (covert narcissism, hypersensitive to criticism, shame-prone). Core issues: Fragile self-esteem requiring constant validation, empathy deficits preventing genuine connections, entitlement leading to relationship exploitation, rage when expectations not met. Schema therapy approach: Identify early maladaptive schemas (defectiveness/shame, entitlement/grandiosity), limited reparenting for unmet childhood needs, empathic confrontation of narcissistic behaviors, chair work for different self-states. Therapeutic challenges: Resistance to vulnerability, idealizing/devaluing therapist, difficulty accepting responsibility, treatment dropout risk, secondary gain from narcissistic behaviors. Family/couples therapy considerations: Partners often have trauma from narcissistic abuse, children affected by emotional neglect, family system maintains narcissistic patterns, education about NPD essential for family members.",
+      "source": "International Journal of Cognitive Therapy",
+      "researcherAuthors": "Jeffrey Young, Otto Kernberg, Elsa Ronningstam, Glen Gabbard",
+      "publicationYear": 2022,
+      "journalInstitution": "Columbia University",
+      "evidenceLevel": "clinical case studies",
+      "tags": ["narcissistic personality disorder", "schema therapy", "grandiosity", "empathy deficits", "narcissistic abuse", "treatment resistance"]
+    },
+    {
+      "domain": "antisocial_personality",
+      "title": "Antisocial Personality Disorder and Psychopathy Treatment Approaches",
+      "content": "ASPD affects 0.5-3% of population, characterized by disregard for others' rights, deceitfulness, impulsivity, aggression, lack of remorse. Comorbid with substance abuse (90%), criminal behavior (85%), employment problems (70%). Case Study: Former gang member Marcus, 28, court-mandated therapy after domestic violence - motivational interviewing approach focusing on personal goals (maintaining child custody) led to anger management skill development and substance abuse treatment engagement. ASPD vs. Psychopathy distinctions: ASPD focuses on behavioral criteria, psychopathy includes emotional/interpersonal features (lack of empathy, shallow emotions, manipulation). Assessment tools: Psychopathy Checklist-Revised (PCL-R), Structured Clinical Interview for DSM-5 Personality Disorders (SCID-5-PD). Treatment challenges: Limited motivation for change, manipulation of therapeutic process, external motivation often required (legal consequences), poor treatment retention, risk of harm to others. Effective interventions: Motivational interviewing to enhance internal motivation, cognitive-behavioral approaches for impulse control, anger management training, substance abuse treatment (often primary issue), contingency management with meaningful consequences. Risk management: Assess violence potential, safety planning for family members, coordination with legal system, clear boundaries and consequences, therapist safety considerations.",
+      "source": "Criminal Justice and Behavior",
+      "researcherAuthors": "Robert Hare, Adelle Forth, Kent Kiehl, James Blair",
+      "publicationYear": 2023,
+      "journalInstitution": "University of British Columbia",
+      "evidenceLevel": "forensic psychology research",
+      "tags": ["antisocial personality disorder", "psychopathy", "criminal behavior", "motivational interviewing", "risk assessment", "violence prevention"]
+    },
+    {
+      "domain": "avoidant_personality",
+      "title": "Avoidant Personality Disorder: Social Anxiety and Isolation Treatment",
+      "content": "AvPD affects 1-2% of population, characterized by social inhibition, feelings of inadequacy, hypersensitivity to criticism, avoidance of interpersonal contact despite desire for relationships. Often comorbid with social anxiety disorder but more pervasive and severe. Case Study: Software developer Rachel, 31, no close friends, declined promotions to avoid social exposure, lived with parents - graduated exposure therapy combined with cognitive restructuring over 18 months led to first romantic relationship and job promotion. Core features: Pervasive pattern of social anxiety and avoidance, low self-esteem and feelings of inadequacy, hypersensitivity to rejection and criticism, desire for social connection but fear prevents engagement. Treatment approaches: Graduated exposure therapy starting with low-risk social situations, cognitive restructuring of catastrophic thinking about rejection, social skills training for interaction confidence, assertiveness training for need expression. Group therapy benefits: Normalize social anxiety experiences, practice social skills in safe environment, receive feedback from peers, develop sense of belonging, challenge isolation patterns. Therapeutic relationship: Often first safe relationship, therapist warmth and acceptance crucial, gradual trust building, model for future relationships, careful management of criticism/feedback. Medication considerations: SSRIs for comorbid depression/anxiety, beta-blockers for performance anxiety in social situations, avoid benzodiazepines due to avoidance reinforcement potential.",
+      "source": "Behavior Research and Therapy",
+      "researcherAuthors": "Murray Stein, Richard Heimberg, Aaron Beck, Theodore Millon",
+      "publicationYear": 2022,
+      "journalInstitution": "University of California San Diego",
+      "evidenceLevel": "treatment outcome studies",
+      "tags": ["avoidant personality disorder", "social anxiety", "exposure therapy", "rejection sensitivity", "social skills training", "group therapy"]
+    },
+    {
+      "domain": "dependent_personality",
+      "title": "Dependent Personality Disorder: Autonomy Development and Assertiveness Training",
+      "content": "DPD affects 0.5-1% of population, characterized by excessive need to be taken care of, submissive and clinging behavior, fear of separation. Often develops in context of overprotective parenting or cultural factors emphasizing dependence. Case Study: Administrative assistant Maria, 38, never made decisions independently, stayed in abusive relationship due to fear of being alone, mother made all major life choices - 12-month therapy focused on gradual independence building achieved apartment lease, career change, and healthy relationship. Core features: Difficulty making decisions without excessive advice/reassurance, need others to assume responsibility for major life areas, difficulty expressing disagreement due to fear of abandonment, urgent seeking of new relationship when one ends. Treatment goals: Increase self-confidence and independence, develop decision-making skills, improve assertiveness, reduce fear of abandonment, build healthy relationships based on equality rather than dependence. Therapeutic interventions: Graded task assignments for independent decision-making, assertiveness training for expressing needs and opinions, cognitive restructuring of catastrophic abandonment fears, problem-solving skills development. Behavioral experiments: Making small decisions independently, expressing opinions in low-risk situations, spending time alone without seeking reassurance, taking on new responsibilities gradually. Family/relationship dynamics: Often enabling patterns in family system, partners may unconsciously maintain dependence, education for family members about healthy independence, couples therapy for relationship rebalancing.",
+      "source": "Clinical Psychology: Science and Practice",
+      "researcherAuthors": "Aaron Beck, Theodore Millon, John Oldham, Wendy Becker",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Pennsylvania",
+      "evidenceLevel": "clinical intervention studies",
+      "tags": ["dependent personality disorder", "independence training", "assertiveness training", "decision-making skills", "abandonment fear", "enabling relationships"]
+    },
+    {
+      "domain": "paranoid_personality",
+      "title": "Paranoid Personality Disorder: Trust Building and Cognitive Interventions",
+      "content": "PPD affects 0.8-2.4% of population, characterized by pervasive distrust and suspiciousness of others, interpretation of benign actions as malevolent, reluctance to confide in others. Often comorbid with other paranoid spectrum disorders. Case Study: Security guard Robert, 45, believed coworkers conspiring against him, isolated from family due to suspicions, carried weapons for protection - cognitive therapy over 24 months challenged paranoid interpretations, improved work relationships, reduced weapon carrying. Core features: Pervasive distrust without sufficient basis, suspects others of exploitation/harm, questions loyalty of friends/associates, reluctant to confide due to fear of information being used maliciously, perceives attacks on character/reputation, bears grudges, suspicious of spouse/partner fidelity. Treatment challenges: Reluctance to engage in therapy, suspicion of therapist motives, difficulty forming therapeutic alliance, resistance to examining beliefs, early termination common. Cognitive interventions: Examine evidence for paranoid beliefs, generate alternative explanations for events, reality testing through behavioral experiments, cognitive restructuring of all-or-nothing thinking. Therapeutic relationship: Maintain professional boundaries, avoid being perceived as too friendly (may increase suspicion), respect client's need for control, gradual trust building, transparency about treatment process. Environmental modifications: Reduce actual stressors that may trigger paranoid thinking, social skills training for better interpersonal relationships, stress management techniques.",
+      "source": "Comprehensive Psychiatry",
+      "researcherAuthors": "John Oldham, Theodore Millon, Joni Mihura",
+      "publicationYear": 2022,
+      "journalInstitution": "Baylor College of Medicine",
+      "evidenceLevel": "clinical case series",
+      "tags": ["paranoid personality disorder", "trust building", "paranoid thinking", "cognitive restructuring", "therapeutic alliance", "reality testing"]
+    },
+    {
+      "domain": "histrionic_personality",
+      "title": "Histrionic Personality Disorder: Emotional Regulation and Identity Development",
+      "content": "HPD affects 1-3% of population, characterized by excessive emotionality and attention-seeking behavior, shallow emotions, dramatic presentation, suggestibility. Often presents in therapy during relationship crises or after attention-seeking behaviors create problems. Case Study: Actress Jennifer, 29, series of dramatic relationships, frequent emotional crises, impulsive decisions - 15-month therapy focused on emotional regulation and authentic identity development led to stable relationship and career focus. Core features: Uncomfortable when not center of attention, inappropriate sexually seductive behavior, rapidly shifting and shallow emotions, uses physical appearance to draw attention, impressionistic speech lacking detail, theatrical behavior and exaggerated emotions, suggestible and easily influenced, considers relationships more intimate than they are. Treatment approaches: Emotional regulation skills similar to DBT, identity exploration and development work, cognitive therapy for attention-seeking patterns, relationship skills training for genuine intimacy. Therapeutic challenges: May attempt to seduce or entertain therapist, difficulty tolerating ordinary therapeutic relationship, emotional volatility during sessions, tendency to sexualize therapeutic relationship. Identity work: Explore authentic self beyond performance, develop internal validation systems, identify genuine interests and values, reduce dependence on external attention for self-worth. Group therapy benefits: Receive feedback about attention-seeking behaviors, learn to share attention with others, develop genuine relationships, practice emotional regulation in social context.",
+      "source": "Journal of Clinical Psychology",
+      "researcherAuthors": "Theodore Millon, Carrie Davis, Seth Grossman",
+      "publicationYear": 2023,
+      "journalInstitution": "University of Miami",
+      "evidenceLevel": "personality assessment research",
+      "tags": ["histrionic personality disorder", "attention-seeking", "emotional regulation", "identity development", "theatrical behavior", "relationship patterns"]
+    },
+    {
+      "domain": "obsessive_compulsive_personality",
+      "title": "Obsessive-Compulsive Personality Disorder: Perfectionism and Flexibility Training",
+      "content": "OCPD affects 2-8% of population, characterized by perfectionism, preoccupation with control, inflexibility, excessive devotion to work. Distinct from OCD - ego-syntonic (consistent with self-image) vs. ego-dystonic (distressing) symptoms. Case Study: Accountant Michael, 42, worked 70+ hours weekly, relationship problems due to criticism and control, difficulty delegating at work - acceptance and commitment therapy over 12 months improved work-life balance, relationship satisfaction, reduced perfectionist standards. Core features: Preoccupation with details/rules/organization to extent that major point is lost, perfectionism that interferes with task completion, excessive devotion to work excluding leisure, overconscientiousness about morals/ethics, inability to discard worthless objects, reluctance to delegate unless others submit to exact way, miserly spending style, rigidity and stubbornness. Treatment approaches: Cognitive restructuring of perfectionist beliefs, behavioral experiments with 'good enough' standards, values clarification work, flexibility training exercises, time management without over-scheduling. Therapeutic interventions: Challenge all-or-nothing thinking, practice imperfection exercises, delegation training, relaxation and leisure activity scheduling, cognitive flexibility exercises. ACT applications: Values clarification beyond achievement, psychological flexibility training, mindfulness of perfectionist thoughts without acting, commitment to meaningful activities despite imperfection. Relationship therapy: Partners often feel criticized and controlled, communication skills for expressing needs without demands, compromise and negotiation training, appreciation expression practices.",
+      "source": "Cognitive Therapy and Research",
+      "researcherAuthors": "Steven Hayes, Randy Frost, David Veale, Christine Purdon",
+      "publicationYear": 2022,
+      "journalInstitution": "University of Nevada Reno",
+      "evidenceLevel": "cognitive behavioral research",
+      "tags": ["obsessive-compulsive personality disorder", "perfectionism", "cognitive flexibility", "acceptance and commitment therapy", "work-life balance", "control issues"]
+    },
+    {
+      "domain": "schizoid_personality",
+      "title": "Schizoid Personality Disorder: Social Connection and Emotional Expression",
+      "content": "SPD affects 0.9-1.7% of population, characterized by pervasive pattern of detachment from social relationships, restricted emotional expression, preference for solitary activities. Often misunderstood as shyness or introversion but involves deeper emotional disconnection. Case Study: Computer programmer Alex, 35, no close friends, lived alone, minimal family contact, came to therapy due to work performance issues - 18-month therapy focused on gradual social engagement and emotional awareness led to workplace relationship improvement and weekly family contact. Core features: Neither desires nor enjoys close relationships, almost always chooses solitary activities, little interest in sexual experiences, takes pleasure in few activities, lacks close friends other than first-degree relatives, appears indifferent to praise or criticism, shows emotional coldness or detachment. Treatment considerations: Often enters therapy due to external pressures rather than internal motivation, may not see social isolation as problematic, therapy relationship may be most intimate relationship, progress measured in small increments. Therapeutic approaches: Gradual social skills development, emotional awareness training, challenge misconceptions about social interaction dangers, explore benefits of human connection while respecting preferences. Group therapy adaptations: May benefit from parallel process groups rather than intensive interaction groups, social skills practice in structured environment, exposure to different personality types. Differential diagnosis: Distinguish from autism spectrum disorders, avoidant personality disorder, and normal introversion - SPD involves lack of desire for relationships rather than fear or social skill deficits.",
+      "source": "Personality and Mental Health",
+      "researcherAuthors": "Theodore Millon, Salman Akhtar, Jeffrey Magnavita",
+      "publicationYear": 2023,
+      "journalInstitution": "Harvard Medical School",
+      "evidenceLevel": "clinical phenomenology",
+      "tags": ["schizoid personality disorder", "social detachment", "emotional expression", "social skills training", "therapeutic alliance", "differential diagnosis"]
+    },
+    {
+      "domain": "personality_disorder_treatment",
+      "title": "Integrated Treatment Approaches and Multi-Modal Interventions",
+      "content": "Personality disorders often require long-term treatment (2-5 years), multiple therapeutic modalities, and integrated approach addressing symptoms, behaviors, and underlying personality structure. Treatment effectiveness varies by disorder: BPD (good prognosis with DBT), ASPD (poor prognosis), AvPD (moderate with exposure therapy), NPD (guarded prognosis). Case Study: Individual with comorbid BPD and substance use disorder - integrated treatment including DBT skills, addiction counseling, medication management, family therapy over 3 years achieved stable sobriety and reduced self-harm by 95%. Evidence-based treatments by disorder: BPD - DBT, mentalization-based therapy, schema therapy; NPD - schema therapy, cognitive therapy; AvPD - cognitive therapy, exposure therapy; DPD - cognitive therapy, assertiveness training. Treatment principles: Establish safety and crisis management, build therapeutic alliance, address immediate symptoms, work on personality patterns, relapse prevention and maintenance. Therapeutic modalities integration: Individual therapy for core personality work, group therapy for interpersonal skills, family therapy for system changes, medication for symptom management, case management for practical needs. Special considerations: Suicidality and self-harm risk assessment, substance abuse comorbidity, trauma history and PTSD, axis I disorders requiring concurrent treatment, treatment compliance and engagement challenges.",
+      "source": "Annual Review of Clinical Psychology",
+      "researcherAuthors": "John Livesley, W. John Livesley, Joel Paris, Anthony Bateman",
+      "publicationYear": 2023,
+      "journalInstitution": "University of British Columbia",
+      "evidenceLevel": "treatment integration research",
+      "tags": ["personality disorder treatment", "integrated therapy", "treatment planning", "multi-modal interventions", "comorbidity management", "long-term therapy"]
+    }
+  ]
+}

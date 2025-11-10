@@ -22,18 +22,20 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "dark", // Always default to dark
   storageKey = "mate-ui-theme",
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    () => "dark" // Always use dark theme
   );
 
   useEffect(() => {
     const root = window.document.documentElement;
+    const body = window.document.body;
 
     root.classList.remove("light", "dark");
+    body.classList.remove("light", "dark");
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
@@ -42,10 +44,12 @@ export function ThemeProvider({
         : "light";
 
       root.classList.add(systemTheme);
+      body.classList.add(systemTheme);
       return;
     }
 
     root.classList.add(theme);
+    body.classList.add(theme);
   }, [theme]);
 
   const value = {

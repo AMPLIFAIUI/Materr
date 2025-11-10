@@ -1,0 +1,123 @@
+
+{
+  "specialist": {
+    "key": "addiction",
+    "name": "Dr. Tom",
+    "specialty": "Addiction Specialist",
+    "description": "Substance abuse, habits",
+    "icon": "fas fa-ban",
+    "color": "red"
+  },
+  "knowledgeBase": [
+    {
+      "domain": "neuroscience_addiction",
+      "title": "Neurobiology of Addiction: Brain Circuitry and Recovery Mechanisms",
+      "content": "Addiction hijacks brain reward circuits: nucleus accumbens (reward center), prefrontal cortex (decision-making), amygdala (stress/emotion), hippocampus (memory). Chronic use leads to 40-60% reduction in dopamine receptors, requiring higher doses for same effect. Case Study: Cocaine user brain scans showed 50% reduced dopamine activity; after 12 months sobriety with therapy, recovery to 85% normal function. Recovery timeline: Acute withdrawal (days 1-7), post-acute withdrawal (weeks 2-24), neuroadaptation (months 3-12), long-term recovery (years 1+). Medication-assisted treatment protocols: Opioids - methadone, buprenorphine, naltrexone; Alcohol - naltrexone, acamprosate, disulfiram; Smoking - varenicline, bupropion, nicotine replacement. Neuroplasticity interventions: Cognitive training, exercise (increases BDNF), meditation (prefrontal strengthening), social connection (oxytocin release). Brain imaging shows sustained recovery possible with comprehensive treatment approach combining medication, therapy, and lifestyle changes.",
+      "source": "Nature Reviews Neuroscience",
+      "researcherAuthors": "Nora Volkow, George Koob, Anna Rose Childress, Ting-Kai Li",
+      "publicationYear": 2022,
+      "journalInstitution": "National Institute on Drug Abuse",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["addiction neuroscience", "dopamine", "recovery timeline", "medication-assisted treatment", "brain imaging", "neuroplasticity"]
+    },
+    {
+      "domain": "behavioral_addiction",
+      "title": "Process Addictions: Gaming, Social Media, and Technology Dependencies",
+      "content": "Behavioral addictions activate same neural pathways as substance addictions but with digital triggers. Gaming disorder prevalence: 1-3% general population, 10-15% in adolescents. Case Study: 17-year-old gamer playing 12+ hours daily, failing school - 6-month program including CBT, family therapy, gradual exposure reduction achieved 2-hour daily limit and academic recovery. Diagnostic criteria (DSM-5 considerations): Preoccupation, tolerance, withdrawal symptoms, unsuccessful attempts to control, deception about use, loss of interests, continuation despite problems, use for mood modification, jeopardized relationships/opportunities. Social media addiction patterns: Variable ratio reinforcement (likes/comments), FOMO-driven compulsive checking, dopamine spikes from notifications, comparison-induced negative emotions. Treatment approaches: CBT targeting thought distortions, mindfulness-based interventions, digital detox protocols, family therapy for adolescents, alternative activity scheduling. Prevention strategies: App usage tracking, notification management, device-free spaces/times, social support networks, hobby development.",
+      "source": "Addiction Biology",
+      "researcherAuthors": "Marc Potenza, Anna Gearhardt, Matthias Brand, Kimberly Young",
+      "publicationYear": 2021,
+      "journalInstitution": "Yale School of Medicine",
+      "evidenceLevel": "rct",
+      "tags": ["behavioral addiction", "gaming disorder", "social media addiction", "digital detox", "adolescent treatment", "family therapy"]
+    },
+    {
+      "domain": "recovery_stages",
+      "title": "Transtheoretical Model: Stages of Change and Treatment Matching",
+      "content": "Change occurs through predictable stages: precontemplation (not ready), contemplation (ambivalent), preparation (getting ready), action (making changes), maintenance (sustaining), termination (permanent change). Stage-matched interventions increase success by 40%. Case Study: Alcoholic in precontemplation - motivational interviewing for 3 months moved to contemplation, then preparation phase with goal-setting, followed by action phase with AA and therapy, achieving 18-month sobriety. Precontemplation interventions: Consciousness raising, dramatic relief (emotional experiences), environmental reevaluation (impact on others). Contemplation strategies: Self-reevaluation, decisional balance exercises (pros/cons analysis), exploring ambivalence without pushing. Preparation techniques: Self-liberation (commitment), helping relationships development, stimulus control (environmental changes). Action/Maintenance: Counterconditioning (substituting behaviors), reinforcement management (rewards), social liberation (support system activation). Relapse as learning opportunity: Return to earlier stage, not treatment failure, analyze triggers and strengthen weak areas.",
+      "source": "American Psychologist",
+      "researcherAuthors": "James Prochaska, Carlo DiClemente, William Miller, Stephen Rollnick",
+      "publicationYear": 2020,
+      "journalInstitution": "University of Rhode Island",
+      "evidenceLevel": "theoretical",
+      "tags": ["stages of change", "motivational interviewing", "treatment matching", "decisional balance", "relapse prevention", "ambivalence"]
+    },
+    {
+      "domain": "relapse_prevention",
+      "title": "Cognitive-Behavioral Relapse Prevention and Trigger Management",
+      "content": "Relapse rates: 40-60% within first year, highest risk in first 90 days. HALT triggers (Hungry, Angry, Lonely, Tired) account for 70% of early relapses. Case Study: Heroin user identified patterns - stress at work led to isolation, then contact with using friends. Intervention: stress management training, sponsor system activation, social network change reduced relapse incidents by 85%. High-risk situations identification: Negative emotions (35%), social pressure (20%), interpersonal conflict (16%), positive emotions (9%), testing control (5%). Coping skills hierarchy: Level 1 - immediate safety (call sponsor, leave situation), Level 2 - cognitive strategies (thought challenging, urge surfing), Level 3 - behavioral alternatives (exercise, hobbies), Level 4 - social support activation. Seemingly irrelevant decisions: Small choices that gradually lead to high-risk situations require early recognition and intervention. Mindfulness-based relapse prevention: SOBER breathing space (Stop, Observe, Breathe, Expand awareness, Respond mindfully), urge surfing techniques, acceptance of cravings without action.",
+      "source": "Journal of Consulting and Clinical Psychology",
+      "researcherAuthors": "Alan Marlatt, Dennis Donovan, G. Alan Marlatt, Sarah Bowen",
+      "publicationYear": 2021,
+      "journalInstitution": "University of Washington",
+      "evidenceLevel": "rct",
+      "tags": ["relapse prevention", "high-risk situations", "HALT triggers", "coping skills", "mindfulness-based", "urge surfing"]
+    },
+    {
+      "domain": "twelve_step_programs",
+      "title": "12-Step Fellowship Programs and Spiritual Recovery Approaches",
+      "content": "AA/NA participation rates: Regular attendance (1+ meetings/week) correlates with 60% sobriety at 1 year vs. 25% for non-attendees. The 12 Steps progression: Powerlessness admission, higher power belief, surrender, moral inventory, confession, readiness for change, humbly asking for defect removal, making amends, continued inventory, prayer/meditation, spiritual awakening, helping others. Case Study: Chronic relapser with 15 failed treatment attempts found success through step work with sponsor - 4 years continuous sobriety, sponsoring 3 others. Sponsor relationship: Same gender, minimum 1 year sobriety, weekly contact, step work guidance, crisis availability. Meeting types: Speaker meetings (sharing experience), discussion meetings (topic focus), Big Book study, step study, beginners meetings. Alternatives for non-religious individuals: SMART Recovery (self-management), Secular Organizations for Sobriety (SOS), LifeRing Secular Recovery, Women for Sobriety. Cultural adaptations: Narcotics Anonymous for drug users, Crystal Meth Anonymous, Cocaine Anonymous, cultural-specific meetings (Spanish-speaking, LGBTQ+, professional groups).",
+      "source": "Cochrane Database of Systematic Reviews",
+      "researcherAuthors": "Bill Wilson, John Kelly, Keith Humphreys, William White",
+      "publicationYear": 2019,
+      "journalInstitution": "Stanford University",
+      "evidenceLevel": "meta-analysis",
+      "tags": ["twelve-step programs", "AA/NA", "sponsorship", "spiritual recovery", "secular alternatives", "meeting types"]
+    },
+    {
+      "domain": "dual_diagnosis",
+      "title": "Co-Occurring Mental Health and Substance Use Disorders",
+      "content": "Dual diagnosis prevalence: 50% of people with severe mental illness also have substance use disorders. Common combinations: Depression + alcohol (40%), Anxiety + benzodiazepines (30%), PTSD + multiple substances (25%), ADHD + stimulants (20%). Case Study: Veteran with PTSD and alcohol dependence - integrated treatment addressing trauma and addiction simultaneously achieved 2-year sustained recovery vs. multiple failed single-disorder treatments. Integrated treatment model: Simultaneous addressing of both conditions by cross-trained team, trauma-informed care principles, medication coordination, parallel process groups. Sequential vs. parallel treatment: Integrated approach shows 35% better outcomes than treating separately. Treatment phases: Engagement and motivation building (months 1-3), acute stabilization (months 3-6), relapse prevention and recovery (months 6+). Medication considerations: Addiction potential of psychiatric medications, drug interactions, compliance challenges, withdrawal management. Therapeutic approaches: Seeking Safety for PTSD/addiction, CBT for depression/substance use, DBT for personality disorders/addiction.",
+      "source": "Journal of Dual Diagnosis",
+      "researcherAuthors": "Robert Drake, Kim Mueser, Kenneth Minkoff",
+      "publicationYear": 2022,
+      "journalInstitution": "Dartmouth Medical School",
+      "evidenceLevel": "longitudinal",
+      "tags": ["dual diagnosis", "integrated treatment", "trauma-informed care", "co-occurring disorders", "medication management"]
+    },
+    {
+      "domain": "family_addiction",
+      "title": "Family Systems and Addiction: Codependency and Recovery",
+      "content": "Addiction impacts entire family system: spouse depression rates 60%, children of addicts 4x more likely to develop addiction. Codependency patterns: enabling behaviors, loss of self-identity, emotional dysregulation, boundary violations. Case Study: Wife of alcoholic attended Al-Anon and family therapy - stopped enabling behaviors, implemented consequences, husband entered treatment after losing financial support, family recovery achieved over 18 months. Family roles in addiction: Enabler (removes consequences), hero (perfect child), scapegoat (problem child), lost child (invisible), mascot (comic relief). Intervention strategies: CRAFT (Community Reinforcement and Family Training) shows 70% success rate in motivating treatment entry vs. 30% for confrontational approaches. Family therapy models: Multisystemic therapy for adolescents, multidimensional family therapy, brief strategic family therapy. Recovery support: Al-Anon/Nar-Anon for family members, family education groups, couples therapy in recovery, children's programming (Alateen, therapeutic support). Boundary setting: Detaching with love, natural consequences vs. enabling, self-care prioritization, professional support.",
+      "source": "Family Process",
+      "researcherAuthors": "Robert Meyers, Brenda Wolfe, Stephanie Brown",
+      "publicationYear": 2021,
+      "journalInstitution": "University of New Mexico",
+      "evidenceLevel": "clinical",
+      "tags": ["family systems", "codependency", "enabling behaviors", "CRAFT intervention", "Al-Anon", "family therapy"]
+    },
+    {
+      "domain": "addiction_pharmacology",
+      "title": "Medication-Assisted Treatment and Pharmacological Interventions",
+      "content": "MAT reduces overdose deaths by 50% and criminal activity by 60%. Opioid medications: Methadone (full agonist, daily clinic), buprenorphine (partial agonist, office-based), naltrexone (antagonist, monthly injection). Case Study: Fentanyl user stabilized on buprenorphine 16mg daily plus counseling - eliminated illicit use, returned to work, maintained 3+ years. Alcohol medications: Naltrexone reduces heavy drinking days by 25%, acamprosate decreases relapse risk by 30%, disulfiram provides deterrent effect. Emerging treatments: GLP-1 agonists for alcohol use disorder, psychedelic-assisted therapy (psilocybin, MDMA), targeted gene therapy. Dosing protocols: Methadone 60-120mg optimal range, buprenorphine induction starting 8-16mg, naltrexone 50mg daily or 380mg monthly injection. Side effect management: Methadone QT prolongation monitoring, buprenorphine precipitated withdrawal prevention, naltrexone hepatotoxicity screening. Integration with psychosocial treatments: Counseling requirement enhances outcomes, group therapy participation, case management services, vocational rehabilitation.",
+      "source": "New England Journal of Medicine",
+      "researcherAuthors": "Sarah Wakeman, Nora Volkow, Richard Friedman",
+      "publicationYear": 2023,
+      "journalInstitution": "Massachusetts General Hospital",
+      "evidenceLevel": "clinical trials",
+      "tags": ["medication-assisted treatment", "opioid medications", "alcohol pharmacotherapy", "dosing protocols", "side effects", "integration"]
+    },
+    {
+      "domain": "harm_reduction",
+      "title": "Harm Reduction Strategies and Risk Minimization Approaches",
+      "content": "Harm reduction accepts drug use reality while minimizing associated risks. Needle exchange programs reduce HIV transmission by 80%, hepatitis C by 60%. Case Study: Injection drug user accessing syringe services, naloxone training, medical care - prevented 3 overdoses, obtained treatment for abscess, maintained housing stability. Core principles: Meet people where they are, remove barriers to services, respect autonomy and dignity, evidence-based interventions, address structural factors. Services spectrum: Needle/syringe exchange, naloxone distribution, safe consumption sites, drug checking (fentanyl test strips), wound care, infectious disease screening. Safer use education: Injection safety techniques, overdose recognition and response, safer sex practices, vein care, rotation of injection sites. Medication approaches: Low-threshold buprenorphine (office-based, minimal requirements), contingency management (incentives for negative tests), housing first models. Policy implications: Decriminalization effects, funding for harm reduction services, law enforcement partnerships, Good Samaritan laws. Controversial approaches: Safe supply programs, heroin-assisted treatment for treatment-refractory cases, drug decriminalization models.",
+      "source": "International Journal of Drug Policy",
+      "researcherAuthors": "Alex Wodak, Ethan Nadelmann, Carl Hart",
+      "publicationYear": 2022,
+      "journalInstitution": "Drug Policy Alliance",
+      "evidenceLevel": "population studies",
+      "tags": ["harm reduction", "needle exchange", "naloxone", "safe consumption sites", "drug checking", "policy reform"]
+    },
+    {
+      "domain": "addiction_recovery",
+      "title": "Long-Term Recovery: Sustained Sobriety and Quality of Life",
+      "content": "Recovery definition evolution: From abstinence-only to broader wellness including physical health, mental health, social support, purpose/meaning. Recovery capital: Internal assets (motivation, coping skills, mental health) plus external resources (family support, employment, housing, healthcare). Case Study: 10-year recovery journey - initial 90-day treatment, 2-year halfway house, education completion, marriage, career advancement, now sponsors 5 people and leads recovery meetings. Recovery stages: Physical healing (months 1-6), emotional regulation development (months 6-18), relationship repair (years 1-3), purpose/meaning development (years 2+), service to others (years 3+). Quality of life indicators: Employment stability (80% of 5+ year recovery), relationship satisfaction, physical health improvement, criminal justice involvement reduction, financial stability. Recovery support services: Peer support specialists, recovery coaches, sober living facilities, recovery high schools, collegiate recovery programs. Measurement tools: Recovery Capital Index, Brief Addiction Monitor, Quality of Life Scale. Sustained recovery factors: Social support (highest predictor), meaningful employment, spiritual/religious involvement, ongoing recovery activities, physical health maintenance.",
+      "source": "Substance Abuse",
+      "researcherAuthors": "William White, John Kelly, Alexandre Laudet",
+      "publicationYear": 2023,
+      "journalInstitution": "Chestnut Health Systems",
+      "evidenceLevel": "longitudinal",
+      "tags": ["long-term recovery", "recovery capital", "quality of life", "sustained sobriety", "recovery stages", "social support"]
+    }
+  ]
+}

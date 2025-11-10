@@ -1,0 +1,2691 @@
+{
+  "topics": [
+    {
+      "key": "addiction",
+      "name": "Dr. Tom",
+      "specialty": "Addiction Specialist",
+      "description": "Substance abuse, habits",
+      "datasetPath": "data/specialists/addiction.json",
+      "entryCount": 10,
+      "domains": [
+        "addiction_pharmacology",
+        "addiction_recovery",
+        "behavioral_addiction",
+        "dual_diagnosis",
+        "family_addiction",
+        "harm_reduction",
+        "neuroscience_addiction",
+        "recovery_stages",
+        "relapse_prevention",
+        "twelve_step_programs"
+      ],
+      "tags": [
+        "AA/NA",
+        "Al-Anon",
+        "CRAFT intervention",
+        "HALT triggers",
+        "addiction neuroscience",
+        "adolescent treatment",
+        "alcohol pharmacotherapy",
+        "ambivalence",
+        "behavioral addiction",
+        "brain imaging",
+        "co-occurring disorders",
+        "codependency",
+        "coping skills",
+        "decisional balance",
+        "digital detox",
+        "dopamine",
+        "dosing protocols",
+        "drug checking",
+        "dual diagnosis",
+        "enabling behaviors",
+        "family systems",
+        "family therapy",
+        "gaming disorder",
+        "harm reduction",
+        "high-risk situations",
+        "integrated treatment",
+        "integration",
+        "long-term recovery",
+        "medication management",
+        "medication-assisted treatment",
+        "meeting types",
+        "mindfulness-based",
+        "motivational interviewing",
+        "naloxone",
+        "needle exchange",
+        "neuroplasticity",
+        "opioid medications",
+        "policy reform",
+        "quality of life",
+        "recovery capital",
+        "recovery stages",
+        "recovery timeline",
+        "relapse prevention",
+        "safe consumption sites",
+        "secular alternatives",
+        "side effects",
+        "social media addiction",
+        "social support",
+        "spiritual recovery",
+        "sponsorship",
+        "stages of change",
+        "sustained sobriety",
+        "trauma-informed care",
+        "treatment matching",
+        "twelve-step programs",
+        "urge surfing"
+      ]
+    },
+    {
+      "key": "career",
+      "name": "Dr. Lisa",
+      "specialty": "Career Counselor",
+      "description": "Job stress, career changes",
+      "datasetPath": "data/specialists/career.json",
+      "entryCount": 10,
+      "domains": [
+        "career_transition",
+        "entrepreneurship_career",
+        "job_stress",
+        "leadership_development",
+        "networking_career",
+        "performance_optimization",
+        "remote_work_success",
+        "salary_negotiation",
+        "work_life_balance",
+        "workplace_conflict"
+      ],
+      "tags": [
+        "360 feedback",
+        "LinkedIn",
+        "boundary management",
+        "burnout",
+        "business development",
+        "career advancement",
+        "career change",
+        "career transition",
+        "communication protocols",
+        "communication strategies",
+        "compensation",
+        "deep work",
+        "difficult conversations",
+        "emotional exhaustion",
+        "emotional intelligence",
+        "energy management",
+        "entrepreneurship",
+        "financial planning",
+        "flexible schedules",
+        "flow state",
+        "gender equity",
+        "introvert networking",
+        "job crafting",
+        "job search",
+        "job stress",
+        "leadership development",
+        "lean startup",
+        "market research",
+        "market validation",
+        "mediation",
+        "networking",
+        "peak performance",
+        "performance review",
+        "productivity",
+        "recovery protocol",
+        "relationship building",
+        "remote work",
+        "role integration",
+        "salary negotiation",
+        "self-assessment",
+        "side hustle",
+        "situational leadership",
+        "skill development",
+        "team building",
+        "team collaboration",
+        "team management",
+        "technology tools",
+        "time blocking",
+        "value creation",
+        "virtual teams",
+        "work-life balance",
+        "workplace conflict",
+        "workplace wellness",
+        "workspace setup"
+      ]
+    },
+    {
+      "key": "conflict",
+      "name": "Dr. Maria",
+      "specialty": "Conflict Resolution",
+      "description": "Workplace disputes, mediation",
+      "datasetPath": "data/specialists/conflict.json",
+      "entryCount": 10,
+      "domains": [
+        "conflict_coaching",
+        "conflict_prevention",
+        "cross_cultural_conflict",
+        "family_conflict",
+        "interpersonal_conflict",
+        "negotiation_strategies",
+        "online_conflict",
+        "organizational_conflict",
+        "restorative_justice",
+        "workplace_mediation"
+      ],
+      "tags": [
+        "BATNA",
+        "circle process",
+        "communication repair",
+        "communication styles",
+        "community healing",
+        "conflict coaching",
+        "conflict management systems",
+        "conflict prevention",
+        "conflict resolution",
+        "conflict styles",
+        "cost analysis",
+        "cost savings",
+        "cross-cultural conflict",
+        "cultural considerations",
+        "cultural dimensions",
+        "cultural mediation",
+        "culture change",
+        "de-escalation",
+        "difficult conversations",
+        "digital conflict",
+        "early warning systems",
+        "emotional regulation",
+        "family conflict",
+        "family systems",
+        "family therapy",
+        "global teams",
+        "harm repair",
+        "interest-based bargaining",
+        "intergenerational patterns",
+        "interpersonal conflict",
+        "leadership role",
+        "mediator skills",
+        "negotiation",
+        "online mediation",
+        "organizational conflict",
+        "principled negotiation",
+        "proactive intervention",
+        "relationship maintenance",
+        "remote teams",
+        "restorative justice",
+        "self-awareness",
+        "skill development",
+        "structured process",
+        "system design",
+        "team health monitoring",
+        "technology challenges",
+        "victim satisfaction",
+        "virtual communication",
+        "win-win solutions",
+        "workplace mediation"
+      ]
+    },
+    {
+      "key": "crisis_intervention",
+      "name": "Dr. Jordan",
+      "specialty": "Crisis Intervention Specialist",
+      "description": "Evidence-based acute-care protocols",
+      "datasetPath": "data/specialists/crisis_intervention.json",
+      "entryCount": 10,
+      "domains": [
+        "cultural_competence",
+        "domestic_violence",
+        "geriatric_crisis",
+        "immediacy_and_safety",
+        "mobile_crisis_teams",
+        "pandemic_hotline",
+        "postvention_protocols",
+        "psychological_first_aid",
+        "substance_crisis",
+        "suicide_risk_tools"
+      ],
+      "tags": [
+        "C-SSRS",
+        "PFA",
+        "TAAD",
+        "cultural_safety",
+        "delirium",
+        "diversion",
+        "intimate_partner_violence",
+        "means_restriction",
+        "medical_clearance",
+        "mobile_team",
+        "opioid",
+        "pandemic",
+        "postvention",
+        "safety",
+        "school_crisis",
+        "suicide_prevention",
+        "telehealth",
+        "wildfire"
+      ]
+    },
+    {
+      "key": "emotional_intelligence",
+      "name": "Dr. Sofia",
+      "specialty": "Emotional Intelligence Coach",
+      "description": "EQ development, emotional regulation, social skills",
+      "datasetPath": "data/specialists/emotional_intelligence.json",
+      "entryCount": 10,
+      "domains": [
+        "cultural_eq",
+        "digital_eq",
+        "emotional_contagion",
+        "emotional_regulation",
+        "empathy_development",
+        "eq_assessment",
+        "eq_coaching",
+        "resilience_building",
+        "social_skills_mastery",
+        "workplace_eq"
+      ],
+      "tags": [
+        "360-degree feedback",
+        "EQ assessment",
+        "EQ coaching",
+        "active listening",
+        "adversity response",
+        "behavioral change",
+        "cognitive flexibility",
+        "cognitive reappraisal",
+        "compassion",
+        "competency development",
+        "conflict resolution",
+        "cross-cultural competence",
+        "cultural adaptation",
+        "cultural competence",
+        "cultural emotional intelligence",
+        "customer service",
+        "digital emotional intelligence",
+        "diversity",
+        "emotional climate",
+        "emotional contagion",
+        "emotional intelligence measurement",
+        "emotional labor",
+        "emotional regulation",
+        "emotional resilience",
+        "empathy training",
+        "executive function",
+        "global teams",
+        "group mood",
+        "habit formation",
+        "helping behavior",
+        "international business",
+        "interpersonal effectiveness",
+        "leadership",
+        "leadership development",
+        "leadership emotions",
+        "meaning-making",
+        "mindfulness",
+        "networking",
+        "neuroplasticity",
+        "nonverbal communication",
+        "online empathy",
+        "organizational EQ",
+        "perspective-taking",
+        "post-traumatic growth",
+        "psychological safety",
+        "remote work",
+        "self-awareness",
+        "social media",
+        "social skills",
+        "stress management",
+        "stress tolerance",
+        "team dynamics",
+        "team performance",
+        "technology relationships",
+        "virtual communication",
+        "workplace culture"
+      ]
+    },
+    {
+      "key": "empathy_specialist",
+      "name": "Dr. Marcus",
+      "specialty": "Empathy Development Expert",
+      "description": "Empathic skills, compassionate communication, perspective-taking",
+      "datasetPath": "data/specialists/empathy_specialist.json",
+      "entryCount": 3,
+      "domains": [
+        "clinical_empathy",
+        "empathy_fundamentals",
+        "relationship_empathy"
+      ],
+      "tags": [
+        "active listening",
+        "cognitive empathy",
+        "compassion fatigue",
+        "compassionate detachment",
+        "compassionate empathy",
+        "conflict resolution",
+        "countertransference",
+        "emotional empathy",
+        "empathic communication",
+        "empathy vs. sympathy",
+        "friendship dynamics",
+        "healthcare empathy",
+        "parental empathy",
+        "perspective-taking",
+        "reciprocal empathy",
+        "relationship satisfaction",
+        "self-care",
+        "therapeutic alliance"
+      ]
+    },
+    {
+      "key": "financial_psychology",
+      "name": "Dr. Rachel",
+      "specialty": "Financial Psychologist",
+      "description": "Money mindset, financial stress, debt management",
+      "datasetPath": "data/specialists/financial_psychology.json",
+      "entryCount": 10,
+      "domains": [
+        "debt_psychology",
+        "financial_addiction",
+        "financial_behavior_change",
+        "financial_communication",
+        "financial_planning_psychology",
+        "financial_stress",
+        "financial_trauma",
+        "money_mindset",
+        "retirement_psychology",
+        "workplace_financial_wellness"
+      ],
+      "tags": [
+        "ROI measurement",
+        "anxiety depression",
+        "automatic savings",
+        "behavioral addiction treatment",
+        "behavioral economics",
+        "behavioral interventions",
+        "childhood money messages",
+        "cognitive biases",
+        "cognitive restructuring",
+        "compulsive buying",
+        "coping strategies",
+        "cortisol levels",
+        "couples financial therapy",
+        "debt recovery",
+        "debt snowball",
+        "debt trauma",
+        "economic PTSD",
+        "economic abuse",
+        "employee assistance",
+        "employee financial wellness",
+        "financial addiction",
+        "financial advisor relationships",
+        "financial beliefs",
+        "financial communication",
+        "financial couples therapy",
+        "financial decision-making",
+        "financial education programs",
+        "financial genogram",
+        "financial goal setting",
+        "financial grief",
+        "financial infidelity",
+        "financial planning psychology",
+        "financial recovery",
+        "financial roles",
+        "financial stress",
+        "financial therapy",
+        "financial trauma",
+        "gambling addiction",
+        "goal achievement",
+        "implementation intentions",
+        "impulse control",
+        "life transition",
+        "money conflicts",
+        "money mindset",
+        "money scripts",
+        "motivation maintenance",
+        "nudge theory",
+        "physiological impact",
+        "productivity impact",
+        "relationship money",
+        "retirement depression",
+        "retirement identity",
+        "retirement planning",
+        "retirement psychology",
+        "spending addiction",
+        "spending triggers",
+        "successful aging",
+        "trauma-informed financial therapy",
+        "workplace financial stress"
+      ]
+    },
+    {
+      "key": "grief_counseling",
+      "name": "Dr. Marcus",
+      "specialty": "Grief & Bereavement",
+      "description": "CGT, Meaning-Making, Dual-Process",
+      "datasetPath": "data/specialists/grief_counseling.json",
+      "entryCount": 11,
+      "domains": [
+        "anticipatory_grief_cancer",
+        "cultural_grief_ritual",
+        "dual_process_model",
+        "grief_mindfulness_integration",
+        "grief_relapse_prevention",
+        "job_loss_identity",
+        "online_grief_forum",
+        "pet_loss_child",
+        "prolonged_grief_dsm-5-tr",
+        "spouse_loss_cgt",
+        "traumatic_loss_homicide"
+      ],
+      "tags": [
+        "CBT_GRIEF",
+        "CGT",
+        "DPM",
+        "DSM5",
+        "MBGR",
+        "PGD",
+        "anticipatory",
+        "caregivers",
+        "child",
+        "complicated_grief",
+        "culture",
+        "diagnosis",
+        "digital_health",
+        "group_therapy",
+        "homicide",
+        "identity",
+        "indigenous",
+        "integration",
+        "job_loss",
+        "meta_analysis",
+        "mindfulness",
+        "narrative_therapy",
+        "online",
+        "oscillation",
+        "peer_support",
+        "pet_loss",
+        "play_therapy",
+        "relapse_prevention",
+        "restoration",
+        "ritual_healing",
+        "spousal_loss",
+        "trauma_loss"
+      ]
+    },
+    {
+      "key": "mens_mental_health",
+      "name": "Dr. Marcus",
+      "specialty": "Men's Mental Health Specialist",
+      "description": "Male-specific mental health approaches, masculinity issues",
+      "datasetPath": "data/specialists/mens_mental_health.json",
+      "entryCount": 10,
+      "domains": [
+        "fatherhood_mental_health",
+        "male_body_image",
+        "male_eating_disorders",
+        "male_relationships",
+        "male_substance_abuse",
+        "male_suicide_prevention",
+        "male_trauma_ptsd",
+        "middle_age_male_crisis",
+        "traditional_masculinity",
+        "workplace_masculinity"
+      ],
+      "tags": [
+        "addiction patterns",
+        "appearance obsessions",
+        "athlete mental health",
+        "body dysmorphic disorder",
+        "body image",
+        "career identity",
+        "combat PTSD",
+        "crisis intervention",
+        "emotional intimacy",
+        "emotional suppression",
+        "exercise addiction",
+        "existential concerns",
+        "family impact",
+        "father-infant bonding",
+        "fatherhood",
+        "fitness culture",
+        "help-seeking barriers",
+        "impostor syndrome",
+        "life transitions",
+        "male addiction",
+        "male body image",
+        "male bonding",
+        "male depression",
+        "male eating disorders",
+        "male friendship",
+        "male identity",
+        "male leadership",
+        "male suicide",
+        "male trauma",
+        "male-only groups",
+        "masculine norms",
+        "masculine recovery",
+        "masculine trauma response",
+        "men's groups",
+        "midlife crisis",
+        "midlife development",
+        "moral injury",
+        "muscle dysmorphia",
+        "new fathers",
+        "parenting stress",
+        "paternal depression",
+        "postpartum depression",
+        "protective factors",
+        "relapse prevention",
+        "relationship changes",
+        "risk factors",
+        "social isolation",
+        "steroid use",
+        "substance abuse treatment",
+        "suicide prevention",
+        "therapy engagement",
+        "traditional masculinity",
+        "treatment adaptation",
+        "veteran mental health",
+        "vulnerability",
+        "warning signs",
+        "work-life balance",
+        "workplace masculinity",
+        "workplace stress"
+      ]
+    },
+    {
+      "key": "neurodevelopmental",
+      "name": "Dr. Cameron",
+      "specialty": "Neurodevelopmental Support Specialist",
+      "description": "ADHD, autism, learning disabilities, executive function",
+      "datasetPath": "data/specialists/neurodevelopmental.json",
+      "entryCount": 10,
+      "domains": [
+        "adhd_comprehensive",
+        "assistive_technology",
+        "autism_spectrum_support",
+        "executive_function",
+        "family_support",
+        "learning_disabilities",
+        "neurodiversity_paradigm",
+        "sensory_processing",
+        "social_communication",
+        "transition_planning"
+      ],
+      "tags": [
+        "ABA therapy",
+        "ADHD treatment",
+        "academic accommodations",
+        "academic success",
+        "accessibility",
+        "adult ADHD",
+        "advocacy skills",
+        "assistive technology",
+        "autism spectrum disorder",
+        "autistic community",
+        "behavioral interventions",
+        "caregiver stress",
+        "cognitive flexibility",
+        "cognitive training",
+        "communication devices",
+        "communication support",
+        "conversation skills",
+        "cultural considerations",
+        "digital supports",
+        "dyscalculia",
+        "dysgraphia",
+        "dyslexia",
+        "early intervention",
+        "educational accommodations",
+        "environmental accommodations",
+        "environmental modifications",
+        "executive function",
+        "family-centered care",
+        "identity-affirming practices",
+        "independent living",
+        "inhibitory control",
+        "learning disabilities",
+        "neurodiversity",
+        "nonverbal communication",
+        "occupational therapy",
+        "parent training",
+        "person-centered planning",
+        "post-secondary education",
+        "pragmatic language",
+        "school accommodations",
+        "self-advocacy",
+        "self-regulation",
+        "sensory diet",
+        "sensory integration",
+        "sensory processing",
+        "sibling support",
+        "social communication disorder",
+        "social skills",
+        "speech-language therapy",
+        "stimulant medication",
+        "strengths-based approaches",
+        "structured literacy",
+        "supported decision-making",
+        "technology assessment",
+        "transition planning",
+        "vocational training",
+        "working memory"
+      ]
+    },
+    {
+      "key": "personality_disorders",
+      "name": "Dr. Adrian",
+      "specialty": "Personality Disorders Specialist",
+      "description": "BPD, NPD, DBT, schema therapy",
+      "datasetPath": "data/specialists/personality_disorders.json",
+      "entryCount": 10,
+      "domains": [
+        "antisocial_personality",
+        "avoidant_personality",
+        "borderline_personality",
+        "dependent_personality",
+        "histrionic_personality",
+        "narcissistic_personality",
+        "obsessive_compulsive_personality",
+        "paranoid_personality",
+        "personality_disorder_treatment",
+        "schizoid_personality"
+      ],
+      "tags": [
+        "DBT",
+        "abandonment fear",
+        "acceptance and commitment therapy",
+        "antisocial personality disorder",
+        "assertiveness training",
+        "attention-seeking",
+        "avoidant personality disorder",
+        "borderline personality disorder",
+        "cognitive flexibility",
+        "cognitive restructuring",
+        "comorbidity management",
+        "control issues",
+        "criminal behavior",
+        "decision-making skills",
+        "dependent personality disorder",
+        "dialectical behavior therapy",
+        "differential diagnosis",
+        "emotion regulation",
+        "emotional expression",
+        "emotional regulation",
+        "empathy deficits",
+        "enabling relationships",
+        "exposure therapy",
+        "grandiosity",
+        "group therapy",
+        "histrionic personality disorder",
+        "identity development",
+        "independence training",
+        "integrated therapy",
+        "long-term therapy",
+        "motivational interviewing",
+        "multi-modal interventions",
+        "narcissistic abuse",
+        "narcissistic personality disorder",
+        "obsessive-compulsive personality disorder",
+        "paranoid personality disorder",
+        "paranoid thinking",
+        "perfectionism",
+        "personality disorder treatment",
+        "psychopathy",
+        "reality testing",
+        "rejection sensitivity",
+        "relationship patterns",
+        "risk assessment",
+        "schema therapy",
+        "schizoid personality disorder",
+        "self-harm",
+        "social anxiety",
+        "social detachment",
+        "social skills training",
+        "suicide prevention",
+        "theatrical behavior",
+        "therapeutic alliance",
+        "treatment planning",
+        "treatment resistance",
+        "trust building",
+        "violence prevention",
+        "work-life balance"
+      ]
+    },
+    {
+      "key": "psychology",
+      "name": "Dr. Sarah",
+      "specialty": "Clinical Psychologist",
+      "description": "Depression, anxiety, therapy",
+      "datasetPath": "data/specialists/psychology.json",
+      "entryCount": 10,
+      "domains": [
+        "anxiety_disorders",
+        "autism_adhd",
+        "bipolar_disorder",
+        "cultural_psychology",
+        "depression_treatment",
+        "digital_mental_health",
+        "eating_disorders",
+        "personality_disorders",
+        "substance_mental_health",
+        "trauma_ptsd"
+      ],
+      "tags": [
+        "ABA",
+        "ADHD",
+        "AI mental health",
+        "African American therapy",
+        "BPD",
+        "CBT",
+        "CBT-E",
+        "DBT",
+        "EMDR",
+        "Hispanic mental health",
+        "LGBTQ affirmative",
+        "PTSD",
+        "TRD",
+        "VR therapy",
+        "anorexia",
+        "anxiety disorders",
+        "autism",
+        "bipolar disorder",
+        "bulimia",
+        "co-occurring disorders",
+        "complex trauma",
+        "cultural competency",
+        "depression",
+        "digital therapeutics",
+        "dual diagnosis",
+        "eating disorders",
+        "executive function",
+        "exposure therapy",
+        "family therapy",
+        "group therapy",
+        "integrated treatment",
+        "lithium",
+        "mania",
+        "medical monitoring",
+        "medication",
+        "medication safety",
+        "mental health apps",
+        "mentalization",
+        "mood stabilizers",
+        "personality disorders",
+        "prolonged exposure",
+        "religious integration",
+        "schema therapy",
+        "social skills",
+        "somatic therapy",
+        "stimulant medication",
+        "suicide prevention",
+        "technology access",
+        "teletherapy",
+        "trauma therapy",
+        "trauma-informed"
+      ]
+    },
+    {
+      "key": "relationship",
+      "name": "Dr. Alex",
+      "specialty": "Relationship Counselor",
+      "description": "Marriage, communication",
+      "datasetPath": "data/specialists/relationship.json",
+      "entryCount": 10,
+      "domains": [
+        "blended_families",
+        "conflict_resolution",
+        "couple_communication",
+        "emotionally_focused_therapy",
+        "infidelity_recovery",
+        "lgbtq_relationships",
+        "long_distance_relationships",
+        "premarital_counseling",
+        "relationship_maintenance",
+        "sexual_intimacy"
+      ],
+      "tags": [
+        "EFT",
+        "Gottman method",
+        "LGBTQ+ relationships",
+        "PREPARE assessment",
+        "affair recovery",
+        "affirming therapy",
+        "attachment theory",
+        "betrayal trauma",
+        "blended families",
+        "bonding events",
+        "chosen family",
+        "co-parenting",
+        "coming out",
+        "communication",
+        "communication skills",
+        "communication technology",
+        "conflict prevention",
+        "conflict resolution",
+        "couple therapy",
+        "cultural competency",
+        "daily practices",
+        "desire discrepancy",
+        "discipline",
+        "disclosure",
+        "dysfunction treatment",
+        "fair fighting",
+        "family integration",
+        "flooding",
+        "four horsemen",
+        "infidelity",
+        "long-distance relationships",
+        "long-term satisfaction",
+        "love languages",
+        "love maps",
+        "loyalty conflicts",
+        "military couples",
+        "minority stress",
+        "negative cycles",
+        "negotiation",
+        "perpetual problems",
+        "premarital counseling",
+        "problem-solving",
+        "pursue-withdraw",
+        "relationship maintenance",
+        "relationship preparation",
+        "relationship rituals",
+        "repair attempts",
+        "reunion planning",
+        "sensate focus",
+        "sexual communication",
+        "sexual intimacy",
+        "stepfamilies",
+        "transparency",
+        "trust building",
+        "trust rebuilding",
+        "vulnerability"
+      ]
+    },
+    {
+      "key": "sleep_psychology",
+      "name": "Dr. Luna",
+      "specialty": "Sleep Psychologist",
+      "description": "CBT-I, sleep hygiene, insomnia treatment",
+      "datasetPath": "data/specialists/sleep_psychology.json",
+      "entryCount": 10,
+      "domains": [
+        "cbt_insomnia",
+        "circadian_rhythms",
+        "sleep_across_lifespan",
+        "sleep_and_mental_health",
+        "sleep_anxiety",
+        "sleep_disorders",
+        "sleep_hygiene",
+        "sleep_medications",
+        "sleep_workplace",
+        "technology_sleep"
+      ],
+      "tags": [
+        "CBT-I",
+        "CBT-I protocol",
+        "CBT-I vs medication",
+        "PTSD sleep",
+        "acceptance therapy",
+        "adolescent sleep",
+        "age-related sleep changes",
+        "anxiety sleep",
+        "bedroom optimization",
+        "benzodiazepine withdrawal",
+        "bidirectional relationship",
+        "blue light exposure",
+        "circadian rhythms",
+        "cognitive restructuring",
+        "depression sleep",
+        "digital sunset",
+        "elderly sleep",
+        "employee wellness",
+        "executive sleep",
+        "insomnia assessment",
+        "insomnia treatment",
+        "integrated treatment",
+        "life stage sleep interventions",
+        "light exposure",
+        "light therapy",
+        "medication tapering",
+        "melatonin suppression",
+        "melatonin treatment",
+        "mindfulness-based interventions",
+        "paradoxical intention",
+        "performance anxiety",
+        "polysomnography",
+        "pre-sleep routine",
+        "productivity sleep",
+        "psychological dependence",
+        "screen time sleep",
+        "seasonal affective disorder",
+        "shift work disorder",
+        "shift work optimization",
+        "sleep across lifespan",
+        "sleep anxiety",
+        "sleep cognitions",
+        "sleep development",
+        "sleep disorders",
+        "sleep efficiency",
+        "sleep environment",
+        "sleep hygiene",
+        "sleep medication alternatives",
+        "sleep medications",
+        "sleep mental health",
+        "sleep phase disorders",
+        "sleep restriction",
+        "sleep safety",
+        "sleep study",
+        "sleep tracking",
+        "stimulus control",
+        "technology sleep hygiene",
+        "temperature control",
+        "workplace sleep programs"
+      ]
+    },
+    {
+      "key": "stress",
+      "name": "Dr. Emma",
+      "specialty": "Stress Management",
+      "description": "Work pressure, life balance",
+      "datasetPath": "data/specialists/stress.json",
+      "entryCount": 10,
+      "domains": [
+        "coping_strategies",
+        "health_consequences",
+        "mindfulness_practice",
+        "relaxation_techniques",
+        "resilience_building",
+        "social_support",
+        "stress_assessment",
+        "stress_physiology",
+        "time_management",
+        "workplace_stress"
+      ],
+      "tags": [
+        "HPA axis",
+        "MBSR",
+        "VR therapy",
+        "age-specific",
+        "allostatic load",
+        "biofeedback",
+        "biomarkers",
+        "breathing techniques",
+        "chronic stress",
+        "cognitive switching",
+        "coping strategies",
+        "corporate wellness",
+        "cortisol",
+        "cultural adaptation",
+        "demographic-specific",
+        "digital communities",
+        "digital tools",
+        "digital wellness",
+        "disease prevention",
+        "early intervention",
+        "early warning systems",
+        "energy management",
+        "ergonomics",
+        "guided meditation",
+        "healthcare workers",
+        "hybrid work",
+        "lifestyle medicine",
+        "online support groups",
+        "peer mentorship",
+        "peer support",
+        "post-traumatic growth",
+        "productivity systems",
+        "progressive muscle relaxation",
+        "remote work",
+        "resilience",
+        "social media",
+        "somatic experiencing",
+        "specialized populations",
+        "stress assessment",
+        "stress physiology",
+        "time management",
+        "trauma-informed care",
+        "virtual support",
+        "wearable technology",
+        "work-life balance",
+        "workplace mindfulness"
+      ]
+    },
+    {
+      "key": "workplace_psychology",
+      "name": "Dr. Lisa",
+      "specialty": "Industrial-Organizational Psychologist",
+      "description": "Burnout, wellbeing, conflict resolution",
+      "datasetPath": "data/specialists/workplace_psychology.json",
+      "entryCount": 10,
+      "domains": [
+        "ai_feedback_coach",
+        "burnout_hcw",
+        "conflict_mediation",
+        "financial_stress",
+        "gamified_wellbeing",
+        "hybrid_work_stress",
+        "ic_dei_training",
+        "positive_psych",
+        "resilience_training",
+        "sleep_fatigue_shift"
+      ],
+      "tags": [
+        "AI",
+        "DEI",
+        "PERMA",
+        "burnout",
+        "fatigue",
+        "financial_stress",
+        "gamification",
+        "hybrid",
+        "mediation",
+        "resilience"
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "key": "addiction",
+      "datasetPath": "data/specialists/addiction.json",
+      "sampleTitles": [
+        "Neurobiology of Addiction: Brain Circuitry and Recovery Mechanisms",
+        "Process Addictions: Gaming, Social Media, and Technology Dependencies",
+        "Transtheoretical Model: Stages of Change and Treatment Matching"
+      ],
+      "sources": [
+        "Addiction Biology",
+        "American Psychologist",
+        "Cochrane Database of Systematic Reviews",
+        "Family Process",
+        "International Journal of Drug Policy",
+        "Journal of Consulting and Clinical Psychology",
+        "Journal of Dual Diagnosis",
+        "Nature Reviews Neuroscience",
+        "New England Journal of Medicine",
+        "Substance Abuse"
+      ],
+      "publicationYears": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 2,
+        "rct": 2,
+        "theoretical": 1,
+        "longitudinal": 2,
+        "clinical": 1,
+        "clinical trials": 1,
+        "population studies": 1
+      }
+    },
+    {
+      "key": "career",
+      "datasetPath": "data/specialists/career.json",
+      "sampleTitles": [
+        "Burnout Syndrome: Assessment, Prevention and Recovery Protocols",
+        "Strategic Career Change and Transition Management",
+        "Professional Conflict Resolution and Communication Strategies"
+      ],
+      "sources": [
+        "Administrative Science Quarterly",
+        "Applied Psychology: An International Review",
+        "Career Development Quarterly",
+        "Entrepreneurship Theory and Practice",
+        "Harvard Business Review",
+        "Journal of Applied Psychology",
+        "Journal of Occupational Health Psychology",
+        "Leadership Quarterly",
+        "MIT Sloan Management Review",
+        "Negotiation and Conflict Management Research"
+      ],
+      "publicationYears": [
+        2021,
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 2,
+        "longitudinal": 2,
+        "applied": 3,
+        "survey": 1,
+        "experimental": 1,
+        "field study": 1
+      }
+    },
+    {
+      "key": "conflict",
+      "datasetPath": "data/specialists/conflict.json",
+      "sampleTitles": [
+        "Professional Mediation Techniques and Structured Resolution Processes",
+        "Personal Relationship Conflict and Communication Repair",
+        "Family Systems Conflict and Intergenerational Communication"
+      ],
+      "sources": [
+        "Academy of Management Review",
+        "Computers in Human Behavior",
+        "Conflict Resolution Education",
+        "Conflict Resolution Quarterly",
+        "Family Process",
+        "Harvard Business Review",
+        "International Journal of Conflict Management",
+        "Journal of Social and Personal Relationships",
+        "Organizational Behavior and Human Decision Processes",
+        "Restorative Justice International"
+      ],
+      "publicationYears": [
+        2021,
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 1,
+        "empirical": 1,
+        "clinical": 1,
+        "organizational": 1,
+        "cross-cultural": 1,
+        "applied": 2,
+        "program evaluation": 1,
+        "experimental": 1,
+        "longitudinal": 1
+      }
+    },
+    {
+      "key": "crisis_intervention",
+      "datasetPath": "data/specialists/crisis_intervention.json",
+      "sampleTitles": [
+        "Six-Step Model Application",
+        "Columbia Suicide Severity Rating Scale in ED",
+        "Law-Enforcement Co-Response"
+      ],
+      "sources": [
+        "American Association for Emergency Psychiatry",
+        "American Geriatrics Society",
+        "ICANotes",
+        "NCCIH",
+        "NIMH",
+        "Red Cross",
+        "SAMHSA",
+        "SPRC",
+        "Verywell Mind",
+        "WHO"
+      ],
+      "publicationYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "evidenceLevels": {
+        "case study": 2,
+        "prospective cohort": 2,
+        "retrospective audit": 1,
+        "program evaluation": 1,
+        "clinical guideline": 1,
+        "big-data study": 1,
+        "field trial": 1,
+        "community case": 1
+      }
+    },
+    {
+      "key": "emotional_intelligence",
+      "datasetPath": "data/specialists/emotional_intelligence.json",
+      "sampleTitles": [
+        "Comprehensive Emotional Intelligence Assessment and Measurement",
+        "Advanced Emotional Regulation Techniques and Neuroplasticity",
+        "Empathy Training and Perspective-Taking Skills Enhancement"
+      ],
+      "sources": [
+        "Applied Psychology: Health and Well-Being",
+        "Clinical Psychological Science",
+        "Computers in Human Behavior",
+        "Emotion",
+        "Harvard Business Review",
+        "International Coaching Psychology Review",
+        "Journal of Applied Psychology",
+        "Journal of Cross-Cultural Psychology",
+        "Journal of Personality and Social Psychology",
+        "Organizational Behavior and Human Decision Processes"
+      ],
+      "publicationYears": [
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "psychometric validation": 1,
+        "neuroscience research": 1,
+        "experimental studies": 1,
+        "workplace studies": 1,
+        "organizational research": 1,
+        "clinical trials": 1,
+        "organizational studies": 1,
+        "cross-cultural studies": 1,
+        "digital behavior studies": 1,
+        "coaching effectiveness": 1
+      }
+    },
+    {
+      "key": "empathy_specialist",
+      "datasetPath": "data/specialists/empathy_specialist.json",
+      "sampleTitles": [
+        "Core Empathy Concepts and Skill Development",
+        "Empathy in Interpersonal Relationships and Communication",
+        "Clinical Applications of Empathy in Therapeutic Settings"
+      ],
+      "sources": [
+        "Journal of Clinical Psychology",
+        "Journal of Family Psychology",
+        "Journal of Personality and Social Psychology"
+      ],
+      "publicationYears": [
+        2023,
+        2024
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 1,
+        "longitudinal relationship studies": 1,
+        "clinical effectiveness studies": 1
+      }
+    },
+    {
+      "key": "financial_psychology",
+      "datasetPath": "data/specialists/financial_psychology.json",
+      "sampleTitles": [
+        "Financial Beliefs and Money Scripts: Childhood Origins and Adult Patterns",
+        "Financial Stress Physiology and Mental Health Impact",
+        "Debt Trauma and Recovery: Psychological Approaches to Debt Management"
+      ],
+      "sources": [
+        "Behavioral Economics",
+        "Compensation & Benefits Review",
+        "Family Relations",
+        "Financial Planning Review",
+        "Journal of Applied Gerontology",
+        "Journal of Behavioral Addictions",
+        "Journal of Economic Psychology",
+        "Journal of Financial Planning",
+        "Journal of Financial Therapy",
+        "Traumatology"
+      ],
+      "publicationYears": [
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "clinical assessment": 1,
+        "stress physiology": 1,
+        "clinical outcomes": 1,
+        "experimental economics": 1,
+        "couples research": 1,
+        "trauma treatment": 1,
+        "planning effectiveness": 1,
+        "workplace research": 1,
+        "retirement studies": 1,
+        "addiction research": 1
+      }
+    },
+    {
+      "key": "grief_counseling",
+      "datasetPath": "data/specialists/grief_counseling.json",
+      "sampleTitles": [
+        "Complicated-Grief Therapy After Spousal Death",
+        "Grief in Child After Pet Death",
+        "Anticipatory Grief Group for Caregivers"
+      ],
+      "sources": [
+        "APS",
+        "FourWeekMBA",
+        "IHS Fact Sheet",
+        "Kübler-Ross Model",
+        "MHTTC",
+        "NIA",
+        "Neuroscience & Biobehavioral Reviews",
+        "PositivePsychology.com",
+        "Wikipedia"
+      ],
+      "publicationYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "evidenceLevels": {
+        "RCT": 1,
+        "case": 2,
+        "controlled": 2,
+        "pilot": 1,
+        "community": 1,
+        "case series": 1,
+        "guideline": 1,
+        "observational": 1,
+        "systematic meta-review": 1
+      }
+    },
+    {
+      "key": "mens_mental_health",
+      "datasetPath": "data/specialists/mens_mental_health.json",
+      "sampleTitles": [
+        "Toxic Masculinity and Male Mental Health: Cultural Barriers to Help-Seeking",
+        "Male Suicide Epidemiology and Prevention Strategies",
+        "Paternal Mental Health and Postpartum Depression in Fathers"
+      ],
+      "sources": [
+        "Body Image",
+        "Developmental Psychology",
+        "International Journal of Eating Disorders",
+        "Journal of Occupational Health Psychology",
+        "Journal of Reproductive and Infant Psychology",
+        "Journal of Traumatic Stress",
+        "Men and Masculinities",
+        "Psychology of Addictive Behaviors",
+        "Psychology of Men & Masculinity",
+        "Suicide and Life-Threatening Behavior"
+      ],
+      "publicationYears": [
+        2021,
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 1,
+        "epidemiological": 1,
+        "clinical studies": 2,
+        "clinical trials": 2,
+        "qualitative studies": 1,
+        "organizational studies": 1,
+        "treatment studies": 1,
+        "longitudinal studies": 1
+      }
+    },
+    {
+      "key": "neurodevelopmental",
+      "datasetPath": "data/specialists/neurodevelopmental.json",
+      "sampleTitles": [
+        "Autism Spectrum Disorder: Comprehensive Support and Evidence-Based Interventions",
+        "ADHD: Multimodal Treatment and Executive Function Development",
+        "Learning Disabilities: Assessment, Intervention, and Academic Support"
+      ],
+      "sources": [
+        "American Journal of Occupational Therapy",
+        "Assistive Technology",
+        "Autism in Adulthood",
+        "Career Development and Transition for Exceptional Individuals",
+        "Developmental Science",
+        "Journal of Autism and Developmental Disorders",
+        "Journal of Speech, Language, and Hearing Research",
+        "Journal of the American Academy of Child & Adolescent Psychiatry",
+        "Learning Disabilities Research & Practice",
+        "Topics in Early Childhood Special Education"
+      ],
+      "publicationYears": [
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "systematic reviews": 1,
+        "meta-analyses": 1,
+        "educational research": 1,
+        "cognitive development research": 1,
+        "occupational therapy research": 1,
+        "communication research": 1,
+        "transition research": 1,
+        "assistive technology research": 1,
+        "family systems research": 1,
+        "neurodiversity research": 1
+      }
+    },
+    {
+      "key": "personality_disorders",
+      "datasetPath": "data/specialists/personality_disorders.json",
+      "sampleTitles": [
+        "Borderline Personality Disorder: Comprehensive DBT Treatment Protocols",
+        "Narcissistic Personality Disorder: Treatment Challenges and Interventions",
+        "Antisocial Personality Disorder and Psychopathy Treatment Approaches"
+      ],
+      "sources": [
+        "Annual Review of Clinical Psychology",
+        "Behavior Research and Therapy",
+        "Clinical Psychology: Science and Practice",
+        "Cognitive Therapy and Research",
+        "Comprehensive Psychiatry",
+        "Criminal Justice and Behavior",
+        "International Journal of Cognitive Therapy",
+        "Journal of Clinical Psychology",
+        "Journal of Personality Disorders",
+        "Personality and Mental Health"
+      ],
+      "publicationYears": [
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "randomized controlled trials": 1,
+        "clinical case studies": 1,
+        "forensic psychology research": 1,
+        "treatment outcome studies": 1,
+        "clinical intervention studies": 1,
+        "clinical case series": 1,
+        "personality assessment research": 1,
+        "cognitive behavioral research": 1,
+        "clinical phenomenology": 1,
+        "treatment integration research": 1
+      }
+    },
+    {
+      "key": "psychology",
+      "datasetPath": "data/specialists/psychology.json",
+      "sampleTitles": [
+        "Evidence-Based Depression Interventions and Treatment Protocols",
+        "Comprehensive Anxiety Disorder Treatment and Exposure Protocols",
+        "Trauma-Informed Treatment and PTSD Recovery Protocols"
+      ],
+      "sources": [
+        "American Journal of Psychiatry",
+        "Behavior Research and Therapy",
+        "Bipolar Disorders",
+        "Cultural Diversity and Mental Health",
+        "International Journal of Eating Disorders",
+        "Journal of Autism and Developmental Disorders",
+        "Journal of Dual Diagnosis",
+        "Journal of Medical Internet Research",
+        "Journal of Traumatic Stress",
+        "Personality Disorders: Theory, Research, and Treatment"
+      ],
+      "publicationYears": [
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 1,
+        "rct": 1,
+        "clinical trials": 1,
+        "longitudinal": 1,
+        "clinical guidelines": 1,
+        "treatment guidelines": 1,
+        "treatment reviews": 1,
+        "integrated treatment": 1,
+        "cultural adaptation": 1,
+        "systematic review": 1
+      }
+    },
+    {
+      "key": "relationship",
+      "datasetPath": "data/specialists/relationship.json",
+      "sampleTitles": [
+        "Gottman Method and Communication Pattern Analysis",
+        "EFT Implementation and Attachment-Based Interventions",
+        "Sexual Health and Intimacy Restoration Protocols"
+      ],
+      "sources": [
+        "Archives of Sexual Behavior",
+        "Clinical Child and Family Psychology Review",
+        "Clinical Psychology Review",
+        "Current Opinion in Psychology",
+        "Family Process",
+        "Family Relations",
+        "Journal of Couple & Relationship Therapy",
+        "Journal of Marital and Family Therapy",
+        "Personal Relationships",
+        "Psychology of Sexual Orientation and Gender Diversity"
+      ],
+      "publicationYears": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "rct": 2,
+        "meta-analysis": 1,
+        "clinical": 2,
+        "longitudinal": 4,
+        "review": 1
+      }
+    },
+    {
+      "key": "sleep_psychology",
+      "datasetPath": "data/specialists/sleep_psychology.json",
+      "sampleTitles": [
+        "Comprehensive Sleep Disorder Assessment and Classification",
+        "Cognitive Behavioral Therapy for Insomnia: Evidence-Based Protocols",
+        "Advanced Sleep Hygiene and Environmental Optimization"
+      ],
+      "sources": [
+        "Behavior Research and Therapy",
+        "Clinical Psychology Review",
+        "Current Psychiatry Reports",
+        "Journal of Circadian Rhythms",
+        "Journal of Clinical Sleep Medicine",
+        "Journal of Occupational and Environmental Medicine",
+        "Sleep Health",
+        "Sleep Medicine",
+        "Sleep Medicine Clinics",
+        "Sleep Medicine Reviews"
+      ],
+      "publicationYears": [
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "clinical guidelines": 1,
+        "randomized controlled trials": 1,
+        "sleep optimization": 1,
+        "chronobiology research": 1,
+        "anxiety treatment research": 1,
+        "technology impact studies": 1,
+        "medication research": 1,
+        "developmental sleep research": 1,
+        "bidirectional research": 1,
+        "workplace intervention studies": 1
+      }
+    },
+    {
+      "key": "stress",
+      "datasetPath": "data/specialists/stress.json",
+      "sampleTitles": [
+        "HPA Axis and Chronic Stress Impact on Health",
+        "Tailored Coping Strategies for Diverse Populations",
+        "Remote and Hybrid Work Stress Management Protocols"
+      ],
+      "sources": [
+        "American Psychologist",
+        "Applied Psychology",
+        "Assessment and Measurement",
+        "Behavior Research and Therapy",
+        "Computers in Human Behavior",
+        "Journal of Occupational Health Psychology",
+        "Journal of Personality and Social Psychology",
+        "Mindfulness",
+        "Preventive Medicine",
+        "Psychoneuroendocrinology"
+      ],
+      "publicationYears": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 2,
+        "cohort": 1,
+        "rct": 2,
+        "review": 1,
+        "longitudinal": 1,
+        "comparative": 1,
+        "mixed-methods": 1,
+        "validation": 1
+      }
+    },
+    {
+      "key": "workplace_psychology",
+      "datasetPath": "data/specialists/workplace_psychology.json",
+      "sampleTitles": [
+        "Healthcare Worker Burnout",
+        "PERMA Model Workshop",
+        "Inclusive Leadership Training"
+      ],
+      "sources": [
+        "CourseAdvisor Asia",
+        "Emotiv",
+        "IMD",
+        "Occupational Mental Health",
+        "PositivePsychology.com",
+        "Quirónsalud",
+        "St John Ambulance",
+        "Wellable",
+        "Workplace Psychology Definition",
+        "Workplace Psychology FAQ"
+      ],
+      "publicationYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "evidenceLevels": {
+        "meta-analysis": 1,
+        "field study": 1,
+        "quasi-experimental": 1,
+        "randomized": 1,
+        "program eval": 1,
+        "case study": 1,
+        "controlled": 1,
+        "before-after": 1,
+        "RCT": 1,
+        "field trial": 1
+      }
+    }
+  ],
+  "patterns": [
+    {
+      "key": "addiction",
+      "datasetPath": "data/specialists/addiction.json",
+      "primaryTags": [
+        "addiction neuroscience",
+        "dopamine",
+        "recovery timeline",
+        "medication-assisted treatment",
+        "brain imaging",
+        "neuroplasticity",
+        "behavioral addiction",
+        "gaming disorder",
+        "social media addiction",
+        "digital detox"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "neuroscience_addiction",
+          "focusTags": [
+            "addiction neuroscience",
+            "dopamine",
+            "recovery timeline",
+            "medication-assisted treatment",
+            "brain imaging"
+          ]
+        },
+        {
+          "domain": "behavioral_addiction",
+          "focusTags": [
+            "behavioral addiction",
+            "gaming disorder",
+            "social media addiction",
+            "digital detox",
+            "adolescent treatment"
+          ]
+        },
+        {
+          "domain": "recovery_stages",
+          "focusTags": [
+            "stages of change",
+            "motivational interviewing",
+            "treatment matching",
+            "decisional balance",
+            "relapse prevention"
+          ]
+        },
+        {
+          "domain": "relapse_prevention",
+          "focusTags": [
+            "relapse prevention",
+            "high-risk situations",
+            "HALT triggers",
+            "coping skills",
+            "mindfulness-based"
+          ]
+        },
+        {
+          "domain": "twelve_step_programs",
+          "focusTags": [
+            "twelve-step programs",
+            "AA/NA",
+            "sponsorship",
+            "spiritual recovery",
+            "secular alternatives"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "career",
+      "datasetPath": "data/specialists/career.json",
+      "primaryTags": [
+        "burnout",
+        "job stress",
+        "workplace wellness",
+        "job crafting",
+        "emotional exhaustion",
+        "recovery protocol",
+        "career transition",
+        "career change",
+        "self-assessment",
+        "financial planning"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "job_stress",
+          "focusTags": [
+            "burnout",
+            "job stress",
+            "workplace wellness",
+            "job crafting",
+            "emotional exhaustion"
+          ]
+        },
+        {
+          "domain": "career_transition",
+          "focusTags": [
+            "career transition",
+            "career change",
+            "self-assessment",
+            "financial planning",
+            "skill development"
+          ]
+        },
+        {
+          "domain": "workplace_conflict",
+          "focusTags": [
+            "workplace conflict",
+            "communication strategies",
+            "mediation",
+            "difficult conversations",
+            "team collaboration"
+          ]
+        },
+        {
+          "domain": "leadership_development",
+          "focusTags": [
+            "leadership development",
+            "emotional intelligence",
+            "360 feedback",
+            "situational leadership",
+            "team building"
+          ]
+        },
+        {
+          "domain": "work_life_balance",
+          "focusTags": [
+            "work-life balance",
+            "boundary management",
+            "remote work",
+            "flexible schedules",
+            "role integration"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "conflict",
+      "datasetPath": "data/specialists/conflict.json",
+      "primaryTags": [
+        "workplace mediation",
+        "conflict resolution",
+        "structured process",
+        "cost savings",
+        "mediator skills",
+        "interpersonal conflict",
+        "conflict styles",
+        "communication repair",
+        "de-escalation",
+        "relationship maintenance"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "workplace_mediation",
+          "focusTags": [
+            "workplace mediation",
+            "conflict resolution",
+            "structured process",
+            "cost savings",
+            "mediator skills"
+          ]
+        },
+        {
+          "domain": "interpersonal_conflict",
+          "focusTags": [
+            "interpersonal conflict",
+            "conflict styles",
+            "communication repair",
+            "de-escalation",
+            "relationship maintenance"
+          ]
+        },
+        {
+          "domain": "family_conflict",
+          "focusTags": [
+            "family conflict",
+            "family systems",
+            "intergenerational patterns",
+            "family therapy",
+            "cultural considerations"
+          ]
+        },
+        {
+          "domain": "organizational_conflict",
+          "focusTags": [
+            "organizational conflict",
+            "conflict management systems",
+            "leadership role",
+            "culture change",
+            "cost analysis"
+          ]
+        },
+        {
+          "domain": "cross_cultural_conflict",
+          "focusTags": [
+            "cross-cultural conflict",
+            "cultural dimensions",
+            "communication styles",
+            "global teams",
+            "cultural mediation"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "crisis_intervention",
+      "datasetPath": "data/specialists/crisis_intervention.json",
+      "primaryTags": [
+        "safety",
+        "suicide_prevention",
+        "PFA",
+        "C-SSRS",
+        "means_restriction",
+        "mobile_team",
+        "diversion",
+        "postvention",
+        "school_crisis",
+        "opioid"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "immediacy_and_safety",
+          "focusTags": [
+            "safety",
+            "suicide_prevention",
+            "PFA"
+          ]
+        },
+        {
+          "domain": "suicide_risk_tools",
+          "focusTags": [
+            "C-SSRS",
+            "means_restriction"
+          ]
+        },
+        {
+          "domain": "mobile_crisis_teams",
+          "focusTags": [
+            "mobile_team",
+            "diversion"
+          ]
+        },
+        {
+          "domain": "postvention_protocols",
+          "focusTags": [
+            "postvention",
+            "school_crisis"
+          ]
+        },
+        {
+          "domain": "substance_crisis",
+          "focusTags": [
+            "opioid",
+            "TAAD"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "emotional_intelligence",
+      "datasetPath": "data/specialists/emotional_intelligence.json",
+      "primaryTags": [
+        "EQ assessment",
+        "emotional intelligence measurement",
+        "competency development",
+        "self-awareness",
+        "social skills",
+        "leadership",
+        "emotional regulation",
+        "cognitive reappraisal",
+        "mindfulness",
+        "neuroplasticity"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "eq_assessment",
+          "focusTags": [
+            "EQ assessment",
+            "emotional intelligence measurement",
+            "competency development",
+            "self-awareness",
+            "social skills"
+          ]
+        },
+        {
+          "domain": "emotional_regulation",
+          "focusTags": [
+            "emotional regulation",
+            "cognitive reappraisal",
+            "mindfulness",
+            "neuroplasticity",
+            "stress management"
+          ]
+        },
+        {
+          "domain": "empathy_development",
+          "focusTags": [
+            "empathy training",
+            "perspective-taking",
+            "compassion",
+            "customer service",
+            "cultural competence"
+          ]
+        },
+        {
+          "domain": "social_skills_mastery",
+          "focusTags": [
+            "social skills",
+            "nonverbal communication",
+            "active listening",
+            "networking",
+            "conflict resolution"
+          ]
+        },
+        {
+          "domain": "emotional_contagion",
+          "focusTags": [
+            "emotional contagion",
+            "team dynamics",
+            "leadership emotions",
+            "group mood",
+            "workplace culture"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "empathy_specialist",
+      "datasetPath": "data/specialists/empathy_specialist.json",
+      "primaryTags": [
+        "cognitive empathy",
+        "emotional empathy",
+        "compassionate empathy",
+        "active listening",
+        "perspective-taking",
+        "empathy vs. sympathy",
+        "relationship satisfaction",
+        "reciprocal empathy",
+        "friendship dynamics",
+        "parental empathy"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "empathy_fundamentals",
+          "focusTags": [
+            "cognitive empathy",
+            "emotional empathy",
+            "compassionate empathy",
+            "active listening",
+            "perspective-taking"
+          ]
+        },
+        {
+          "domain": "relationship_empathy",
+          "focusTags": [
+            "relationship satisfaction",
+            "reciprocal empathy",
+            "friendship dynamics",
+            "parental empathy",
+            "empathic communication"
+          ]
+        },
+        {
+          "domain": "clinical_empathy",
+          "focusTags": [
+            "therapeutic alliance",
+            "compassionate detachment",
+            "countertransference",
+            "healthcare empathy",
+            "compassion fatigue"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "financial_psychology",
+      "datasetPath": "data/specialists/financial_psychology.json",
+      "primaryTags": [
+        "money scripts",
+        "financial beliefs",
+        "childhood money messages",
+        "financial genogram",
+        "money mindset",
+        "cognitive restructuring",
+        "financial stress",
+        "cortisol levels",
+        "anxiety depression",
+        "financial therapy"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "money_mindset",
+          "focusTags": [
+            "money scripts",
+            "financial beliefs",
+            "childhood money messages",
+            "financial genogram",
+            "money mindset"
+          ]
+        },
+        {
+          "domain": "financial_stress",
+          "focusTags": [
+            "financial stress",
+            "cortisol levels",
+            "anxiety depression",
+            "financial therapy",
+            "coping strategies"
+          ]
+        },
+        {
+          "domain": "debt_psychology",
+          "focusTags": [
+            "debt trauma",
+            "debt recovery",
+            "financial therapy",
+            "debt snowball",
+            "spending triggers"
+          ]
+        },
+        {
+          "domain": "financial_behavior_change",
+          "focusTags": [
+            "behavioral economics",
+            "cognitive biases",
+            "financial decision-making",
+            "nudge theory",
+            "automatic savings"
+          ]
+        },
+        {
+          "domain": "financial_communication",
+          "focusTags": [
+            "couples financial therapy",
+            "money conflicts",
+            "financial communication",
+            "financial infidelity",
+            "financial roles"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "grief_counseling",
+      "datasetPath": "data/specialists/grief_counseling.json",
+      "primaryTags": [
+        "CGT",
+        "spousal_loss",
+        "complicated_grief",
+        "child",
+        "pet_loss",
+        "play_therapy",
+        "anticipatory",
+        "caregivers",
+        "group_therapy",
+        "job_loss"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "spouse_loss_cgt",
+          "focusTags": [
+            "CGT",
+            "spousal_loss",
+            "complicated_grief"
+          ]
+        },
+        {
+          "domain": "pet_loss_child",
+          "focusTags": [
+            "child",
+            "pet_loss",
+            "play_therapy"
+          ]
+        },
+        {
+          "domain": "anticipatory_grief_cancer",
+          "focusTags": [
+            "anticipatory",
+            "caregivers",
+            "group_therapy"
+          ]
+        },
+        {
+          "domain": "job_loss_identity",
+          "focusTags": [
+            "job_loss",
+            "identity",
+            "narrative_therapy"
+          ]
+        },
+        {
+          "domain": "traumatic_loss_homicide",
+          "focusTags": [
+            "trauma_loss",
+            "homicide",
+            "CBT_GRIEF"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "mens_mental_health",
+      "datasetPath": "data/specialists/mens_mental_health.json",
+      "primaryTags": [
+        "traditional masculinity",
+        "male depression",
+        "therapy engagement",
+        "masculine norms",
+        "emotional suppression",
+        "help-seeking barriers",
+        "male suicide",
+        "suicide prevention",
+        "risk factors",
+        "warning signs"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "traditional_masculinity",
+          "focusTags": [
+            "traditional masculinity",
+            "male depression",
+            "therapy engagement",
+            "masculine norms",
+            "emotional suppression"
+          ]
+        },
+        {
+          "domain": "male_suicide_prevention",
+          "focusTags": [
+            "male suicide",
+            "suicide prevention",
+            "risk factors",
+            "warning signs",
+            "crisis intervention"
+          ]
+        },
+        {
+          "domain": "fatherhood_mental_health",
+          "focusTags": [
+            "paternal depression",
+            "fatherhood",
+            "postpartum depression",
+            "father-infant bonding",
+            "new fathers"
+          ]
+        },
+        {
+          "domain": "male_body_image",
+          "focusTags": [
+            "muscle dysmorphia",
+            "body dysmorphic disorder",
+            "male body image",
+            "appearance obsessions",
+            "steroid use"
+          ]
+        },
+        {
+          "domain": "male_relationships",
+          "focusTags": [
+            "male friendship",
+            "emotional intimacy",
+            "social isolation",
+            "men's groups",
+            "vulnerability"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "neurodevelopmental",
+      "datasetPath": "data/specialists/neurodevelopmental.json",
+      "primaryTags": [
+        "autism spectrum disorder",
+        "early intervention",
+        "ABA therapy",
+        "social skills",
+        "sensory processing",
+        "communication support",
+        "ADHD treatment",
+        "executive function",
+        "stimulant medication",
+        "behavioral interventions"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "autism_spectrum_support",
+          "focusTags": [
+            "autism spectrum disorder",
+            "early intervention",
+            "ABA therapy",
+            "social skills",
+            "sensory processing"
+          ]
+        },
+        {
+          "domain": "adhd_comprehensive",
+          "focusTags": [
+            "ADHD treatment",
+            "executive function",
+            "stimulant medication",
+            "behavioral interventions",
+            "school accommodations"
+          ]
+        },
+        {
+          "domain": "learning_disabilities",
+          "focusTags": [
+            "learning disabilities",
+            "dyslexia",
+            "dyscalculia",
+            "dysgraphia",
+            "structured literacy"
+          ]
+        },
+        {
+          "domain": "executive_function",
+          "focusTags": [
+            "executive function",
+            "working memory",
+            "cognitive flexibility",
+            "inhibitory control",
+            "cognitive training"
+          ]
+        },
+        {
+          "domain": "sensory_processing",
+          "focusTags": [
+            "sensory processing",
+            "sensory integration",
+            "occupational therapy",
+            "sensory diet",
+            "environmental modifications"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "personality_disorders",
+      "datasetPath": "data/specialists/personality_disorders.json",
+      "primaryTags": [
+        "borderline personality disorder",
+        "DBT",
+        "emotion regulation",
+        "self-harm",
+        "suicide prevention",
+        "dialectical behavior therapy",
+        "narcissistic personality disorder",
+        "schema therapy",
+        "grandiosity",
+        "empathy deficits"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "borderline_personality",
+          "focusTags": [
+            "borderline personality disorder",
+            "DBT",
+            "emotion regulation",
+            "self-harm",
+            "suicide prevention"
+          ]
+        },
+        {
+          "domain": "narcissistic_personality",
+          "focusTags": [
+            "narcissistic personality disorder",
+            "schema therapy",
+            "grandiosity",
+            "empathy deficits",
+            "narcissistic abuse"
+          ]
+        },
+        {
+          "domain": "antisocial_personality",
+          "focusTags": [
+            "antisocial personality disorder",
+            "psychopathy",
+            "criminal behavior",
+            "motivational interviewing",
+            "risk assessment"
+          ]
+        },
+        {
+          "domain": "avoidant_personality",
+          "focusTags": [
+            "avoidant personality disorder",
+            "social anxiety",
+            "exposure therapy",
+            "rejection sensitivity",
+            "social skills training"
+          ]
+        },
+        {
+          "domain": "dependent_personality",
+          "focusTags": [
+            "dependent personality disorder",
+            "independence training",
+            "assertiveness training",
+            "decision-making skills",
+            "abandonment fear"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "psychology",
+      "datasetPath": "data/specialists/psychology.json",
+      "primaryTags": [
+        "depression",
+        "CBT",
+        "medication",
+        "TRD",
+        "suicide prevention",
+        "digital therapeutics",
+        "anxiety disorders",
+        "exposure therapy",
+        "EMDR",
+        "group therapy"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "depression_treatment",
+          "focusTags": [
+            "depression",
+            "CBT",
+            "medication",
+            "TRD",
+            "suicide prevention"
+          ]
+        },
+        {
+          "domain": "anxiety_disorders",
+          "focusTags": [
+            "anxiety disorders",
+            "exposure therapy",
+            "CBT",
+            "EMDR",
+            "group therapy"
+          ]
+        },
+        {
+          "domain": "trauma_ptsd",
+          "focusTags": [
+            "PTSD",
+            "trauma therapy",
+            "EMDR",
+            "prolonged exposure",
+            "somatic therapy"
+          ]
+        },
+        {
+          "domain": "personality_disorders",
+          "focusTags": [
+            "personality disorders",
+            "DBT",
+            "BPD",
+            "schema therapy",
+            "mentalization"
+          ]
+        },
+        {
+          "domain": "bipolar_disorder",
+          "focusTags": [
+            "bipolar disorder",
+            "mood stabilizers",
+            "lithium",
+            "mania",
+            "depression"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "relationship",
+      "datasetPath": "data/specialists/relationship.json",
+      "primaryTags": [
+        "communication",
+        "Gottman method",
+        "four horsemen",
+        "repair attempts",
+        "love maps",
+        "couple therapy",
+        "EFT",
+        "attachment theory",
+        "negative cycles",
+        "bonding events"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "couple_communication",
+          "focusTags": [
+            "communication",
+            "Gottman method",
+            "four horsemen",
+            "repair attempts",
+            "love maps"
+          ]
+        },
+        {
+          "domain": "emotionally_focused_therapy",
+          "focusTags": [
+            "EFT",
+            "attachment theory",
+            "negative cycles",
+            "bonding events",
+            "vulnerability"
+          ]
+        },
+        {
+          "domain": "sexual_intimacy",
+          "focusTags": [
+            "sexual intimacy",
+            "desire discrepancy",
+            "sensate focus",
+            "sexual communication",
+            "dysfunction treatment"
+          ]
+        },
+        {
+          "domain": "conflict_resolution",
+          "focusTags": [
+            "conflict resolution",
+            "problem-solving",
+            "fair fighting",
+            "perpetual problems",
+            "flooding"
+          ]
+        },
+        {
+          "domain": "infidelity_recovery",
+          "focusTags": [
+            "infidelity",
+            "affair recovery",
+            "trust rebuilding",
+            "disclosure",
+            "transparency"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "sleep_psychology",
+      "datasetPath": "data/specialists/sleep_psychology.json",
+      "primaryTags": [
+        "sleep disorders",
+        "insomnia assessment",
+        "sleep study",
+        "CBT-I",
+        "sleep efficiency",
+        "polysomnography",
+        "CBT-I protocol",
+        "sleep restriction",
+        "stimulus control",
+        "cognitive restructuring"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "sleep_disorders",
+          "focusTags": [
+            "sleep disorders",
+            "insomnia assessment",
+            "sleep study",
+            "CBT-I",
+            "sleep efficiency"
+          ]
+        },
+        {
+          "domain": "cbt_insomnia",
+          "focusTags": [
+            "CBT-I protocol",
+            "sleep restriction",
+            "stimulus control",
+            "cognitive restructuring",
+            "sleep efficiency"
+          ]
+        },
+        {
+          "domain": "sleep_hygiene",
+          "focusTags": [
+            "sleep hygiene",
+            "sleep environment",
+            "light exposure",
+            "temperature control",
+            "pre-sleep routine"
+          ]
+        },
+        {
+          "domain": "circadian_rhythms",
+          "focusTags": [
+            "circadian rhythms",
+            "light therapy",
+            "melatonin treatment",
+            "shift work disorder",
+            "seasonal affective disorder"
+          ]
+        },
+        {
+          "domain": "sleep_anxiety",
+          "focusTags": [
+            "sleep anxiety",
+            "performance anxiety",
+            "paradoxical intention",
+            "mindfulness-based interventions",
+            "acceptance therapy"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "stress",
+      "datasetPath": "data/specialists/stress.json",
+      "primaryTags": [
+        "stress physiology",
+        "HPA axis",
+        "cortisol",
+        "chronic stress",
+        "allostatic load",
+        "biomarkers",
+        "coping strategies",
+        "demographic-specific",
+        "cultural adaptation",
+        "age-specific"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "stress_physiology",
+          "focusTags": [
+            "stress physiology",
+            "HPA axis",
+            "cortisol",
+            "chronic stress",
+            "allostatic load"
+          ]
+        },
+        {
+          "domain": "coping_strategies",
+          "focusTags": [
+            "coping strategies",
+            "demographic-specific",
+            "cultural adaptation",
+            "age-specific",
+            "peer support"
+          ]
+        },
+        {
+          "domain": "workplace_stress",
+          "focusTags": [
+            "remote work",
+            "hybrid work",
+            "digital wellness",
+            "ergonomics",
+            "work-life balance"
+          ]
+        },
+        {
+          "domain": "relaxation_techniques",
+          "focusTags": [
+            "progressive muscle relaxation",
+            "breathing techniques",
+            "VR therapy",
+            "biofeedback",
+            "digital wellness"
+          ]
+        },
+        {
+          "domain": "resilience_building",
+          "focusTags": [
+            "trauma-informed care",
+            "post-traumatic growth",
+            "somatic experiencing",
+            "cultural adaptation",
+            "resilience"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "workplace_psychology",
+      "datasetPath": "data/specialists/workplace_psychology.json",
+      "primaryTags": [
+        "burnout",
+        "PERMA",
+        "DEI",
+        "hybrid",
+        "gamification",
+        "mediation",
+        "financial_stress",
+        "fatigue",
+        "resilience",
+        "AI"
+      ],
+      "domainTagMap": [
+        {
+          "domain": "burnout_hcw",
+          "focusTags": [
+            "burnout"
+          ]
+        },
+        {
+          "domain": "positive_psych",
+          "focusTags": [
+            "PERMA"
+          ]
+        },
+        {
+          "domain": "ic_dei_training",
+          "focusTags": [
+            "DEI"
+          ]
+        },
+        {
+          "domain": "hybrid_work_stress",
+          "focusTags": [
+            "hybrid"
+          ]
+        },
+        {
+          "domain": "gamified_wellbeing",
+          "focusTags": [
+            "gamification"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+[
+  {"key": "empathy_specialist", "name": "Dr. Marcus", "specialty": "Empathy Development Expert", "description": "Empathic skills, compassionate communication, perspective-taking", "icon": "fas fa-hand-holding-heart", "color": "indigo"},
+  {"key": "addiction", "name": "Dr. Tom", "specialty": "Addiction Specialist", "description": "Substance abuse, habits", "icon": "fas fa-ban", "color": "red"},
+  {"key": "career", "name": "Dr. Lisa", "specialty": "Career Counselor", "description": "Job stress, career changes", "icon": "fas fa-briefcase", "color": "green"},
+  {"key": "conflict", "name": "Dr. Maria", "specialty": "Conflict Resolution", "description": "Workplace disputes, mediation", "icon": "fas fa-balance-scale", "color": "orange"},
+  {"key": "emotional_intelligence", "name": "Dr. Sofia", "specialty": "Emotional Intelligence Coach", "description": "EQ development, emotional regulation, social skills", "icon": "fas fa-heart-pulse", "color": "purple"},
+  {"key": "financial_psychology", "name": "Dr. Rachel", "specialty": "Financial Psychologist", "description": "Money mindset, financial stress, debt management", "icon": "fas fa-dollar-sign", "color": "green"},
+  {"key": "mens_mental_health", "name": "Dr. Marcus", "specialty": "Men's Mental Health Specialist", "description": "Male-specific mental health approaches, masculinity issues", "icon": "fas fa-male", "color": "blue"},
+  {"key": "neurodevelopmental", "name": "Dr. Cameron", "specialty": "Neurodevelopmental Support Specialist", "description": "ADHD, autism, learning disabilities, executive function", "icon": "fas fa-brain", "color": "cyan"},
+  {"key": "personality_disorders", "name": "Dr. Adrian", "specialty": "Personality Disorders Specialist", "description": "BPD, NPD, DBT, schema therapy", "icon": "fas fa-user-cog", "color": "amber"},
+  {"key": "psychology", "name": "Dr. Sarah", "specialty": "Clinical Psychologist", "description": "Depression, anxiety, therapy", "icon": "fas fa-brain", "color": "purple"},
+  {"key": "relationship", "name": "Dr. Alex", "specialty": "Relationship Counselor", "description": "Marriage, communication", "icon": "fas fa-heart", "color": "pink"},
+  {"key": "sleep_psychology", "name": "Dr. Luna", "specialty": "Sleep Psychologist", "description": "CBT-I, sleep hygiene, insomnia treatment", "icon": "fas fa-moon", "color": "indigo"},
+  {"key": "stress", "name": "Dr. Emma", "specialty": "Stress Management", "description": "Work pressure, life balance", "icon": "fas fa-leaf", "color": "teal"},
+  {"key": "crisis_intervention", "name": "Dr. Hope", "specialty": "Crisis Intervention", "description": "Immediate support for urgent situations and emotional crises", "icon": "fas fa-life-ring", "color": "red"},
+  {"key": "eating_disorders", "name": "Dr. Avery", "specialty": "Eating Disorders Specialist", "description": "Support for eating disorders, body image, and nutrition", "icon": "fas fa-apple-alt", "color": "pink"},
+  {"key": "grief_counseling", "name": "Dr. Grace", "specialty": "Grief Counseling", "description": "Guidance through grief, loss, and bereavement", "icon": "fas fa-feather-alt", "color": "gray"},
+  {"key": "trauma_therapy", "name": "Dr. Jordan", "specialty": "Trauma Therapy", "description": "Specialized support for trauma and PTSD recovery", "icon": "fas fa-bolt", "color": "yellow"},
+  {"key": "workplace_psychology", "name": "Dr. Quinn", "specialty": "Workplace Psychology", "description": "Help with workplace stress, burnout, and team dynamics", "icon": "fas fa-building", "color": "blue"},
+  {"key": "lgbtq_mental_health", "name": "Dr. Alex", "specialty": "LGBTQ+ Mental Health Specialist", "description": "Culturally competent support for LGBTQ+ mental health and identity", "icon": "fas fa-rainbow", "color": "rainbow"}
+]
